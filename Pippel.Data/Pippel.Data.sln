@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Data", "Pippel.Data\Pippel.Data.fsproj", "{D71684E5-34A3-411C-9C9D-26924FA6483E}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Data.Test", "Pippel.Data.Test\Pippel.Data.Test.fsproj", "{F3618DD7-A4B6-40A8-A051-953B79A125F2}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Core", "..\Pippel.Core\Pippel.Core\Pippel.Core.fsproj", "{54F2C8CB-1F96-4E24-A705-D04951424A26}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Core.Test", "..\Pippel.Core\Pippel.Core.Test\Pippel.Core.Test.fsproj", "{8FA75918-9CEB-4B3E-B30F-96DF2DBFED75}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D71684E5-34A3-411C-9C9D-26924FA6483E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D71684E5-34A3-411C-9C9D-26924FA6483E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D71684E5-34A3-411C-9C9D-26924FA6483E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D71684E5-34A3-411C-9C9D-26924FA6483E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3618DD7-A4B6-40A8-A051-953B79A125F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3618DD7-A4B6-40A8-A051-953B79A125F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3618DD7-A4B6-40A8-A051-953B79A125F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3618DD7-A4B6-40A8-A051-953B79A125F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54F2C8CB-1F96-4E24-A705-D04951424A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54F2C8CB-1F96-4E24-A705-D04951424A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54F2C8CB-1F96-4E24-A705-D04951424A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54F2C8CB-1F96-4E24-A705-D04951424A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA75918-9CEB-4B3E-B30F-96DF2DBFED75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FA75918-9CEB-4B3E-B30F-96DF2DBFED75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA75918-9CEB-4B3E-B30F-96DF2DBFED75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FA75918-9CEB-4B3E-B30F-96DF2DBFED75}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

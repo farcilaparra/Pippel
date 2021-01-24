@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Uuid.fs" />
+    <Compile Include="Barcode.fs" />
+    <Compile Include="NonEmptyString.fs" />
+    <Compile Include="Percentage.fs" />
+    <Compile Include="PositiveInt32.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
+  </ItemGroup>
+</Project>

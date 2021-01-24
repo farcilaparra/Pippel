@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp5.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'Pippel.Tax' " />
+    <ItemGroup>
+        <Compile Include="View\Models\VatDto.fs" />
+        <Compile Include="View\Mappers\VatViewMapper.fs" />
+        <Compile Include="Controllers\VatController.fs" />
+        <Compile Include="ResponseCreator.fs" />
+        <Compile Include="Startup.fs" />
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.1" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.1" />
+      <PackageReference Include="FSharp.Core" Version="4.7.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Pippel.Core\Pippel.Core\Pippel.Core.fsproj" />
+      <ProjectReference Include="..\..\Pippel.Data\Pippel.Data\Pippel.Data.fsproj" />
+      <ProjectReference Include="..\..\Pippel.Tyche.Bet\Pippel.Tyche.Bet\Pippel.Tyche.Bet.fsproj" />
+      <ProjectReference Include="..\..\Pippel.Type\Pippel.Type\Pippel.Type.fsproj" />
+    </ItemGroup>
+
+</Project>
