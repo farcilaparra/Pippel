@@ -2,23 +2,23 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp5.0</TargetFramework>
+        <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(RunConfiguration)' == 'Pippel.Tax' " />
     <ItemGroup>
-        <Compile Include="View\Models\VatDto.fs" />
-        <Compile Include="View\Mappers\VatViewMapper.fs" />
-        <Compile Include="Controllers\VatController.fs" />
+        <Compile Include="View\Models\BetDto.fs" />
+        <Compile Include="View\Mappers\BetViewMapper.fs" />
+        <Compile Include="Controllers\BetController.fs" />
         <Compile Include="ResponseCreator.fs" />
         <Compile Include="Startup.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.1" />
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.1" />
-      <PackageReference Include="FSharp.Core" Version="4.7.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.11" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.11" />
+      <PackageReference Include="Oracle.EntityFrameworkCore" Version="3.19.80" />
     </ItemGroup>
 
     <ItemGroup>

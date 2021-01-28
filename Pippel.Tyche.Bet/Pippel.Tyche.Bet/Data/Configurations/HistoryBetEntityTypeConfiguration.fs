@@ -8,7 +8,7 @@ type HistoryBetEntityTypeConfiguration() =
     interface IEntityTypeConfiguration<HistoryBetDao> with
 
         override this.Configure(builder: EntityTypeBuilder<HistoryBetDao>) =
-            builder.ToTable("BET") |> ignore
+            builder.ToTable("HISTORY_BET") |> ignore
 
             builder.HasKey(fun x -> x.ID :> obj) |> ignore
 

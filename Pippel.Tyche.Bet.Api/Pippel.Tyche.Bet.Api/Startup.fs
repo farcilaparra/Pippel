@@ -1,4 +1,4 @@
-namespace Pippel.Tax
+namespace Pippel.Tyche.Bet.Api
 
 open System.Threading.Tasks
 open Microsoft.AspNetCore.Builder
@@ -9,41 +9,42 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Pippel.Data
 open Pippel.Data.EntityFrameworkCore
-open Pippel.Tax.Api
-open Pippel.Tax.Data.Repositories
+open Pippel.Tyche.Bet
 open Pippel.Core
 open Pippel.Core.Json
-open Pippel.Tax.Domain.Mappers
-open Pippel.Tax.View.Mappers
+open Pippel.Tyche.Bet.Api.Domain.Mappers
+open Pippel.Tyche.Bet.Data.Repositories
+open Pippel.Tyche.Bet.Domain.Mappers
 
 type Startup private () =
     new(configuration: IConfiguration) as this =
         Startup()
         then this.Configuration <- configuration
 
+    
     // This method gets called by the runtime. Use this method to add services to the container.
     member this.ConfigureServices(services: IServiceCollection) =
         // Add framework services.
-        services.AddControllers()
-        |> ignore
+        services.AddControllers() |> ignore
 
-        services.AddDbContext<TaxContext>(fun options ->
-            options.UseNpgsql(this.Configuration.GetConnectionString("Default"))
+        services.AddDbContext<Context>(fun options ->
+            options.UseOracle(this.Configuration.GetConnectionString("Default"))
             |> ignore)
         |> ignore
 
-        services.AddScoped<DbContext>(fun provider -> provider.GetService<TaxContext>() :> DbContext)
-        |> ignore
-
-        services.AddTransient<IVatRepository, VatRepositoryInDB>()
+        services.AddScoped<DbContext>(fun provider -> provider.GetService<Context>() :> DbContext)
         |> ignore
 
         services.AddTransient<IUnitOfWork, UnitOfWork>()
         |> ignore
 
-        services.AddTransient<VatDomainMapper>() |> ignore
+        services.AddTransient<IBetRepository, BetRepositoryInDB>()
+        |> ignore
 
-        services.AddTransient<VatViewMapper>() |> ignore
+        services.AddTransient<BetDomainMapper>() |> ignore
+
+        services.AddTransient<BetViewMapper>() |> ignore
+
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     member this.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =

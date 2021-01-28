@@ -127,10 +127,10 @@
       <Compile Include="Domain\Actions\AddAppUsersAction.fs" />
       <Compile Include="Domain\Actions\UpdateAppUsersAction.fs" />
       <Compile Include="Domain\Actions\RemoveAppUsersAction.fs" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.11" />
       <ProjectReference Include="..\..\Pippel.Data\Pippel.Data\Pippel.Data.fsproj" />
       <ProjectReference Include="..\..\Pippel.Core\Pippel.Core\Pippel.Core.fsproj" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.11" />
       <ProjectReference Include="..\..\Pippel.Type\Pippel.Type\Pippel.Type.fsproj" />
     </ItemGroup>
 </Project>

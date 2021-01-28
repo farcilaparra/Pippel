@@ -1,4 +1,4 @@
-namespace Pippel.Tax.Api
+namespace Pippel.Tyche.Bet.Api
 
 open System
 open Pippel.Core

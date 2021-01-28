@@ -8,7 +8,7 @@ type GroupBetGamblerEntityTypeConfiguration() =
     interface IEntityTypeConfiguration<GroupBetGamblerDao> with
 
         override this.Configure(builder: EntityTypeBuilder<GroupBetGamblerDao>) =
-            builder.ToTable("GROUP_BET") |> ignore
+            builder.ToTable("GROUP_BET_GAMBLER") |> ignore
 
             builder.HasKey(fun x -> (x.GroupBetID, x.GamblerID) :> obj)
             |> ignore

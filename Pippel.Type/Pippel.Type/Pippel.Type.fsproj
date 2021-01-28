@@ -9,7 +9,4 @@
     <Compile Include="Percentage.fs" />
     <Compile Include="PositiveInt32.fs" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
-  </ItemGroup>
 </Project>
