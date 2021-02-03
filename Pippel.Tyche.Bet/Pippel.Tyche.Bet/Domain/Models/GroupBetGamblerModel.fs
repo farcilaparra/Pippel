@@ -8,4 +8,4 @@ type GroupBetGambler =
       GamblerID: Uuid
       IsAdmin: NonEmptyString
       EnrollmentDate: DateTime
-      CurrentPoint: PositiveInt32 }
+      CurrentPoint: PositiveInt }

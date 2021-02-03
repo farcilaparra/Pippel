@@ -2,14 +2,6 @@ namespace Pippel.Data
 
 open Pippel.Core
 
-type QueryObject =
-    { Skip: int
-      Take: int
-      Select: string option
-      Where: string option
-      GroupBy: string option
-      OrderBy: string option }
-
 [<Interface>]
 type IRepository<'T when 'T: not struct> =
 
@@ -17,7 +9,10 @@ type IRepository<'T when 'T: not struct> =
     abstract AsyncFindByKey: obj [] -> Async<'T>
 
     /// Gets several items
-    abstract AsyncFind: QueryObject -> Async<obj Page>
+    abstract AsyncFind: IQueryObject -> Async<obj seq>
+    
+    /// Gets several items with pagination
+    abstract AsyncFind: IQueryObject * int * int -> Async<obj Page>
 
     /// Adds several items
     abstract AsyncAdd: 'T seq -> Async<'T seq>

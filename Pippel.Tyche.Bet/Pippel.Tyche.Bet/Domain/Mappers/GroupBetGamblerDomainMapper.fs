@@ -14,7 +14,7 @@ type GroupBetGamblerDomainMapper() =
               GroupBetGamblerDao.GamblerID = groupBetGambler.GamblerID |> Uuid.toGuid
               IsAdmin = groupBetGambler.IsAdmin |> NonEmptyString.value
               EnrollmentDate = groupBetGambler.EnrollmentDate
-              CurrentPoint = groupBetGambler.CurrentPoint |> PositiveInt32.value }
+              CurrentPoint = groupBetGambler.CurrentPoint |> PositiveInt.value }
 
 
         /// <summary>Maps from <c>GroupBetGamblerDao</c> to <c>GroupBetGambler</c></summary>
@@ -23,4 +23,4 @@ type GroupBetGamblerDomainMapper() =
               GroupBetGambler.GamblerID = groupBetGamblerDao.GamblerID |> Uuid.createFromGuid
               IsAdmin = groupBetGamblerDao.IsAdmin |> NonEmptyString.create
               EnrollmentDate = groupBetGamblerDao.EnrollmentDate
-              CurrentPoint = groupBetGamblerDao.CurrentPoint |> PositiveInt32.create }
+              CurrentPoint = groupBetGamblerDao.CurrentPoint |> PositiveInt.create }

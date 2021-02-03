@@ -7,6 +7,6 @@ type Bet =
       GroupBetID: Uuid
       GamblerID: Uuid
       MatchID: Uuid
-      HomeTeamValue: PositiveInt32
-      AwayTeamValue: PositiveInt32
-      LastPosition: PositiveInt32 }
+      HomeTeamValue: PositiveInt
+      AwayTeamValue: PositiveInt
+      LastPosition: PositiveInt }

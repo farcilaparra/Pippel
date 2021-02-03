@@ -4,8 +4,8 @@ open Pippel.Type
 
 type BetConfig =
     { ID: Uuid
-      HomeResultPoint: PositiveInt32
-      AwayResultPoint: PositiveInt32
-      DiferencePoint: PositiveInt32
-      InvertedDiferentePoint: PositiveInt32
+      HomeResultPoint: PositiveInt
+      AwayResultPoint: PositiveInt
+      DiferencePoint: PositiveInt
+      InvertedDiferentePoint: PositiveInt
       MatchID: Uuid }

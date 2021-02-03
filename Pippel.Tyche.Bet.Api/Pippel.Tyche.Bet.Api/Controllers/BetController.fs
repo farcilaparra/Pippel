@@ -14,18 +14,23 @@ open Pippel.Type
 [<ApiController>]
 [<Route("[controller]")>]
 type BetController(logger: ILogger<BetController>,
-                   betRepository: IBetRepository,
-                   betDomainMapper: BetDomainMapper,
-                   betViewMapper: BetViewMapper) =
+                   groupMatchRepository: IGroupMatchRepository,
+                   groupMatchDomainMapper: GroupMatchDomainMapper,
+                   groupMatchViewMapper: GroupMatchViewMapper) =
     inherit ControllerBase()
 
-    [<HttpGet>]
-    member this.GetByKey(id: string): Async<BetDto> =
+    [<HttpGet("opened")>]
+    member this.GetOpened(gamblerID: string): Async<GroupMatchDto seq> =
         async {
-            let findBetByKeyAction =
-                FindBetByKeyAction(betRepository, betDomainMapper)
+            let findOpenedGroupsMatchesAction =
+                FindOpenedGroupsMatchesAction(groupMatchRepository, groupMatchDomainMapper)
 
-            let! bet = findBetByKeyAction.AsyncExecute [| (id |> Uuid.create) |]
+            let! bets = findOpenedGroupsMatchesAction.AsyncExecute(gamblerID |> Uuid.create)
 
-            return bet |> (betViewMapper :> IMapper<BetDto, Bet>).MapToSource
+            return
+                bets
+                |> Seq.map (fun x ->
+                    x
+                    |> (groupMatchViewMapper :> IMapper<GroupMatchDto, GroupMatch>)
+                        .MapToSource)
         }

@@ -13,16 +13,10 @@ type FindAction<'TData, 'TDomain when 'TData: not struct and 'TDomain: not struc
         else obj
 
     /// Find several items
-    abstract AsyncExecute: QueryObject -> Async<obj Page>
+    abstract AsyncExecute: IQueryObject -> Async<obj seq>
 
-    default this.AsyncExecute(queryObject: QueryObject): Async<obj Page> =
+    default this.AsyncExecute(queryObject: IQueryObject): Async<obj seq> =
         async {
-            let! page = repository.AsyncFind queryObject
-
-            return { Page.Items = page.Items |> Seq.map (fun x -> x |> convertItemIfDataModel)
-                     CurrentPage = page.CurrentPage
-                     ItemsCount = page.ItemsCount
-                     PageCount = page.PageCount
-                     GroupCount = page.GroupCount
-                     PageSize = page.PageSize }
+            let! items = repository.AsyncFind(queryObject)
+            return items
         }

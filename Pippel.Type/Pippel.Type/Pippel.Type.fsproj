@@ -7,6 +7,6 @@
     <Compile Include="Barcode.fs" />
     <Compile Include="NonEmptyString.fs" />
     <Compile Include="Percentage.fs" />
-    <Compile Include="PositiveInt32.fs" />
+    <Compile Include="PositiveInt.fs" />
   </ItemGroup>
 </Project>

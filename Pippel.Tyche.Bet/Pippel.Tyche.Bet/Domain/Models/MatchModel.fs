@@ -9,6 +9,6 @@ type Match =
       AwayTeamID: Uuid
       RoundMatchID: Uuid
       MatchDate: DateTime
-      HomeResult: PositiveInt32
-      AwayResult: PositiveInt32
+      HomeResult: PositiveInt
+      AwayResult: PositiveInt
       State: NonEmptyString }

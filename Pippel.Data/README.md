@@ -10,7 +10,7 @@ type IRepository<'T when 'T: not struct> =
 
     abstract AsyncFindByKey: obj [] -> Async<'T>
 
-    abstract AsyncFind: QueryObject -> Async<obj Page>
+    abstract AsyncFind: IQueryObject -> Async<obj Page>
 
     abstract AsyncAdd: 'T seq -> Async<'T seq>
 

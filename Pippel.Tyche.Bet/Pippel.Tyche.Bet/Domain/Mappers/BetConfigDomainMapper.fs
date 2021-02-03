@@ -11,17 +11,17 @@ type BetConfigDomainMapper() =
         /// <summary>Maps from <c>BetConfig</c> to <c>BetConfigDao</c></summary>
         member this.MapToTarget(betConfig: BetConfig): BetConfigDao =
             { BetConfigDao.ID = betConfig.ID |> Uuid.toGuid
-              HomeResultPoint = betConfig.HomeResultPoint |> PositiveInt32.value
-              AwayResultPoint = betConfig.AwayResultPoint |> PositiveInt32.value
-              DiferencePoint = betConfig.DiferencePoint |> PositiveInt32.value
-              InvertedDiferentePoint = betConfig.InvertedDiferentePoint |> PositiveInt32.value
+              HomeResultPoint = betConfig.HomeResultPoint |> PositiveInt.value
+              AwayResultPoint = betConfig.AwayResultPoint |> PositiveInt.value
+              DiferencePoint = betConfig.DiferencePoint |> PositiveInt.value
+              InvertedDiferentePoint = betConfig.InvertedDiferentePoint |> PositiveInt.value
               MatchID = betConfig.MatchID |> Uuid.toGuid }
 
         /// <summary>Maps from <c>VatDao</c> to <c>Vat</c></summary>
         member this.MapToSource(betConfigDao: BetConfigDao): BetConfig =
             { BetConfig.ID = betConfigDao.ID |> Uuid.createFromGuid
-              HomeResultPoint = betConfigDao.HomeResultPoint |> PositiveInt32.create
-              AwayResultPoint = betConfigDao.AwayResultPoint |> PositiveInt32.create
-              DiferencePoint = betConfigDao.DiferencePoint |> PositiveInt32.create
-              InvertedDiferentePoint = betConfigDao.InvertedDiferentePoint |> PositiveInt32.create
+              HomeResultPoint = betConfigDao.HomeResultPoint |> PositiveInt.create
+              AwayResultPoint = betConfigDao.AwayResultPoint |> PositiveInt.create
+              DiferencePoint = betConfigDao.DiferencePoint |> PositiveInt.create
+              InvertedDiferentePoint = betConfigDao.InvertedDiferentePoint |> PositiveInt.create
               MatchID = betConfigDao.MatchID |> Uuid.createFromGuid }

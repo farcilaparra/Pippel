@@ -21,7 +21,7 @@ type Startup private () =
         Startup()
         then this.Configuration <- configuration
 
-    
+
     // This method gets called by the runtime. Use this method to add services to the container.
     member this.ConfigureServices(services: IServiceCollection) =
         // Add framework services.
@@ -38,12 +38,14 @@ type Startup private () =
         services.AddTransient<IUnitOfWork, UnitOfWork>()
         |> ignore
 
-        services.AddTransient<IBetRepository, BetRepositoryInDB>()
+        services.AddTransient<IGroupMatchRepository, GroupMatchRepositoryInDB>()
         |> ignore
 
-        services.AddTransient<BetDomainMapper>() |> ignore
+        services.AddTransient<GroupMatchDomainMapper>()
+        |> ignore
 
-        services.AddTransient<BetViewMapper>() |> ignore
+        services.AddTransient<GroupMatchViewMapper>()
+        |> ignore
 
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
