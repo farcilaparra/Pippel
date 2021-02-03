@@ -4,7 +4,6 @@ open System
 open System.Linq
 open Microsoft.EntityFrameworkCore
 open Pippel.Core
-open Pippel.Core.IQueryable
 open Pippel.Data
 
 type Repository<'T when 'T: not struct>(context: DbContext) =
@@ -25,37 +24,43 @@ type Repository<'T when 'T: not struct>(context: DbContext) =
             return item
         }
 
+
     interface IRepository<'T> with
 
         member this.AsyncFindByKey([<ParamArray>] ids: obj []): Async<'T> =
             async { return! AsyncGetEntityByKey(ids) }
 
-        member this.AsyncFind(queryObject: QueryObject): Async<obj Page> =
+
+        member this.AsyncFind(queryObject: IQueryObject): Async<obj seq> =
+            async {
+                let mutable query =
+                    context.Set<'T>().AsNoTracking() :> IQueryable
+
+                query <- queryObject.Query query
+
+                let! items =
+                    (query :?> IQueryable<obj>).ToListAsync()
+                    |> Async.AwaitTask
+
+                return items :> seq<obj>
+            }
+
+        member this.AsyncFind(queryObject: IQueryObject, skip: int, take: int): Async<obj Page> =
             async {
                 let mutable query =
                     context.Set<'T>().AsNoTracking() :> IQueryable
 
                 let! itemsCount =
-                    (query :?> IQueryable<obj>).LongCountAsync()
+                    (query :?> IQueryable<'T>).LongCountAsync()
                     |> Async.AwaitTask
 
-                if queryObject.Where.IsSome
-                then query <- query.Where queryObject.Where.Value
+                query <- queryObject.Query query
 
-                if queryObject.OrderBy.IsSome
-                then query <- query.OrderBy queryObject.OrderBy.Value
-
-                if queryObject.GroupBy.IsSome
-                then query <- query.GroupBy queryObject.GroupBy.Value
-                
-                if queryObject.Select.IsSome
-                then query <- query.Select queryObject.Select.Value
-                
                 let! groupCount =
                     (query :?> IQueryable<obj>).CountAsync()
                     |> Async.AwaitTask
-                
-                query <- (query :?> IQueryable<obj>).Skip(queryObject.Skip).Take(queryObject.Take) :> IQueryable
+
+                query <- (query :?> IQueryable<obj>).Skip(skip).Take(take) :> IQueryable
 
                 let! pageCount =
                     (query :?> IQueryable<obj>).CountAsync()
@@ -65,12 +70,13 @@ type Repository<'T when 'T: not struct>(context: DbContext) =
                     (query :?> IQueryable<obj>).ToListAsync()
                     |> Async.AwaitTask
 
-                return { Page.CurrentPage = queryObject.Skip / queryObject.Take
-                         PageSize = queryObject.Take
-                         PageCount = pageCount
-                         GroupCount = groupCount
-                         ItemsCount = itemsCount
-                         Items = items }
+                return
+                    { Page.CurrentPage = skip / take
+                      PageSize = take
+                      PageCount = pageCount
+                      GroupCount = groupCount
+                      ItemsCount = itemsCount
+                      Items = items }
             }
 
         member this.AsyncAdd(items: 'T seq): Async<'T seq> =
@@ -81,8 +87,11 @@ type Repository<'T when 'T: not struct>(context: DbContext) =
                     let entry = context.Entry(item)
 
                     let ids =
-                        entry.Metadata.FindPrimaryKey().Properties.Select(fun x -> entry.Property(x.Name).CurrentValue)
-                             .ToArray()
+                        entry
+                            .Metadata
+                            .FindPrimaryKey()
+                            .Properties.Select(fun x -> entry.Property(x.Name).CurrentValue)
+                            .ToArray()
 
                     let! itemToAdd =
                         context.Set<'T>().FindAsync(ids).AsTask()
@@ -111,10 +120,15 @@ type Repository<'T when 'T: not struct>(context: DbContext) =
 
                     let! itemToUpdate =
                         AsyncGetEntityByKey
-                            (entry.Metadata.FindPrimaryKey()
-                                  .Properties.Select(fun x -> entry.Property(x.Name).CurrentValue).ToArray())
+                            (entry
+                                .Metadata
+                                .FindPrimaryKey()
+                                .Properties.Select(fun x -> entry.Property(x.Name).CurrentValue)
+                                .ToArray())
 
-                    context.Entry(itemToUpdate).CurrentValues.SetValues(item)
+                    context
+                        .Entry(itemToUpdate)
+                        .CurrentValues.SetValues(item)
 
                     let entityEntry = context.Update(itemToUpdate)
 

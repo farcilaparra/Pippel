@@ -9,7 +9,7 @@
     <Compile Include="BarcodeTests.fs" />
     <Compile Include="NonEmptyStringTests.fs" />
     <Compile Include="PercentageTests.fs" />
-    <Compile Include="PositiveInt32Tests.fs" />
+    <Compile Include="PositiveIntTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

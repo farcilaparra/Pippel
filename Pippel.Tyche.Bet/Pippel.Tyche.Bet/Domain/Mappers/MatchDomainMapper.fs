@@ -15,8 +15,8 @@ type MatchDomainMapper() =
               AwayTeamID = matchOrGame.AwayTeamID |> Uuid.toGuid
               RoundMatchID = matchOrGame.RoundMatchID |> Uuid.toGuid
               MatchDate = matchOrGame.MatchDate
-              HomeResult = matchOrGame.HomeResult |> PositiveInt32.value
-              AwayResult = matchOrGame.AwayResult |> PositiveInt32.value
+              HomeResult = matchOrGame.HomeResult |> PositiveInt.value
+              AwayResult = matchOrGame.AwayResult |> PositiveInt.value
               State = matchOrGame.State |> NonEmptyString.value }
 
         /// <summary>Maps from <c>MatchDao</c> to <c>Match</c></summary>
@@ -26,6 +26,6 @@ type MatchDomainMapper() =
               AwayTeamID = matchDao.AwayTeamID |> Uuid.createFromGuid
               RoundMatchID = matchDao.RoundMatchID |> Uuid.createFromGuid
               MatchDate = matchDao.MatchDate
-              HomeResult = matchDao.HomeResult |> PositiveInt32.create
-              AwayResult = matchDao.AwayResult |> PositiveInt32.create
+              HomeResult = matchDao.HomeResult |> PositiveInt.create
+              AwayResult = matchDao.AwayResult |> PositiveInt.create
               State = matchDao.State |> NonEmptyString.create }

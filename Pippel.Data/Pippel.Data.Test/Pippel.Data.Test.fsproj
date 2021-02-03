@@ -10,7 +10,8 @@
     <ItemGroup>
         <Compile Include="Product.fs" />
         <Compile Include="Context.fs" />
-        <Compile Include="EntityFrameworkTests.fs" />
+        <Compile Include="RepositoryTests.fs" />
+        <Compile Include="ActionTests.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

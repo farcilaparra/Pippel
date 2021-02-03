@@ -40,11 +40,11 @@ Data type to manage numbers between 0 (0%) and 1 (100%). It has the next functio
 - **create**: Creates a Percentage. Raise an exception if it hasn't a valid format.
 - **value**: Returns the Percentage's value as a number.
 
-## PositiveInt32
+## PositiveInt
 Data type to manage numbers greate or equal that 0. It has the next functions:
-- **tryCreate**: Returns a PositiveInt32 option.
-- **create**: Creates a PositiveInt32. Raise an exception if it hasn't a valid format.
-- **value**: Returns the PositiveInt32's value as a number.
+- **tryCreate**: Returns a PositiveInt option.
+- **create**: Creates a PositiveInt. Raise an exception if it hasn't a valid format.
+- **value**: Returns the PositiveInt's value as a number.
 
 ## Uuid
 Data type to manage Universally Unique Identifier. It has the next functions:

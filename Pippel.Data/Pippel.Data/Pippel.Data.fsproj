@@ -5,12 +5,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Include="IQueryObject.fs" />
+      <Compile Include="DynamicQueryObject.fs" />
+      <Compile Include="ExpressionQueryObject.fs" />
       <Compile Include="IRepository.fs" />
       <Compile Include="IUnitOfWork.fs" />
       <Compile Include="EntityFrameworkCore\Repository.fs" />
       <Compile Include="EntityFrameworkCore\UnitOfWork.fs" />
       <Compile Include="Actions\FindByKeyAction.fs" />
       <Compile Include="Actions\FindAction.fs" />
+      <Compile Include="Actions\FindAndGetPagedResultAction.fs" />
       <Compile Include="Actions\AddAction.fs" />
       <Compile Include="Actions\UpdateAction.fs" />
       <Compile Include="Actions\RemoveAction.fs" />

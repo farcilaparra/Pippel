@@ -127,6 +127,7 @@
       <Compile Include="Domain\Actions\AddAppUsersAction.fs" />
       <Compile Include="Domain\Actions\UpdateAppUsersAction.fs" />
       <Compile Include="Domain\Actions\RemoveAppUsersAction.fs" />
+      <Compile Include="Domain\Actions\FindOpenedGroupsMatchesAction.fs" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.11" />
       <ProjectReference Include="..\..\Pippel.Data\Pippel.Data\Pippel.Data.fsproj" />
       <ProjectReference Include="..\..\Pippel.Core\Pippel.Core\Pippel.Core.fsproj" />
