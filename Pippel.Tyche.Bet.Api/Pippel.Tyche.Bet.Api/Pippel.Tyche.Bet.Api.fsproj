@@ -7,7 +7,7 @@
 
     <PropertyGroup Condition=" '$(RunConfiguration)' == 'Pippel.Tax' " />
     <ItemGroup>
-        <Compile Include="View\Models\GroupMatchDto.fs" />
+        <Compile Include="View\Models\MatchGamblerViewDto.fs" />
         <Compile Include="View\Mappers\GroupMatchViewMapper.fs" />
         <Compile Include="Controllers\BetController.fs" />
         <Compile Include="ResponseCreator.fs" />
