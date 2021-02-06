@@ -13,8 +13,8 @@ open Pippel.Tyche.Bet
 open Pippel.Core
 open Pippel.Core.Json
 open Pippel.Tyche.Bet.Api.Domain.Mappers
-open Pippel.Tyche.Bet.Data.Repositories
-open Pippel.Tyche.Bet.Domain.Mappers
+open Pippel.Tyche.Bet.Data.Models.Queries
+open Pippel.Tyche.Bet.Data.Repositories.Queries
 
 type Startup private () =
     new(configuration: IConfiguration) as this =
@@ -31,6 +31,11 @@ type Startup private () =
             options.UseOracle(this.Configuration.GetConnectionString("Default"))
             |> ignore)
         |> ignore
+        
+        services.AddDbContext<QueryContext>(fun options ->
+            options.UseOracle(this.Configuration.GetConnectionString("Default"))
+            |> ignore)
+        |> ignore
 
         services.AddScoped<DbContext>(fun provider -> provider.GetService<Context>() :> DbContext)
         |> ignore
@@ -38,13 +43,10 @@ type Startup private () =
         services.AddTransient<IUnitOfWork, UnitOfWork>()
         |> ignore
 
-        services.AddTransient<IGroupMatchRepository, GroupMatchRepositoryInDB>()
+        services.AddTransient<MatchGamblerViewMapper>()
         |> ignore
 
-        services.AddTransient<GroupMatchDomainMapper>()
-        |> ignore
-
-        services.AddTransient<GroupMatchViewMapper>()
+        services.AddTransient<IQueryRepositoryFactory, QueryRepositoryFactory>()
         |> ignore
 
 

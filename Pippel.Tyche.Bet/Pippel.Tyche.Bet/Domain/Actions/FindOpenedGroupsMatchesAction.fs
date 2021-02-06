@@ -1,27 +1,17 @@
 namespace Pippel.Tyche.Bet.Actions
 
-open System
-open Pippel.Core
 open Pippel.Data
-open Pippel.Data.Actions
-open Pippel.Tyche.Bet.Data.Models
-open Pippel.Tyche.Bet.Data.Repositories
-open Pippel.Tyche.Bet.Domain.Models
+open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Type
+open Pippel.Tyche.Bet.Actions.Queries
 
-type FindOpenedGroupsMatchesAction(repository: IGroupMatchRepository, mapper: IMapper<GroupMatch, GroupMatchDao>) =
-    inherit FindAction<GroupMatchDao, GroupMatch>(repository, mapper)
+type FindOpenedGroupsMatchesAction(repository: IQueryRepository<MatchGamblerViewDao>) =
 
-    member this.AsyncExecute(gamblerID: Uuid): Async<GroupMatch seq> =
+    member this.AsyncExecute(gamblerID: Uuid): Async<MatchGamblerViewDao seq> =
         async {
-            let gamblerID = gamblerID |> Uuid.value
-            let now = DateTime.Now
-
-            let! items =
-                repository.AsyncFind
-                    (ExpressionQueryObject<GroupMatchDao>(fun x -> now >= x.StartDate && now < x.EndDate))
+            let! items = repository.AsyncFind(OpenedMatchGamblerByGamblerQueryObject(gamblerID |> Uuid.toGuid))
 
             return
                 items
-                |> Seq.map (fun x -> x :?> GroupMatchDao |> mapper.MapToSource)
+                |> Seq.map (fun x -> x :?> MatchGamblerViewDao)
         }

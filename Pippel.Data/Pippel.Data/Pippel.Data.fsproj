@@ -8,8 +8,10 @@
       <Compile Include="IQueryObject.fs" />
       <Compile Include="DynamicQueryObject.fs" />
       <Compile Include="ExpressionQueryObject.fs" />
+      <Compile Include="IQueryRepository.fs" />
       <Compile Include="IRepository.fs" />
       <Compile Include="IUnitOfWork.fs" />
+      <Compile Include="EntityFrameworkCore\QueryRepository.fs" />
       <Compile Include="EntityFrameworkCore\Repository.fs" />
       <Compile Include="EntityFrameworkCore\UnitOfWork.fs" />
       <Compile Include="Actions\FindByKeyAction.fs" />

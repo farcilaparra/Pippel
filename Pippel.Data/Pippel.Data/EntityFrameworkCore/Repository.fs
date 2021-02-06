@@ -18,7 +18,6 @@ type Repository<'T when 'T: not struct>(context: DbContext) =
             if isNull (box item) then
                 NotFoundException(String.Format("The item with ids = ({0}) doesn't exist", String.Join(",", ids)))
                 |> raise
-
             context.Entry(item).State <- EntityState.Detached
 
             return item
@@ -32,52 +31,12 @@ type Repository<'T when 'T: not struct>(context: DbContext) =
 
 
         member this.AsyncFind(queryObject: IQueryObject): Async<obj seq> =
-            async {
-                let mutable query =
-                    context.Set<'T>().AsNoTracking() :> IQueryable
+            QueryRepository.asyncFind<'T> context queryObject
 
-                query <- queryObject.Query query
-
-                let! items =
-                    (query :?> IQueryable<obj>).ToListAsync()
-                    |> Async.AwaitTask
-
-                return items :> seq<obj>
-            }
-
+        
         member this.AsyncFind(queryObject: IQueryObject, skip: int, take: int): Async<obj Page> =
-            async {
-                let mutable query =
-                    context.Set<'T>().AsNoTracking() :> IQueryable
-
-                let! itemsCount =
-                    (query :?> IQueryable<'T>).LongCountAsync()
-                    |> Async.AwaitTask
-
-                query <- queryObject.Query query
-
-                let! groupCount =
-                    (query :?> IQueryable<obj>).CountAsync()
-                    |> Async.AwaitTask
-
-                query <- (query :?> IQueryable<obj>).Skip(skip).Take(take) :> IQueryable
-
-                let! pageCount =
-                    (query :?> IQueryable<obj>).CountAsync()
-                    |> Async.AwaitTask
-
-                let! items =
-                    (query :?> IQueryable<obj>).ToListAsync()
-                    |> Async.AwaitTask
-
-                return
-                    { Page.CurrentPage = skip / take
-                      PageSize = take
-                      PageCount = pageCount
-                      GroupCount = groupCount
-                      ItemsCount = itemsCount
-                      Items = items }
-            }
+            QueryRepository.asyncFindWithPagination<'T> context queryObject skip take
+            
 
         member this.AsyncAdd(items: 'T seq): Async<'T seq> =
             async {
@@ -111,6 +70,7 @@ type Repository<'T when 'T: not struct>(context: DbContext) =
                 return addedItems |> List.toSeq
             }
 
+
         member this.AsyncUpdate(items: 'T seq): Async<'T seq> =
             async {
                 let mutable updatedItems: 'T list = []
@@ -136,6 +96,7 @@ type Repository<'T when 'T: not struct>(context: DbContext) =
 
                 return updatedItems |> List.toSeq
             }
+
 
         member this.AsyncRemove(ids: obj [] seq): Async<'T seq> =
             async {

@@ -3,54 +3,13 @@ module RepositoryTests
 open System
 open System.Collections.Generic
 open System.Linq
-open System.Linq.Expressions
-open System.Threading.Tasks
-open Microsoft.EntityFrameworkCore
-open Microsoft.FSharp.Linq.RuntimeHelpers
 open Moq
 open Pippel.Core
 open Pippel.Data
-open Pippel.Data
 open Pippel.Data.EntityFrameworkCore
 open Pippel.Data.Test
+open Pippel.Data.Test.DemoData
 open Xunit
-
-/// Creates a context
-let createContext () =
-    new Context(DbContextOptionsBuilder<Context>()
-        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        .Options)
-
-/// Creates example data for products
-let createProducts () =
-    [| { Product.Id = "c1"
-         Name = "Bottle of water 300 ml"
-         Price = 1.1
-         Supplier = "Lotto" }
-       { Product.Id = "c2"
-         Name = "Bottle of water 600 ml"
-         Price = 0.9
-         Supplier = "Lotto" }
-       { Product.Id = "c3"
-         Name = "Heineken beer 350 ml"
-         Price = 1.0
-         Supplier = "Amm" }
-       { Product.Id = "c4"
-         Name = "Poker beer"
-         Price = 0.8
-         Supplier = "Bavaria" }
-       { Product.Id = "c5"
-         Name = "Coca cola 1000 ml"
-         Price = 1.1
-         Supplier = "Bavaria" } |]
-
-/// Creates a context with example data
-let createContextWithData (products: Product []) =
-    let context = createContext ()
-    context.Products.AddRange(products)
-    context.SaveChanges() |> ignore
-    context
-
 
 [<Fact>]
 let ``given an item that exist when an item is searched then the item is returned`` () =

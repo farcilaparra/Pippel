@@ -52,37 +52,37 @@ type Context(options: DbContextOptions<Context>) =
     [<DefaultValue>]
     val mutable private _RoundMatchs: DbSet<RoundMatchDao>
     
-        member this.RoundMatchs
-            with get () = this._RoundMatchs
-            and set v = this._RoundMatchs <- v
+    member this.RoundMatchs
+        with get () = this._RoundMatchs
+        and set v = this._RoundMatchs <- v
     
     [<DefaultValue>]
     val mutable private _Matchs: DbSet<MatchDao>
     
-        member this.Matchs
-            with get () = this._Matchs
-            and set v = this._Matchs <- v
+    member this.Matchs
+        with get () = this._Matchs
+        and set v = this._Matchs <- v
 
     [<DefaultValue>]
     val mutable private _Teams: DbSet<TeamDao>
     
-        member this.Teams
-            with get () = this._Teams
-            and set v = this._Teams <- v
+    member this.Teams
+        with get () = this._Teams
+        and set v = this._Teams <- v
 
     [<DefaultValue>]
     val mutable private _BetConfigs: DbSet<BetConfigDao>
     
-        member this.BetConfigs
-            with get () = this._BetConfigs
-            and set v = this._BetConfigs <- v
+    member this.BetConfigs
+        with get () = this._BetConfigs
+        and set v = this._BetConfigs <- v
 
     [<DefaultValue>]
     val mutable private _AppUsers: DbSet<AppUserDao>
     
-        member this.AppUsers
-            with get () = this._AppUsers
-            and set v = this._AppUsers <- v
+    member this.AppUsers
+        with get () = this._AppUsers
+        and set v = this._AppUsers <- v
 
     override this.OnModelCreating builder =
         builder.ApplyConfiguration(GroupBetEntityTypeConfiguration()) |> ignore
