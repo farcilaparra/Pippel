@@ -13,18 +13,33 @@ open Pippel.Tyche.Bet.Data.Repositories.Queries
 [<Route("[controller]")>]
 type BetController(logger: ILogger<BetController>,
                    queryRepositoryFactory: IQueryRepositoryFactory,
-                   matchGamblerViewMapper: MatchGamblerViewMapper) =
+                   matchGamblerViewMapper: MatchGamblerViewMapper,
+                   matchViewMapper: MatchViewMapper) =
     inherit ControllerBase()
 
     [<HttpGet("opened")>]
     member this.GetOpened(gamblerID: string): Async<MatchGamblerViewDto seq> =
         async {
-            let findOpenedGroupsMatchesAction =
-                FindOpenedGroupsMatchesAction(queryRepositoryFactory.Get<MatchGamblerViewDao>())
+            let action =
+                FindOpenedGroupsMatchesByGamblerAction(queryRepositoryFactory.Get<MatchGamblerViewDao>())
 
-            let! items = findOpenedGroupsMatchesAction.AsyncExecute(gamblerID |> Uuid.create)
+            let! items = action.AsyncExecute(gamblerID |> Uuid.create)
 
             return
                 items
                 |> Seq.map (fun x -> x |> matchGamblerViewMapper.MapToSource)
+        }
+
+
+    [<HttpGet("matches")>]
+    member this.GetMatches(groupBetID: string): Async<MatchViewDto seq> =
+        async {
+            let action =
+                FindMatchesByGroupBetAction(queryRepositoryFactory.Get<MatchViewDao>())
+
+            let! items = action.AsyncExecute(groupBetID |> Uuid.create)
+
+            return
+                items
+                |> Seq.map (fun x -> x |> matchViewMapper.MapToSource)
         }

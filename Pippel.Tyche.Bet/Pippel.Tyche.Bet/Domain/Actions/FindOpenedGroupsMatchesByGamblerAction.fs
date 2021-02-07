@@ -5,11 +5,11 @@ open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Type
 open Pippel.Tyche.Bet.Actions.Queries
 
-type FindOpenedGroupsMatchesAction(repository: IQueryRepository<MatchGamblerViewDao>) =
+type FindOpenedGroupsMatchesByGamblerAction(repository: IQueryRepository<MatchGamblerViewDao>) =
 
     member this.AsyncExecute(gamblerID: Uuid): Async<MatchGamblerViewDao seq> =
         async {
-            let! items = repository.AsyncFind(OpenedMatchGamblerByGamblerQueryObject(gamblerID |> Uuid.toGuid))
+            let! items = repository.AsyncFind(OpenedGroupsMatchesByGamblerQueryObject(gamblerID |> Uuid.toGuid))
 
             return
                 items

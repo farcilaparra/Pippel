@@ -45,6 +45,9 @@ type Startup private () =
 
         services.AddTransient<MatchGamblerViewMapper>()
         |> ignore
+        
+        services.AddTransient<MatchViewMapper>()
+        |> ignore
 
         services.AddTransient<IQueryRepositoryFactory, QueryRepositoryFactory>()
         |> ignore
