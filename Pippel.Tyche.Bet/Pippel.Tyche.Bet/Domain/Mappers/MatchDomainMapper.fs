@@ -17,7 +17,7 @@ type MatchDomainMapper() =
               MatchDate = matchOrGame.MatchDate
               HomeResult = matchOrGame.HomeResult |> PositiveInt.value
               AwayResult = matchOrGame.AwayResult |> PositiveInt.value
-              State = matchOrGame.State |> NonEmptyString.value }
+              Status = matchOrGame.Status }
 
         /// <summary>Maps from <c>MatchDao</c> to <c>Match</c></summary>
         member this.MapToSource(matchDao: MatchDao): Match =
@@ -28,4 +28,4 @@ type MatchDomainMapper() =
               MatchDate = matchDao.MatchDate
               HomeResult = matchDao.HomeResult |> PositiveInt.create
               AwayResult = matchDao.AwayResult |> PositiveInt.create
-              State = matchDao.State |> NonEmptyString.create }
+              Status = matchDao.Status }

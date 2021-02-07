@@ -7,7 +7,6 @@
     <ItemGroup>
       <Compile Include="IQueryObject.fs" />
       <Compile Include="DynamicQueryObject.fs" />
-      <Compile Include="ExpressionQueryObject.fs" />
       <Compile Include="IQueryRepository.fs" />
       <Compile Include="IRepository.fs" />
       <Compile Include="IUnitOfWork.fs" />

@@ -112,30 +112,6 @@ let ``given several items that exist when they are queried and filtered by any c
 
 
 [<Fact>]
-let ``given several items that exist when they are queried and filtered by any criteria then a list of items are returned with the items that meet the criteria`` () =
-    async {
-        let products = createProducts ()
-        let context = createContextWithData (products)
-
-        let supplier = "Bavaria"
-
-        let productsFilteredBefore =
-            products.Where(fun x -> x.Supplier = supplier)
-
-        let repository =
-            Repository<Product>(context) :> IRepository<Product>
-
-        let! queriedProducts =
-            repository.AsyncFind(ExpressionQueryObject<Product>(fun x -> x.Supplier.Equals(supplier)))
-
-        Assert.Equal(productsFilteredBefore.Count(), queriedProducts.Count())
-
-        for productFilteredAfter in queriedProducts do
-            Assert.True(productsFilteredBefore.Contains(productFilteredAfter :?> Product))
-    }
-
-
-[<Fact>]
 let ``given several items that exist when they are queried and ordered by any criteria using a DynamicQueryObject then a paged result is returned with the ordered items`` () =
     async {
         let products = createProducts ()
@@ -156,36 +132,6 @@ let ``given several items that exist when they are queried and ordered by any cr
                        Where = None
                        GroupBy = None
                        OrderBy = Some "Price desc, Supplier asc" }),
-                 0,
-                 products.Length)
-
-        let mutable i = 0
-
-        for productOrderedAfter in page.Items do
-            Assert.Equal(productsOrderedBefore.ElementAt(i), productOrderedAfter :?> Product)
-            i <- i + 1
-    }
-
-
-[<Fact>]
-let ``given several items that exist when they are queried and ordered by any criteria using a ExpressionQueryObject then a paged result is returned with the ordered items`` () =
-    async {
-        let products = createProducts ()
-        let context = createContextWithData (products)
-
-        let productsOrderedBefore =
-            products
-                .OrderByDescending(fun x -> x.Price)
-                .ThenBy(fun x -> x.Supplier)
-
-        let repository =
-            Repository<Product>(context) :> IRepository<Product>
-
-        let! page =
-            repository.AsyncFind
-                (ExpressionQueryObject<Product>
-                    ([| OrderCriteria<Product>((fun x -> x.Price :> obj), OrderCriteriaType.Descending)
-                        OrderCriteria<Product>((fun x -> x.Supplier :> obj), OrderCriteriaType.Ascending) |]),
                  0,
                  products.Length)
 

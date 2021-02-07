@@ -6,7 +6,10 @@ open System
 type MatchGamblerViewDao =
     { GroupBetID: Guid
       GroupMatchID: Guid
-      OwnerGamblerID: Guid
-      Name: string
+      GamblerID: Guid
+      GroupMatchName: string
       StartDate: DateTime
-      EndDate: DateTime }
+      EndDate: DateTime
+      CurrentPoint: int
+      CurrentPosition: int
+      BeforePosition: int }

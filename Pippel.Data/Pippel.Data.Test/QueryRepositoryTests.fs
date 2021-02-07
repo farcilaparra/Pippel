@@ -39,27 +39,3 @@ let ``given several items that exist when they are queried and filtered by any c
         for productFilteredAfter in page.Items do
             Assert.True(productsFilteredBefore.Contains(productFilteredAfter :?> Product))
     }
-
-
-[<Fact>]
-let ``given several items that exist when they are queried and filtered by any criteria then a list of items are returned with the items that meet the criteria`` () =
-    async {
-        let products = createProducts ()
-        let context = createContextWithData (products)
-
-        let supplier = "Bavaria"
-
-        let productsFilteredBefore =
-            products.Where(fun x -> x.Supplier = supplier)
-
-        let repository =
-            QueryRepository<Product>(context) :> IQueryRepository<Product>
-
-        let! queriedProducts =
-            repository.AsyncFind(ExpressionQueryObject<Product>(fun x -> x.Supplier.Equals(supplier)))
-
-        Assert.Equal(productsFilteredBefore.Count(), queriedProducts.Count())
-
-        for productFilteredAfter in queriedProducts do
-            Assert.True(productsFilteredBefore.Contains(productFilteredAfter :?> Product))
-    }

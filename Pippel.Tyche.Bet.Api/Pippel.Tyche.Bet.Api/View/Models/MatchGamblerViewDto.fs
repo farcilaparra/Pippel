@@ -4,5 +4,8 @@ open System
             
 type MatchGamblerViewDto =
     { GroupBetID: Guid
-      OwnerGamblerID: Guid
-      Name: string }
+      GamblerID: Guid
+      GroupMatchName: string
+      CurrentPoint: int
+      CurrentPosition: int
+      BeforePosition: int }
