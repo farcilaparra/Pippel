@@ -47,8 +47,7 @@ type MatchEntityTypeConfiguration() =
             |> ignore
 
             builder
-                .Property(fun x -> x.State)
-                .HasColumnName("STATE")
+                .Property(fun x -> x.Status)
+                .HasColumnName("STATUS")
                 .IsRequired()
-                .HasMaxLength(20)
             |> ignore

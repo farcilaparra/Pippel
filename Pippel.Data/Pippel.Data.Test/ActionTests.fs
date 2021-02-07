@@ -119,42 +119,6 @@ let ``given several items that exist when an action to query them is executed th
 
 
 [<Fact>]
-let ``given several items that exist when an action is executed to query and filter them by any criteria then a list of items are returned with the items that meet the criteria`` () =
-    async {
-        let products = createProducts ()
-        let context = createContextWithData (products)
-
-        let supplier = "Bavaria"
-
-        let productsFilteredBefore =
-            products.Where(fun x -> x.Supplier.Equals(supplier))
-
-        let repositoryMock = Mock<IRepository<Product>>()
-
-        repositoryMock
-            .Setup(fun x -> x.AsyncFind(It.IsAny<IQueryObject>()))
-            .Returns(Task.FromResult
-                         ([| { Product.Id = "c1"
-                               Name = "Bottle of water 300 ml"
-                               Price = 0.5
-                               Supplier = "Lotto" } :> obj |]
-                          :> seq<obj>)
-                     |> Async.AwaitTask)
-        |> ignore
-
-        let mapperMock = Mock<IMapper<Product, Product>>()
-
-        let findAction =
-            FindAction(repositoryMock.Object, mapperMock.Object)
-
-        let! queriedProducts =
-            findAction.AsyncExecute(ExpressionQueryObject<Product>(fun x -> x.Supplier.Equals(supplier)))
-
-        repositoryMock.Verify((fun x -> x.AsyncFind(It.IsAny<IQueryObject>())), Times.Once())
-    }
-
-
-[<Fact>]
 let ``given an item that doesn't exist when an action to persist it is executed then the item is persisted`` () =
     async {
         let repositoryMock = Mock<IRepository<Product>>()

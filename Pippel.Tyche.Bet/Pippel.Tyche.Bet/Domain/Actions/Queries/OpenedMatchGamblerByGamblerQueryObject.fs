@@ -11,9 +11,9 @@ type OpenedMatchGamblerByGamblerQueryObject(gamblerID: Guid) =
 
         member this.Query(query: IQueryable): IQueryable =
             let now = DateTime.Now
-
             (query :?> IQueryable<MatchGamblerViewDao>)
                 .Where(fun x ->
-                    x.OwnerGamblerID = gamblerID
+                    x.GamblerID = gamblerID
                     && now >= x.StartDate
-                    && now < x.EndDate) :> IQueryable
+                    && now < x.EndDate)
+                .OrderByDescending(fun x -> x.StartDate) :> IQueryable
