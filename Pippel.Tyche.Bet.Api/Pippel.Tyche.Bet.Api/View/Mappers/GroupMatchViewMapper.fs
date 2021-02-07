@@ -1,6 +1,5 @@
 namespace Pippel.Tyche.Bet.Api.Domain.Mappers
 
-open System
 open Pippel.Tyche.Bet.Api.Data.Models
 open Pippel.Tyche.Bet.Data.Models.Queries
 

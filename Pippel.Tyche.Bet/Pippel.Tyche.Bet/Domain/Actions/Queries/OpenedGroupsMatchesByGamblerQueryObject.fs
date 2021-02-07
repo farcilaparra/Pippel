@@ -5,7 +5,7 @@ open System.Linq
 open Pippel.Data
 open Pippel.Tyche.Bet.Data.Models.Queries
 
-type OpenedMatchGamblerByGamblerQueryObject(gamblerID: Guid) =
+type OpenedGroupsMatchesByGamblerQueryObject(gamblerID: Guid) =
 
     interface IQueryObject with
 
