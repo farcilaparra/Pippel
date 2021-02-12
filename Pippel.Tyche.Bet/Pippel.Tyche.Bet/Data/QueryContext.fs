@@ -21,6 +21,14 @@ type QueryContext(options: DbContextOptions<QueryContext>) =
         with get () = this._MatchesGamblersView
         and set v = this._MatchesGamblersView <- v
 
+    [<DefaultValue>]
+    val mutable private _MatchGroupsViews: DbSet<MatchGroupViewDao>
+    
+        member this.MatchGroupsViews
+            with get () = this._MatchGroupsViews
+            and set v = this._MatchGroupsViews <- v
+
     override this.OnModelCreating builder =
         builder.ApplyConfiguration(MatchGamblerViewEntityTypeConfiguration()) |> ignore
         builder.ApplyConfiguration(MatchViewEntityTypeConfiguration()) |> ignore
+        builder.ApplyConfiguration(MatchGroupViewEntityTypeConfiguration()) |> ignore

@@ -9,9 +9,12 @@
     <ItemGroup>
         <Compile Include="View\Models\MatchGamblerViewDto.fs" />
         <Compile Include="View\Models\MatchViewDto.fs" />
+        <Compile Include="View\Models\MatchGroupViewDto.fs" />
         <Compile Include="View\Mappers\GroupMatchViewMapper.fs" />
         <Compile Include="View\Mappers\MatchViewMapper.fs" />
+        <Compile Include="View\Mappers\MatchGroupViewMapper.fs" />
         <Compile Include="Controllers\BetController.fs" />
+        <Compile Include="Controllers\MatchGroupController.fs" />
         <Compile Include="ResponseCreator.fs" />
         <Compile Include="Startup.fs" />
         <Compile Include="Program.fs" />

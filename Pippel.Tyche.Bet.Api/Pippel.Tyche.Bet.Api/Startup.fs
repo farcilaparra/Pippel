@@ -48,6 +48,9 @@ type Startup private () =
         
         services.AddTransient<MatchViewMapper>()
         |> ignore
+        
+        services.AddTransient<MatchGroupViewMapper>()
+        |> ignore
 
         services.AddTransient<IQueryRepositoryFactory, QueryRepositoryFactory>()
         |> ignore
