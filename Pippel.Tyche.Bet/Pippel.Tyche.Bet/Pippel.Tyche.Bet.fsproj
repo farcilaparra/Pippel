@@ -18,6 +18,7 @@
       <Compile Include="Data\Models\AppUserDao.fs" />
       <Compile Include="Data\Models\Queries\MatchGamblerViewDao.fs" />
       <Compile Include="Data\Models\Queries\MatchViewDao.fs" />
+      <Compile Include="Data\Models\Queries\MatchGroupViewDao.fs" />
       <Compile Include="Data\Configurations\GroupBetEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\GamblerEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\GroupBetGamblerEntityTypeConfiguration.fs" />
@@ -31,6 +32,7 @@
       <Compile Include="Data\Configurations\AppUserEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\Queries\MatchGamblerViewEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\Queries\MatchViewEntityTypeConfiguration.fs" />
+      <Compile Include="Data\Configurations\Queries\MatchGroupViewEntityTypeConfiguration.fs" />
       <Compile Include="Data\Context.fs" />
       <Compile Include="Data\QueryContext.fs" />
       <Compile Include="Data\Repositories\IGamblerRepository.fs" />
@@ -70,6 +72,7 @@
       <Compile Include="Domain\Mappers\AppUserDomainMapper.fs" />
       <Compile Include="Domain\Actions\Queries\OpenedGroupsMatchesByGamblerQueryObject.fs" />
       <Compile Include="Domain\Actions\Queries\MatchesByGroupBetQueryObject.fs" />
+      <Compile Include="Domain\Actions\Queries\MatchesByGroupMatchQueryObject.fs" />
       <Compile Include="Domain\Actions\FindGamblerByKeyAction.fs" />
       <Compile Include="Domain\Actions\FindGamblersAction.fs" />
       <Compile Include="Domain\Actions\AddGamblersAction.fs" />
@@ -97,6 +100,7 @@
       <Compile Include="Domain\Actions\RemoveTeamsAction.fs" />
       <Compile Include="Domain\Actions\FindMatchesByGroupBetAction.fs" />
       <Compile Include="Domain\Actions\FindOpenedGroupsMatchesByGamblerAction.fs" />
+      <Compile Include="Domain\Actions\FindMatchesByGroupMatchAction.fs" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.11" />
       <ProjectReference Include="..\..\Pippel.Data\Pippel.Data\Pippel.Data.fsproj" />
       <ProjectReference Include="..\..\Pippel.Core\Pippel.Core\Pippel.Core.fsproj" />
