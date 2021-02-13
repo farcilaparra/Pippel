@@ -26,7 +26,7 @@ type GroupBetGamblerEntityTypeConfiguration() =
             |> ignore
 
             builder
-                .Property(fun x -> x.IsAdmin)
+                .Property(fun x -> x.Role)
                 .HasColumnName("ROLE")
                 .IsRequired()
             |> ignore
@@ -34,11 +34,5 @@ type GroupBetGamblerEntityTypeConfiguration() =
             builder
                 .Property(fun x -> x.EnrollmentDate)
                 .HasColumnName("ENROLLMENT_DATE")
-                .IsRequired()
-            |> ignore
-
-            builder
-                .Property(fun x -> x.CurrentPoint)
-                .HasColumnName("CURRENT_POINT")
                 .IsRequired()
             |> ignore

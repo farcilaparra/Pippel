@@ -6,12 +6,12 @@ open Pippel.Tyche.Bet.Data.Models.Queries
 type MatchViewMapper() =
 
         /// <summary>Maps from <c>MatchViewDao</c> to <c>MatchViewDto</c></summary>
-        member this.MapToSource(matchViewDao: MatchViewDao): MatchViewDto =
+        member this.MapToMatchViewDto(matchViewDao: MatchViewDao): MatchViewDto =
             { MatchID = matchViewDao.MatchID
               RoundMatchID = matchViewDao.RoundMatchID
               GroupMatchID = matchViewDao.GroupMatchID
               GroupBetID = matchViewDao.GroupBetID
-              MatchStatus = matchViewDao.MatchStatus
+              MatchStatus = LanguagePrimitives.EnumToValue matchViewDao.MatchStatus
               HomeTeamID = matchViewDao.HomeTeamID
               AwayTeamID = matchViewDao.AwayTeamID
               MatchDate = matchViewDao.MatchDate

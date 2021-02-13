@@ -16,6 +16,6 @@ type MatchDao =
       AwayTeamID: Guid
       RoundMatchID: Guid
       MatchDate: DateTime
-      HomeResult: Int32
-      AwayResult: Int32
+      HomeResult: int Nullable
+      AwayResult: int Nullable
       Status: MatchStatus }

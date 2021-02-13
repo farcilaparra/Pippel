@@ -12,15 +12,13 @@ type GroupBetGamblerDomainMapper() =
         member this.MapToTarget(groupBetGambler: GroupBetGambler): GroupBetGamblerDao =
             { GroupBetGamblerDao.GroupBetID = groupBetGambler.GroupBetID |> Uuid.toGuid
               GroupBetGamblerDao.GamblerID = groupBetGambler.GamblerID |> Uuid.toGuid
-              IsAdmin = groupBetGambler.IsAdmin |> NonEmptyString.value
-              EnrollmentDate = groupBetGambler.EnrollmentDate
-              CurrentPoint = groupBetGambler.CurrentPoint |> PositiveInt.value }
+              Role = groupBetGambler.Role
+              EnrollmentDate = groupBetGambler.EnrollmentDate }
 
 
         /// <summary>Maps from <c>GroupBetGamblerDao</c> to <c>GroupBetGambler</c></summary>
         member this.MapToSource(groupBetGamblerDao: GroupBetGamblerDao): GroupBetGambler =
             { GroupBetGambler.GroupBetID = groupBetGamblerDao.GroupBetID |> Uuid.createFromGuid
               GroupBetGambler.GamblerID = groupBetGamblerDao.GamblerID |> Uuid.createFromGuid
-              IsAdmin = groupBetGamblerDao.IsAdmin |> NonEmptyString.create
-              EnrollmentDate = groupBetGamblerDao.EnrollmentDate
-              CurrentPoint = groupBetGamblerDao.CurrentPoint |> PositiveInt.create }
+              Role = groupBetGamblerDao.Role
+              EnrollmentDate = groupBetGamblerDao.EnrollmentDate }

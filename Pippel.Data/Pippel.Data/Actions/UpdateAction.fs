@@ -3,6 +3,7 @@ namespace Pippel.Data.Actions
 open Pippel.Core
 open Pippel.Data
 
+[<AbstractClass>]
 type UpdateAction<'TData, 'TDomain when 'TData: not struct and 'TDomain: not struct>(repository: IRepository<'TData>,
                                                                                      unitOfWork: IUnitOfWork,
                                                                                      mapper: IMapper<'TDomain, 'TData>) =

@@ -15,8 +15,7 @@ type BetDomainMapper() =
               GamblerID = bet.GamblerID |> Uuid.toGuid
               MatchID = bet.MatchID |> Uuid.toGuid
               HomeTeamValue = bet.HomeTeamValue |> PositiveInt.value
-              AwayTeamValue = bet.AwayTeamValue |> PositiveInt.value
-              LastPosition = bet.LastPosition |> PositiveInt.value }
+              AwayTeamValue = bet.AwayTeamValue |> PositiveInt.value }
 
 
         /// <summary>Maps from <c>BetDao</c> to <c>Bet</c></summary>
@@ -26,5 +25,4 @@ type BetDomainMapper() =
               GamblerID = betDao.GamblerID |> Uuid.createFromGuid
               MatchID = betDao.MatchID |> Uuid.createFromGuid
               HomeTeamValue = betDao.HomeTeamValue |> PositiveInt.create
-              AwayTeamValue = betDao.AwayTeamValue |> PositiveInt.create
-              LastPosition = betDao.LastPosition |> PositiveInt.create }
+              AwayTeamValue = betDao.AwayTeamValue |> PositiveInt.create }

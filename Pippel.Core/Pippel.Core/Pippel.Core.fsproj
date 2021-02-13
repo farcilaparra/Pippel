@@ -10,6 +10,7 @@
     <Compile Include="IMapper.fs" />
     <Compile Include="Json\IJsonSerializer.fs" />
     <Compile Include="Json\DefaultJsonSerializer.fs" />
+    <Compile Include="Json\DateTimeJsonConverter.fs" />
     <Compile Include="Exception.fs" />
   </ItemGroup>
   <ItemGroup>

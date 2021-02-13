@@ -1,45 +1,53 @@
 ﻿namespace Pippel.Tax.Controllers
 
+open System
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
-open Pippel.Tyche.Bet.Actions
+open Pippel.Tyche.Bet.Domain.Actions
 open Pippel.Tyche.Bet.Api.Data.Models
 open Pippel.Tyche.Bet.Api.Domain.Mappers
-open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Type
-open Pippel.Tyche.Bet.Data.Repositories.Queries
 
 [<ApiController>]
 [<Route("[controller]")>]
 type BetController(logger: ILogger<BetController>,
-                   queryRepositoryFactory: IQueryRepositoryFactory,
                    matchGamblerViewMapper: MatchGamblerViewMapper,
-                   matchViewMapper: MatchViewMapper) =
+                   matchViewMapper: MatchViewMapper,
+                   editingBetMapper: EditingBetMapper,
+                   editBetAction: IEditBetAction,
+                   findOpenedGroupsMatchesByGamblerAction: IFindOpenedGroupsMatchesByGamblerAction,
+                   findMatchesByGroupBetAction: IFindMatchesByGroupBetAction) =
     inherit ControllerBase()
 
     [<HttpGet("opened")>]
-    member this.GetOpened(gamblerID: string): Async<MatchGamblerViewDto seq> =
+    member this.AsyncGetOpened(gamblerID: Guid): Async<MatchGamblerViewDto seq> =
         async {
-            let action =
-                FindOpenedGroupsMatchesByGamblerAction(queryRepositoryFactory.Get<MatchGamblerViewDao>())
-
-            let! items = action.AsyncExecute(gamblerID |> Uuid.create)
+            let! items = findOpenedGroupsMatchesByGamblerAction.AsyncExecute(gamblerID |> Uuid.createFromGuid)
 
             return
                 items
-                |> Seq.map (fun x -> x |> matchGamblerViewMapper.MapToSource)
+                |> Seq.map (fun x ->
+                    x
+                    |> matchGamblerViewMapper.MapToMatchGamblerViewDto)
         }
 
-
     [<HttpGet("matches")>]
-    member this.GetMatches(groupBetID: string): Async<MatchViewDto seq> =
+    member this.AsyncGetMatches(groupBetID: Guid): Async<MatchViewDto seq> =
         async {
-            let action =
-                FindMatchesByGroupBetAction(queryRepositoryFactory.Get<MatchViewDao>())
-
-            let! items = action.AsyncExecute(groupBetID |> Uuid.create)
+            let! items = findMatchesByGroupBetAction.AsyncExecute(groupBetID |> Uuid.createFromGuid)
 
             return
                 items
-                |> Seq.map (fun x -> x |> matchViewMapper.MapToSource)
+                |> Seq.map (fun x -> x |> matchViewMapper.MapToMatchViewDto)
+        }
+
+    [<HttpPut("edit")>]
+    member this.AsyncEditBet(editingBetsDtos: EditingBetDto []) =
+        async {
+            let! editedBets =
+                editBetAction.AsyncExecute
+                    (editingBetsDtos
+                     |> Array.map (fun x -> x |> editingBetMapper.MapToEditingBet))
+
+            return editedBets
         }
