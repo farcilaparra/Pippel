@@ -1,4 +1,4 @@
-﻿namespace Pippel.Tax.Controllers
+﻿namespace Pippel.Bet.Tyche.Api.Controllers
 
 open System
 open Microsoft.AspNetCore.Mvc

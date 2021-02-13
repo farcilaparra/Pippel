@@ -47,6 +47,9 @@ type Startup private () =
         
         services.AddTransient<IQueryRepository<MatchViewDao>, QueryRepositoryInDB<MatchViewDao>>()
         |> ignore
+        
+        services.AddTransient<IQueryRepository<MatchGroupViewDao>, QueryRepositoryInDB<MatchGroupViewDao>>()
+        |> ignore
 
     let addDomainMappersToInjection (services: IServiceCollection) =
 
@@ -70,6 +73,9 @@ type Startup private () =
         services.AddTransient<MatchViewMapper>() |> ignore
 
         services.AddTransient<EditingBetMapper>()
+        |> ignore
+        
+        services.AddTransient<MatchGroupViewMapper>()
         |> ignore
 
     let addActionsToInjection (services: IServiceCollection) =
@@ -133,9 +139,6 @@ type Startup private () =
         |> ignore
         
         services.AddTransient<MatchGroupViewMapper>()
-        |> ignore
-
-        services.AddTransient<IQueryRepositoryFactory, QueryRepositoryFactory>()
         |> ignore
 
         addRepositoriesToInjection services

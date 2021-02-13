@@ -18,7 +18,7 @@
         <Compile Include="View\Mappers\MatchViewMapper.fs" />
         <Compile Include="View\Mappers\EditingBetMapper.fs" />
         <Compile Include="Controllers\BetController.fs" />
-        <Compile Include="Controllers\MatchGroupController.fs" />
+        <Compile Include="Controllers\MatchController.fs" />
         <Compile Include="ResponseCreator.fs" />
         <Compile Include="Startup.fs" />
         <Compile Include="Program.fs" />

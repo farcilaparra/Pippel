@@ -109,6 +109,7 @@
       <Compile Include="Domain\Actions\FindMatchesByGroupBetAction.fs" />
       <Compile Include="Domain\Actions\IFindOpenedGroupsMatchesByGamblerAction.fs" />
       <Compile Include="Domain\Actions\FindOpenedGroupsMatchesByGamblerAction.fs" />
+      <Compile Include="Domain\Actions\IFindMatchesByGroupMatchAction.fs" />
       <Compile Include="Domain\Actions\FindMatchesByGroupMatchAction.fs" />
       <Compile Include="Domain\Actions\IFindGroupBetGamblerByKeyAction.fs" />
       <Compile Include="Domain\Actions\FindGroupBetGamblerByKeyAction.fs" />
