@@ -10,6 +10,6 @@ type Match =
       AwayTeamID: Uuid
       RoundMatchID: Uuid
       MatchDate: DateTime
-      HomeResult: PositiveInt
-      AwayResult: PositiveInt
+      HomeResult: PositiveInt option
+      AwayResult: PositiveInt option
       Status: MatchStatus }

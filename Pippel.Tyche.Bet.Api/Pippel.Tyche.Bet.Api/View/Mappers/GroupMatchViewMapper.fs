@@ -6,7 +6,7 @@ open Pippel.Tyche.Bet.Data.Models.Queries
 type MatchGamblerViewMapper() =
 
         /// <summary>Maps from <c>MatchGamblerViewDao</c> to <c>MatchGamblerViewDto</c></summary>
-        member this.MapToSource(matchGamblerViewDao: MatchGamblerViewDao): MatchGamblerViewDto =
+        member this.MapToMatchGamblerViewDto(matchGamblerViewDao: MatchGamblerViewDao): MatchGamblerViewDto =
             { MatchGamblerViewDto.GroupBetID = matchGamblerViewDao.GroupBetID
               GamblerID = matchGamblerViewDao.GamblerID
               GroupMatchName = matchGamblerViewDao.GroupMatchName

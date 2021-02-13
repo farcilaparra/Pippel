@@ -10,7 +10,7 @@ type BetEntityTypeConfiguration() =
         override this.Configure(builder: EntityTypeBuilder<BetDao>) =
             builder.ToTable("BET") |> ignore
 
-            builder.HasKey(fun x -> x.ID :> obj) |> ignore
+            builder.HasKey(fun x -> (x.GroupBetID, x.GamblerID, x.MatchID) :> obj) |> ignore
 
             builder
                 .Property(fun x -> x.ID)
@@ -45,11 +45,5 @@ type BetEntityTypeConfiguration() =
             builder
                 .Property(fun x -> x.AwayTeamValue)
                 .HasColumnName("AWAY_TEAM_VALUE")
-                .IsRequired()
-            |> ignore
-
-            builder
-                .Property(fun x -> x.LastPosition)
-                .HasColumnName("LAST_POSITION")
                 .IsRequired()
             |> ignore

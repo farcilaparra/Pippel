@@ -57,11 +57,11 @@ type Context(options: DbContextOptions<Context>) =
         and set v = this._RoundMatchs <- v
     
     [<DefaultValue>]
-    val mutable private _Matchs: DbSet<MatchDao>
+    val mutable private _Matches: DbSet<MatchDao>
     
-    member this.Matchs
-        with get () = this._Matchs
-        and set v = this._Matchs <- v
+    member this.Matches
+        with get () = this._Matches
+        and set v = this._Matches <- v
 
     [<DefaultValue>]
     val mutable private _Teams: DbSet<TeamDao>

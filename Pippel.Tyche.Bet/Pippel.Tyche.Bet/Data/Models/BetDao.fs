@@ -8,6 +8,5 @@ type BetDao =
       GroupBetID: Guid
       GamblerID: Guid
       MatchID: Guid
-      HomeTeamValue: Int32
-      AwayTeamValue: Int32
-      LastPosition: Int32 }
+      HomeTeamValue: int
+      AwayTeamValue: int }

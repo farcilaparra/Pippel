@@ -1,4 +1,4 @@
-namespace Pippel.Tyche.Bet.Actions
+namespace Pippel.Tyche.Bet.Domain.Actions
 
 open Pippel.Core
 open Pippel.Tyche.Bet.Data.Models
@@ -10,7 +10,9 @@ open Pippel.Data.Actions
 type FindMatchByKeyAction(matchRepository: IMatchRepository, matchMapper: IMapper<Match, MatchDao>) =
     inherit FindByKeyAction<MatchDao, Match>(matchRepository, matchMapper)
 
-    override this.AsyncExecute(key: obj []): Async<Match> =
-        base.AsyncExecute
-            (key
-             |> Array.map (fun x -> (x :?> Uuid |> Uuid.toGuid) :> obj))
+    interface IFindMatchByKeyAction with
+    
+        override this.AsyncExecute(key: obj []): Async<Match> =
+            base.AsyncExecute
+                (key
+                 |> Array.map (fun x -> (x :?> Uuid |> Uuid.toGuid) :> obj))

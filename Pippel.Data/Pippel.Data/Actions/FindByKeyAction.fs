@@ -3,6 +3,7 @@ namespace Pippel.Data.Actions
 open Pippel.Core
 open Pippel.Data
 
+[<AbstractClass>]
 type FindByKeyAction<'TData, 'TDomain when 'TData: not struct and 'TDomain: not struct>(repository: IRepository<'TData>,
                                                                                         mapper: IMapper<'TDomain, 'TData>) =
 

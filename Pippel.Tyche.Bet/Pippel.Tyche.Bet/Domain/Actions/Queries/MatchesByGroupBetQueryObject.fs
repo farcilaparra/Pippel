@@ -1,4 +1,4 @@
-namespace Pippel.Tyche.Bet.Actions.Queries
+namespace Pippel.Tyche.Bet.Domain.Actions.Queries
 
 open System
 open System.Linq
