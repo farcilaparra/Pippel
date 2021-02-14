@@ -4,6 +4,6 @@ open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Type
 
 [<Interface>]
-type IFindOpenedGroupsMatchesByGamblerAction =
+type IFindBetsByGroupBetAction =
 
-    abstract AsyncExecute: Uuid -> Async<MatchGroupGamblerViewDao seq>
+    abstract AsyncExecute: Uuid -> Async<BetPositionViewDao seq>

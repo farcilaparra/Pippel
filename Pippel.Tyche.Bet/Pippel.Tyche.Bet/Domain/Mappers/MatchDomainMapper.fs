@@ -10,7 +10,7 @@ type MatchDomainMapper() =
     interface IMapper<Match, MatchDao> with
 
         /// <summary>Maps from <c>Match</c> to <c>MatchDao</c></summary>
-        member this.MapToTarget(matchOrGame: Match): MatchDao =
+        member this.Map(matchOrGame: Match): MatchDao =
             { MatchDao.ID = matchOrGame.ID |> Uuid.toGuid
               HomeTeamID = matchOrGame.HomeTeamID |> Uuid.toGuid
               AwayTeamID = matchOrGame.AwayTeamID |> Uuid.toGuid
@@ -27,7 +27,7 @@ type MatchDomainMapper() =
               Status = matchOrGame.Status }
 
         /// <summary>Maps from <c>MatchDao</c> to <c>Match</c></summary>
-        member this.MapToSource(matchDao: MatchDao): Match =
+        member this.Map(matchDao: MatchDao): Match =
             { Match.ID = matchDao.ID |> Uuid.createFromGuid
               HomeTeamID = matchDao.HomeTeamID |> Uuid.createFromGuid
               AwayTeamID = matchDao.AwayTeamID |> Uuid.createFromGuid

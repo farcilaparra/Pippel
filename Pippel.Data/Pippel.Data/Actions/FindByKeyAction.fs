@@ -13,5 +13,5 @@ type FindByKeyAction<'TData, 'TDomain when 'TData: not struct and 'TDomain: not 
     default this.AsyncExecute(key: obj []): Async<'TDomain> =
         async {
             let! dao = repository.AsyncFindByKey(key)
-            return dao |> mapper.MapToSource
+            return dao |> mapper.Map
         }

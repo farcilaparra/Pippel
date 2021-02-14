@@ -9,13 +9,13 @@ type RoundMatchDomainMapper() =
     interface IMapper<RoundMatch, RoundMatchDao> with
 
         /// <summary>Maps from <c>RoundMatch</c> to <c>RoundMatchDao</c></summary>
-        member this.MapToTarget(roundMatch: RoundMatch): RoundMatchDao =
+        member this.Map(roundMatch: RoundMatch): RoundMatchDao =
             { RoundMatchDao.ID = roundMatch.ID |> Uuid.toGuid
               GroupMatchID = roundMatch.GroupMatchID |> Uuid.toGuid
               Name = roundMatch.Name |> NonEmptyString.value }
 
         /// <summary>Maps from <c>RoundMatchDao</c> to <c>RoundMatch</c></summary>
-        member this.MapToSource(roundMatchDao: RoundMatchDao): RoundMatch =
+        member this.Map(roundMatchDao: RoundMatchDao): RoundMatch =
             { RoundMatch.ID = roundMatchDao.ID |> Uuid.createFromGuid
               GroupMatchID = roundMatchDao.GroupMatchID |> Uuid.createFromGuid
               Name = roundMatchDao.Name |> NonEmptyString.create }

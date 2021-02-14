@@ -10,7 +10,7 @@ type FindAction<'TData, 'TDomain when 'TData: not struct and 'TDomain: not struc
     /// Converts the item to 'TDomain if it is of type 'TData
     let convertItemIfDataModel (obj: obj): obj =
         if obj :? 'TData
-        then (obj :?> 'TData) |> mapper.MapToSource :> obj
+        then (obj :?> 'TData) |> mapper.Map :> obj
         else obj
 
     /// Find several items

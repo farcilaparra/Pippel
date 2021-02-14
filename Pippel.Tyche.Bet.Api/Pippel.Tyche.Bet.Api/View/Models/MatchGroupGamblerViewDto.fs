@@ -1,15 +1,11 @@
-namespace Pippel.Tyche.Bet.Data.Models.Queries
+namespace Pippel.Tyche.Bet.Api.Data.Models
 
 open System
-
-[<CLIMutable>]
-type MatchGamblerViewDao =
+            
+type MatchGroupGamblerViewDto =
     { GroupBetID: Guid
-      GroupMatchID: Guid
       GamblerID: Guid
       GroupMatchName: string
-      StartDate: DateTime
-      EndDate: DateTime
       CurrentPoint: int
       CurrentPosition: int
       BeforePosition: int }

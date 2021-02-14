@@ -9,7 +9,7 @@ type GroupBetDomainMapper() =
     interface IMapper<GroupBet, GroupBetDao> with
 
         /// <summary>Maps from <c>GroupBet</c> to <c>GroupBetDao</c></summary>
-        member this.MapToTarget(groupBet: GroupBet): GroupBetDao =
+        member this.Map(groupBet: GroupBet): GroupBetDao =
             { GroupBetDao.ID = groupBet.ID |> Uuid.toGuid
               GroupMatchID = groupBet.GroupMatchID |> Uuid.toGuid
               OwnerGamblerID = groupBet.OwnerGamblerID |> Uuid.toGuid
@@ -17,7 +17,7 @@ type GroupBetDomainMapper() =
 
 
         /// <summary>Maps from <c>GroupBetDao</c> to <c>GroupBet</c></summary>
-        member this.MapToSource(groupBetDao: GroupBetDao): GroupBet =
+        member this.Map(groupBetDao: GroupBetDao): GroupBet =
             { GroupBet.ID = groupBetDao.ID |> Uuid.createFromGuid
               GroupMatchID = groupBetDao.GroupMatchID |> Uuid.createFromGuid
               OwnerGamblerID = groupBetDao.OwnerGamblerID |> Uuid.createFromGuid

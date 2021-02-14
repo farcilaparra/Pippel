@@ -11,8 +11,8 @@ type FindMatchesByGroupBetAction(repository: IQueryRepository<MatchViewDao>) =
     
         member this.AsyncExecute(groupBetID: Uuid): Async<MatchViewDao seq> =
             async {
-                let! items = repository.AsyncFind(MatchesByGroupBetQueryObject(groupBetID |> Uuid.toGuid))
-
+                let! items = repository.AsyncFind(MatchesByGroupBetQueryObject(groupBetID |> Uuid.toGuid)) 
+                
                 return
                     items
                     |> Seq.map (fun x -> x :?> MatchViewDao)

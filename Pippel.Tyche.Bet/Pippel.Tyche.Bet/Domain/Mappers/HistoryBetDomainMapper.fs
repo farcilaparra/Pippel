@@ -9,7 +9,7 @@ type HistoryBetDomainMapper() =
     interface IMapper<HistoryBet, HistoryBetDao> with
 
         /// <summary>Maps from <c>HistoryBet</c> to <c>HistoryBetDao</c></summary>
-        member this.MapToTarget(historyBet: HistoryBet): HistoryBetDao =
+        member this.Map(historyBet: HistoryBet): HistoryBetDao =
             { HistoryBetDao.ID = historyBet.ID |> Uuid.toGuid
               BetID = historyBet.BetID |> Uuid.toGuid
               HomeTeamValue = historyBet.HomeTeamValue |> PositiveInt.value
@@ -18,7 +18,7 @@ type HistoryBetDomainMapper() =
 
 
         /// <summary>Maps from <c>HistoryBetDao</c> to <c>HistoryBet</c></summary>
-        member this.MapToSource(historyBetDao: HistoryBetDao): HistoryBet =
+        member this.Map(historyBetDao: HistoryBetDao): HistoryBet =
             { HistoryBet.ID = historyBetDao.ID |> Uuid.createFromGuid
               BetID = historyBetDao.BetID |> Uuid.createFromGuid
               HomeTeamValue = historyBetDao.HomeTeamValue |> PositiveInt.create
