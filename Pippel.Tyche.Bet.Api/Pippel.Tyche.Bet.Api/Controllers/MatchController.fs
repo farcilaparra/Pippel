@@ -25,5 +25,5 @@ type MatchController(logger: ILogger<MatchController>,
                 |> Seq.map (fun x ->
                     x
                     |> (matchGroupViewMapper :> MatchGroupViewMapper)
-                        .MapToMatchGroupView)
+                        .Map)
         }

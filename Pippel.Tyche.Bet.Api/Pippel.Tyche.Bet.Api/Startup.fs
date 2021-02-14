@@ -42,13 +42,16 @@ type Startup private () =
 
     let addQueryRepositoriesToInjection (services: IServiceCollection) =
 
-        services.AddTransient<IQueryRepository<MatchGamblerViewDao>, QueryRepositoryInDB<MatchGamblerViewDao>>()
+        services.AddTransient<IQueryRepository<MatchGroupGamblerViewDao>, QueryRepositoryInDB<MatchGroupGamblerViewDao>>()
         |> ignore
         
         services.AddTransient<IQueryRepository<MatchViewDao>, QueryRepositoryInDB<MatchViewDao>>()
         |> ignore
         
         services.AddTransient<IQueryRepository<MatchGroupViewDao>, QueryRepositoryInDB<MatchGroupViewDao>>()
+        |> ignore
+        
+        services.AddTransient<IQueryRepository<BetPositionViewDao>, QueryRepositoryInDB<BetPositionViewDao>>()
         |> ignore
 
     let addDomainMappersToInjection (services: IServiceCollection) =
@@ -67,7 +70,7 @@ type Startup private () =
 
     let addViewMappersToInjection (services: IServiceCollection) =
 
-        services.AddTransient<MatchGamblerViewMapper>()
+        services.AddTransient<MatchGroupGamblerViewMapper>()
         |> ignore
 
         services.AddTransient<MatchViewMapper>() |> ignore
@@ -76,6 +79,9 @@ type Startup private () =
         |> ignore
         
         services.AddTransient<MatchGroupViewMapper>()
+        |> ignore
+        
+        services.AddTransient<BetPositionViewMapper>()
         |> ignore
 
     let addActionsToInjection (services: IServiceCollection) =
@@ -102,6 +108,9 @@ type Startup private () =
         |> ignore
 
         services.AddScoped<IFindOpenedGroupsMatchesByGamblerAction, FindOpenedGroupsMatchesByGamblerAction>()
+        |> ignore
+        
+        services.AddScoped<IFindBetsByGroupBetAction, FindBetsByGroupBetAction>()
         |> ignore
 
     new(configuration: IConfiguration) as this =
@@ -132,7 +141,7 @@ type Startup private () =
         services.AddTransient<IUnitOfWork, UnitOfWork>()
         |> ignore
 
-        services.AddTransient<MatchGamblerViewMapper>()
+        services.AddTransient<MatchGroupGamblerViewMapper>()
         |> ignore
         
         services.AddTransient<MatchViewMapper>()

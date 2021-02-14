@@ -17,9 +17,10 @@
       <Compile Include="Data\Models\RoundMatchDao.fs" />
       <Compile Include="Data\Models\TeamDao.fs" />
       <Compile Include="Data\Models\AppUserDao.fs" />
-      <Compile Include="Data\Models\Queries\MatchGamblerViewDao.fs" />
+      <Compile Include="Data\Models\Queries\MatchGroupGamblerViewDao.fs" />
       <Compile Include="Data\Models\Queries\MatchViewDao.fs" />
       <Compile Include="Data\Models\Queries\MatchGroupViewDao.fs" />
+      <Compile Include="Data\Models\Queries\BetPositionViewDao.fs" />
       <Compile Include="Data\Configurations\GroupBetEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\GamblerEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\GroupBetGamblerEntityTypeConfiguration.fs" />
@@ -31,9 +32,10 @@
       <Compile Include="Data\Configurations\RoundMatchEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\TeamEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\AppUserEntityTypeConfiguration.fs" />
-      <Compile Include="Data\Configurations\Queries\MatchGamblerViewEntityTypeConfiguration.fs" />
+      <Compile Include="Data\Configurations\Queries\MatchGroupGamblerViewEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\Queries\MatchViewEntityTypeConfiguration.fs" />
       <Compile Include="Data\Configurations\Queries\MatchGroupViewEntityTypeConfiguration.fs" />
+      <Compile Include="Data\Configurations\Queries\BetPositionViewEntityTypeConfiguration.fs" />
       <Compile Include="Data\Context.fs" />
       <Compile Include="Data\QueryContext.fs" />
       <Compile Include="Data\Repositories\Queries\QueryRepositoryInDB.fs" />
@@ -75,6 +77,7 @@
       <Compile Include="Domain\Actions\Queries\OpenedGroupsMatchesByGamblerQueryObject.fs" />
       <Compile Include="Domain\Actions\Queries\MatchesByGroupBetQueryObject.fs" />
       <Compile Include="Domain\Actions\Queries\MatchesByGroupMatchQueryObject.fs" />
+      <Compile Include="Domain\Actions\Queries\BetsByGroupBetQueryObject.fs" />
       <Compile Include="Domain\Actions\IAddHistoryBetsAction.fs" />
       <Compile Include="Domain\Actions\AddHistoryBetsAction.fs" />
       <Compile Include="Domain\Actions\FindGamblerByKeyAction.fs" />
@@ -115,6 +118,8 @@
       <Compile Include="Domain\Actions\FindGroupBetGamblerByKeyAction.fs" />
       <Compile Include="Domain\Actions\IEditBetAction.fs" />
       <Compile Include="Domain\Actions\EditBetAction.fs" />
+      <Compile Include="Domain\Actions\IFindBetsByGroupBetAction.fs" />
+      <Compile Include="Domain\Actions\FindBetsByGroupBetAction.fs" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.11" />
       <ProjectReference Include="..\..\Pippel.Data\Pippel.Data\Pippel.Data.fsproj" />
       <ProjectReference Include="..\..\Pippel.Core\Pippel.Core\Pippel.Core.fsproj" />

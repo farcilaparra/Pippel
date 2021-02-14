@@ -15,5 +15,5 @@ type RemoveAction<'TData, 'TDomain when 'TData: not struct and 'TDomain: not str
         async {
             let! daos = repository.AsyncRemove(key)
             unitOfWork.SaveChanges()
-            return daos |> Seq.map (fun x -> x |> mapper.MapToSource)
+            return daos |> Seq.map (fun x -> x |> mapper.Map)
         }

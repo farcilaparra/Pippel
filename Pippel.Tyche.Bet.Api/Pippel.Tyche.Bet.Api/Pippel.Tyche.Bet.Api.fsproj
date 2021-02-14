@@ -4,19 +4,18 @@
         <TargetFramework>netcoreapp5.0</TargetFramework>
         <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
     </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(RunConfiguration)' == 'Pippel.Tax' " />
+    
     <ItemGroup>
-        <Compile Include="View\Models\MatchGamblerViewDto.fs" />
+        <Compile Include="View\Models\MatchGroupGamblerViewDto.fs" />
         <Compile Include="View\Models\MatchViewDto.fs" />
         <Compile Include="View\Models\MatchGroupViewDto.fs" />
-        <Compile Include="View\Mappers\GroupMatchViewMapper.fs" />
-        <Compile Include="View\Mappers\MatchViewMapper.fs" />
-        <Compile Include="View\Mappers\MatchGroupViewMapper.fs" />
         <Compile Include="View\Models\EditingBetDto.fs" />
-        <Compile Include="View\Mappers\GroupMatchViewMapper.fs" />
+        <Compile Include="View\Models\BetPositionViewDto.fs" />
+        <Compile Include="View\Mappers\MatchGroupGamblerViewMapper.fs" />
         <Compile Include="View\Mappers\MatchViewMapper.fs" />
         <Compile Include="View\Mappers\EditingBetMapper.fs" />
+        <Compile Include="View\Mappers\MatchGroupViewMapper.fs" />
+        <Compile Include="View\Mappers\BetPositionViewMapper.fs" />
         <Compile Include="Controllers\BetController.fs" />
         <Compile Include="Controllers\MatchController.fs" />
         <Compile Include="ResponseCreator.fs" />

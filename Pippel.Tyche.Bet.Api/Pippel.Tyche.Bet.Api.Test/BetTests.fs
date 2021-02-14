@@ -73,7 +73,7 @@ let createEditingBetsDtosToSend () =
          AwayTeamValue = 1 } |]
 
 let createMatchesToReturn () =
-    [| { MatchGamblerViewDao.GroupBetID = Guid("c6bc7971-1261-4bb8-9f57-b14013129315")
+    [| { MatchGroupGamblerViewDao.GroupBetID = Guid("c6bc7971-1261-4bb8-9f57-b14013129315")
          GroupMatchID = Guid("697b3701-640e-4cef-a20a-12ce6e8d7e3b")
          GamblerID = Guid("718d7467-383f-4094-81c4-5b104d7969aa")
          GroupMatchName = "Eliminatorias al Mundial Qatar 2024 23/24 febrero"
@@ -82,7 +82,7 @@ let createMatchesToReturn () =
          CurrentPoint = 10
          CurrentPosition = 3
          BeforePosition = 4 }
-       { MatchGamblerViewDao.GroupBetID = Guid("67c53e8f-c4a6-4a1a-8b5b-55c902660395")
+       { MatchGroupGamblerViewDao.GroupBetID = Guid("67c53e8f-c4a6-4a1a-8b5b-55c902660395")
          GroupMatchID = Guid("f608cdd7-2694-4f46-b5ce-a2db030789da")
          GamblerID = Guid("43c2483f-9b3e-48b8-978c-99e07d2f29d2")
          GroupMatchName = "Eliminatorias al Mundial Qatar 2024 02/03 mayo"
@@ -115,6 +115,20 @@ let createMatchesViewDaosToReturn () =
          HomeTeamName = "Argentina"
          AwayTeamName = "Uruguay"
          Point = Nullable<int>(10) } |]
+    
+let createBetsPositionsViewDaosToReturn () =
+    [| { BetPositionViewDao.GroupBetID = Guid("c6bc7971-1261-4bb8-9f57-b14013129315")
+         GamblerID = Guid("673e3cdf-77ed-4be8-80fa-5c3e4eed977a")
+         EnrollmentDate = DateTime.Now
+         Point = Nullable<int>()
+         CurrentPosition = Nullable<int>()
+         BeforePosition = Nullable<int>() }
+       { BetPositionViewDao.GroupBetID = Guid("9b74072c-6df0-4ade-9655-4cff4dc35faa")
+         GamblerID = Guid("d29b78b4-8fff-406e-875a-480de5f5ca94")
+         EnrollmentDate = DateTime.Now
+         Point = Nullable<int>(15)
+         CurrentPosition = Nullable<int>(1)
+         BeforePosition = Nullable<int>() } |]
 
 [<Fact>]
 let ``given several editing bets when a request to edit the bets is raised then a correct answer is gotten`` () =
@@ -246,3 +260,45 @@ let ``given a group bet id when a request to query the matches by group bet id t
 
         response.EnsureSuccessStatusCode() |> ignore
     }
+    
+[<Fact>]
+let ``given a group bet id when a request to query the bet's positions by group bet id then the bet's positions are returned`` () =
+    async {
+
+        let betsPositionsToReturn = createBetsPositionsViewDaosToReturn ()
+
+        let findBetsByGroupBetAction =
+            Mock<IFindBetsByGroupBetAction>()
+
+        findBetsByGroupBetAction
+            .Setup(fun x -> x.AsyncExecute(It.IsAny<Uuid>()))
+            .Returns(Task.FromResult(betsPositionsToReturn |> Array.toSeq)
+                     |> Async.AwaitTask)
+        |> ignore
+
+        let builder =
+            WebHostBuilder()
+                .ConfigureTestServices(fun services ->
+                    services.AddScoped<Context>(fun provider -> createContext ())
+                    |> ignore
+
+                    services.AddScoped<QueryContext>(fun provider -> createQueryContext ())
+                    |> ignore
+
+                    services.AddTransient<IFindBetsByGroupBetAction>(fun provider ->
+                        findBetsByGroupBetAction.Object)
+                    |> ignore)
+                .UseEnvironment("Development")
+                .UseStartup<Startup>()
+
+        let server = new TestServer(builder)
+        let client = server.CreateClient()
+
+        let request =
+            new HttpRequestMessage(HttpMethod("GET"), "/bet/position?groupbetid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36")
+
+        let! response = client.SendAsync(request) |> Async.AwaitTask
+
+        response.EnsureSuccessStatusCode() |> ignore
+    }
+    

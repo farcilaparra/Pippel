@@ -13,7 +13,7 @@ type UpdateAction<'TData, 'TDomain when 'TData: not struct and 'TDomain: not str
 
     default this.AsyncExecute(vats: 'TDomain seq): Async<'TDomain seq> =
         async {
-            let! daos = repository.AsyncUpdate(vats |> Seq.map (fun x -> x |> mapper.MapToTarget))
+            let! daos = repository.AsyncUpdate(vats |> Seq.map (fun x -> x |> mapper.Map))
             unitOfWork.SaveChanges()
-            return daos |> Seq.map (fun x -> x |> mapper.MapToSource)
+            return daos |> Seq.map (fun x -> x |> mapper.Map)
         }

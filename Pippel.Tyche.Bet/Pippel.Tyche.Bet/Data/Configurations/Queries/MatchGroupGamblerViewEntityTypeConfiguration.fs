@@ -4,10 +4,10 @@ open Microsoft.EntityFrameworkCore
 open Microsoft.EntityFrameworkCore.Metadata.Builders
 open Pippel.Tyche.Bet.Data.Models.Queries
 
-type MatchGamblerViewEntityTypeConfiguration() =
-    interface IEntityTypeConfiguration<MatchGamblerViewDao> with
+type MatchGroupGamblerViewEntityTypeConfiguration() =
+    interface IEntityTypeConfiguration<MatchGroupGamblerViewDao> with
 
-        override this.Configure(builder: EntityTypeBuilder<MatchGamblerViewDao>) =
+        override this.Configure(builder: EntityTypeBuilder<MatchGroupGamblerViewDao>) =
             builder.ToView("V_MATCH_GROUP_GAMBLER").HasNoKey()
             |> ignore
 
