@@ -35,9 +35,17 @@ type QueryContext(options: DbContextOptions<QueryContext>) =
     member this.BetsPositionsView
         with get () = this._BetsPositionsView
         and set v = this._BetsPositionsView <- v
+        
+    [<DefaultValue>]
+    val mutable private _OnPlayingMatchesView: DbSet<OnPlayingMatchViewDao>
+    
+    member this.OnPlayingMatchesView
+        with get () = this._OnPlayingMatchesView
+        and set v = this._OnPlayingMatchesView <- v
 
     override this.OnModelCreating builder =
         builder.ApplyConfiguration(MatchGroupGamblerViewEntityTypeConfiguration()) |> ignore
         builder.ApplyConfiguration(MatchViewEntityTypeConfiguration()) |> ignore
         builder.ApplyConfiguration(MatchGroupViewEntityTypeConfiguration()) |> ignore
         builder.ApplyConfiguration(BetPositionViewEntityTypeConfiguration()) |> ignore
+        builder.ApplyConfiguration(OnPlayingMatchViewEntityTypeConfiguration()) |> ignore

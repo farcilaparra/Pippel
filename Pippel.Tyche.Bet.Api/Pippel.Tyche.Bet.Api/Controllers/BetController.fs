@@ -7,6 +7,7 @@ open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Tyche.Bet.Domain.Actions
 open Pippel.Tyche.Bet.Api.Data.Models
 open Pippel.Tyche.Bet.Api.Domain.Mappers
+open Pippel.Tyche.Bet.Domain.Actions.Queries
 open Pippel.Type
 
 [<ApiController>]

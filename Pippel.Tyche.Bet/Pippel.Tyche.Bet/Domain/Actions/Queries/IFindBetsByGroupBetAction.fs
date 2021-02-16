@@ -1,4 +1,4 @@
-namespace Pippel.Tyche.Bet.Domain.Actions
+namespace Pippel.Tyche.Bet.Domain.Actions.Queries
 
 open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Type
