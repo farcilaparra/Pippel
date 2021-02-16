@@ -17,10 +17,12 @@ type BetController(logger: ILogger<BetController>,
                    matchViewMapper: MatchViewMapper,
                    editingBetMapper: EditingBetMapper,
                    betPositionViewMapper: BetPositionViewMapper,
+                   onPlayingMatchViewMapper: OnPlayingMatchViewMapper,
                    editBetAction: IEditBetAction,
                    findOpenedGroupsMatchesByGamblerAction: IFindOpenedGroupsMatchesByGamblerAction,
                    findMatchesByGroupBetAction: IFindMatchesByGroupBetAction,
-                   findBetsByGroupBet: IFindBetsByGroupBetAction) =
+                   findBetsByGroupBet: IFindBetsByGroupBetAction,
+                   findOnPlayingMatchesByGroupBet: IFindOnPlayingMatchesByGroupBetAction) =
     inherit ControllerBase()
 
     [<HttpGet("opened")>]
@@ -30,9 +32,7 @@ type BetController(logger: ILogger<BetController>,
 
             return
                 items
-                |> Seq.map (fun x ->
-                    x
-                    |> matchGamblerViewMapper.Map)
+                |> Seq.map (fun x -> x |> matchGamblerViewMapper.Map)
         }
 
     [<HttpGet("matches")>]
@@ -57,11 +57,26 @@ type BetController(logger: ILogger<BetController>,
         }
 
     [<HttpGet("position")>]
-    member this.AsyncGetPosition(groupBetID: Guid): Async<BetPositionViewDto seq> =
+    member this.AsyncGetPositions(groupBetID: Guid): Async<BetPositionViewDto seq> =
         async {
             let! items = findBetsByGroupBet.AsyncExecute(groupBetID |> Uuid.createFromGuid)
 
             return
                 items
                 |> Seq.map (fun x -> x |> betPositionViewMapper.Map)
+        }
+
+    [<HttpGet("positionandonplayingmatches")>]
+    member this.AsyncGetPositionsAndOnPlayingMatches(groupBetID: Guid): Async<BetPositionAndOnPlayingMatchViewDto> =
+        async {
+            let! positions = findBetsByGroupBet.AsyncExecute(groupBetID |> Uuid.createFromGuid)
+            let! onPlayingMatches = findOnPlayingMatchesByGroupBet.AsyncExecute(groupBetID |> Uuid.createFromGuid)
+
+            return
+                { BetPositionAndOnPlayingMatchViewDto.BetsPositions =
+                      (positions
+                       |> Seq.map (fun x -> x |> betPositionViewMapper.Map))
+                  OnPlayingMatches =
+                      (onPlayingMatches
+                       |> Seq.map (fun x -> x |> onPlayingMatchViewMapper.Map)) }
         }

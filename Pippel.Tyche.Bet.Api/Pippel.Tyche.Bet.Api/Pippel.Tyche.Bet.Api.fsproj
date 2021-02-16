@@ -12,6 +12,7 @@
         <Compile Include="View\Models\EditingBetDto.fs" />
         <Compile Include="View\Models\BetPositionViewDto.fs" />
         <Compile Include="View\Models\OnPlayingMatchViewDto.fs" />
+        <Compile Include="View\Models\BetPositionAndOnPlayingMatchViewDto.fs" />
         <Compile Include="View\Mappers\MatchGroupGamblerViewMapper.fs" />
         <Compile Include="View\Mappers\MatchViewMapper.fs" />
         <Compile Include="View\Mappers\EditingBetMapper.fs" />
