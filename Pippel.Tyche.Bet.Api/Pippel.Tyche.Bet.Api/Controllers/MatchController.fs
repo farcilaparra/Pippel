@@ -15,7 +15,7 @@ type MatchController(logger: ILogger<MatchController>,
                      matchGroupViewMapper: MatchGroupViewMapper,
                      onPlayingMatchViewMapper: OnPlayingMatchViewMapper,
                      findMatchesByGroupMatchAction: IFindMatchesByGroupMatchAction,
-                     findOnPlayingMatchesByGroupMatch: IFindOnPlayingMatchesByGroupMatchAction) =
+                     findOnPlayingMatchesByGroupBetAction: IFindOnPlayingMatchesByGroupBetAction) =
     inherit ControllerBase()
 
     [<HttpGet>]
@@ -33,7 +33,7 @@ type MatchController(logger: ILogger<MatchController>,
     [<HttpGet("onplaying")>]
     member this.GetOnPlayingMatches(groupBetID: Guid): Async<OnPlayingMatchViewDto seq> =
         async {
-            let! matches = findOnPlayingMatchesByGroupMatch.AsyncExecute(groupBetID |> Uuid.createFromGuid)
+            let! matches = findOnPlayingMatchesByGroupBetAction.AsyncExecute(groupBetID |> Uuid.createFromGuid)
 
             return
                 matches

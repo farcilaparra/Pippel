@@ -127,8 +127,8 @@
       <Compile Include="Domain\Actions\Queries\FindOpenedGroupsMatchesByGamblerAction.fs" />
       <Compile Include="Domain\Actions\Queries\IFindMatchesByGroupBetAction.fs" />
       <Compile Include="Domain\Actions\Queries\FindMatchesByGroupBetAction.fs" />
-      <Compile Include="Domain\Actions\Queries\IFindOnPlayingMatchesByGroupMatchAction.fs" />
-      <Compile Include="Domain\Actions\Queries\FindOnPlayingMatchesByGroupMatchAction.fs" />
+      <Compile Include="Domain\Actions\Queries\IFindOnPlayingMatchesByGroupBetAction.fs" />
+      <Compile Include="Domain\Actions\Queries\FindOnPlayingMatchesByGroupBetAction.fs" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.11" />
       <ProjectReference Include="..\..\Pippel.Data\Pippel.Data\Pippel.Data.fsproj" />
       <ProjectReference Include="..\..\Pippel.Core\Pippel.Core\Pippel.Core.fsproj" />

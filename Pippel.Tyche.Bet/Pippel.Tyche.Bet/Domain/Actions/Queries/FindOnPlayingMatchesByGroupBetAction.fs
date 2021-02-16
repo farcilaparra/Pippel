@@ -6,10 +6,10 @@ open Pippel.Tyche.Bet.Domain.Actions
 open Pippel.Tyche.Bet.Domain.Actions.Queries.QueriesObjects
 open Pippel.Type
 
-type FindOnPlayingMatchesByGroupMatchAction(repository: IQueryRepository<OnPlayingMatchViewDao>,
+type FindOnPlayingMatchesByGroupBetAction(repository: IQueryRepository<OnPlayingMatchViewDao>,
                                             findGroupBetByKeyAction: IFindGroupBetByKeyAction) =
 
-    interface IFindOnPlayingMatchesByGroupMatchAction with
+    interface IFindOnPlayingMatchesByGroupBetAction with
 
         member this.AsyncExecute(groupBetID: Uuid): Async<OnPlayingMatchViewDao seq> =
             async {

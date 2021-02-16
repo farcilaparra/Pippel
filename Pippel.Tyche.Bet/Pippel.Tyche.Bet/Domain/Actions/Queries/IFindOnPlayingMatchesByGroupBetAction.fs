@@ -4,6 +4,6 @@ open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Type
 
 [<Interface>]
-type IFindOnPlayingMatchesByGroupMatchAction =
+type IFindOnPlayingMatchesByGroupBetAction =
 
     abstract AsyncExecute: Uuid -> Async<OnPlayingMatchViewDao seq>

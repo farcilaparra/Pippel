@@ -133,7 +133,7 @@ type Startup private () =
         services.AddScoped<IFindMatchesByGroupMatchAction, FindMatchesByGroupMatchAction>()
         |> ignore
 
-        services.AddScoped<IFindOnPlayingMatchesByGroupMatchAction, FindOnPlayingMatchesByGroupMatchAction>()
+        services.AddScoped<IFindOnPlayingMatchesByGroupBetAction, FindOnPlayingMatchesByGroupBetAction>()
         |> ignore
 
     new(configuration: IConfiguration) as this =
