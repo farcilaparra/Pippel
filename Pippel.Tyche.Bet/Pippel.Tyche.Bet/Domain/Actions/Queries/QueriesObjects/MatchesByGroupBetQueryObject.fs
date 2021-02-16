@@ -1,15 +1,15 @@
-namespace Pippel.Tyche.Bet.Domain.Actions.Queries
+namespace Pippel.Tyche.Bet.Domain.Actions.Queries.QueriesObjects
 
 open System
 open System.Linq
 open Pippel.Data
 open Pippel.Tyche.Bet.Data.Models.Queries
 
-type MatchesByGroupMatchQueryObject(groupMatchID: Guid) =
+type MatchesByGroupBetQueryObject(groupBetID: Guid) =
 
     interface IQueryObject with
 
         member this.Query(query: IQueryable): IQueryable =
-            (query :?> IQueryable<MatchGroupViewDao>)
-                .Where(fun x -> x.GroupMatchId = groupMatchID)
+            (query :?> IQueryable<MatchViewDao>)
+                .Where(fun x -> x.GroupBetID = groupBetID)
                 .OrderBy(fun x -> x.MatchDate) :> IQueryable

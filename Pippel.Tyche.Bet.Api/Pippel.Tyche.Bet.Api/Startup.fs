@@ -18,6 +18,7 @@ open Pippel.Tyche.Bet.Api.Domain.Mappers
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Tyche.Bet.Data.Repositories
 open Pippel.Tyche.Bet.Data.Repositories.Queries
+open Pippel.Tyche.Bet.Domain.Actions.Queries
 open Pippel.Tyche.Bet.Domain.Mappers
 open Pippel.Tyche.Bet.Domain.Models
 
@@ -36,22 +37,26 @@ type Startup private () =
 
         services.AddScoped<IHistoryBetRepository, HistoryBetRepositoryInDB>()
         |> ignore
-        
-        services.AddScoped<IFindMatchesByGroupBetAction, FindMatchesByGroupBetAction>()
+
+        services.AddScoped<IGroupBetRepository, GroupBetRepositoryInDB>()
         |> ignore
 
     let addQueryRepositoriesToInjection (services: IServiceCollection) =
 
-        services.AddTransient<IQueryRepository<MatchGroupGamblerViewDao>, QueryRepositoryInDB<MatchGroupGamblerViewDao>>()
+        services.AddTransient<IQueryRepository<MatchGroupGamblerViewDao>, QueryRepositoryInDB<MatchGroupGamblerViewDao>>
+            ()
         |> ignore
-        
+
         services.AddTransient<IQueryRepository<MatchViewDao>, QueryRepositoryInDB<MatchViewDao>>()
         |> ignore
-        
+
         services.AddTransient<IQueryRepository<MatchGroupViewDao>, QueryRepositoryInDB<MatchGroupViewDao>>()
         |> ignore
-        
+
         services.AddTransient<IQueryRepository<BetPositionViewDao>, QueryRepositoryInDB<BetPositionViewDao>>()
+        |> ignore
+
+        services.AddTransient<IQueryRepository<OnPlayingMatchViewDao>, QueryRepositoryInDB<OnPlayingMatchViewDao>>()
         |> ignore
 
     let addDomainMappersToInjection (services: IServiceCollection) =
@@ -68,6 +73,9 @@ type Startup private () =
         services.AddScoped<IMapper<Match, MatchDao>, MatchDomainMapper>()
         |> ignore
 
+        services.AddScoped<IMapper<GroupBet, GroupBetDao>, GroupBetDomainMapper>()
+        |> ignore
+
     let addViewMappersToInjection (services: IServiceCollection) =
 
         services.AddTransient<MatchGroupGamblerViewMapper>()
@@ -77,11 +85,14 @@ type Startup private () =
 
         services.AddTransient<EditingBetMapper>()
         |> ignore
-        
+
         services.AddTransient<MatchGroupViewMapper>()
         |> ignore
-        
+
         services.AddTransient<BetPositionViewMapper>()
+        |> ignore
+
+        services.AddTransient<OnPlayingMatchViewMapper>()
         |> ignore
 
     let addActionsToInjection (services: IServiceCollection) =
@@ -109,8 +120,20 @@ type Startup private () =
 
         services.AddScoped<IFindOpenedGroupsMatchesByGamblerAction, FindOpenedGroupsMatchesByGamblerAction>()
         |> ignore
-        
+
         services.AddScoped<IFindBetsByGroupBetAction, FindBetsByGroupBetAction>()
+        |> ignore
+
+        services.AddScoped<IFindMatchesByGroupBetAction, FindMatchesByGroupBetAction>()
+        |> ignore
+
+        services.AddScoped<IFindGroupBetByKeyAction, FindGroupBetByKeyAction>()
+        |> ignore
+        
+        services.AddScoped<IFindMatchesByGroupMatchAction, FindMatchesByGroupMatchAction>()
+        |> ignore
+
+        services.AddScoped<IFindOnPlayingMatchesByGroupMatchAction, FindOnPlayingMatchesByGroupMatchAction>()
         |> ignore
 
     new(configuration: IConfiguration) as this =
@@ -143,10 +166,9 @@ type Startup private () =
 
         services.AddTransient<MatchGroupGamblerViewMapper>()
         |> ignore
-        
-        services.AddTransient<MatchViewMapper>()
-        |> ignore
-        
+
+        services.AddTransient<MatchViewMapper>() |> ignore
+
         services.AddTransient<MatchGroupViewMapper>()
         |> ignore
 
