@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="IQueryObject.fs" />
+      <Compile Include="DynamicQueryObject.fs" />
+      <Compile Include="IQueryRepository.fs" />
+      <Compile Include="IRepository.fs" />
+      <Compile Include="IUnitOfWork.fs" />
+      <Compile Include="EntityFrameworkCore\QueryRepository.fs" />
+      <Compile Include="EntityFrameworkCore\Repository.fs" />
+      <Compile Include="EntityFrameworkCore\UnitOfWork.fs" />
+      <Compile Include="Actions.fs" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)'=='Debug'">
+        <Compile Include="Test\Product.fs" />
+        <Compile Include="Test\Context.fs" />
+        <Compile Include="Test\DemoData.fs" />
+        <Compile Include="Test\QueryRepositoryTests.fs" />
+        <Compile Include="Test\RepositoryTests.fs" />
+        <Compile Include="Test\ActionTests.fs" />
+        <Compile Include="Test\EntityFrameworkCoreTests.fs" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)'=='Debug'">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+        <PackageReference Include="NSubstitute" Version="4.2.2" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\Pippel.Core\Pippel.Core.fsproj" />
+      <ProjectReference Include="..\Pippel.Type\Pippel.Type.fsproj" />
+    </ItemGroup>
+
+</Project>

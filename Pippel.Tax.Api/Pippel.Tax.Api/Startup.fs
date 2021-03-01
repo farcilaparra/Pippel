@@ -24,12 +24,12 @@ type Startup private () =
     // This method gets called by the runtime. Use this method to add services to the container.
     member this.ConfigureServices(services: IServiceCollection) =
         // Add framework services.
-        services.AddControllers()
-        |> ignore
+        services.AddControllers() |> ignore
 
-        services.AddDbContext<TaxContext>(fun options ->
-            options.UseNpgsql(this.Configuration.GetConnectionString("Default"))
-            |> ignore)
+        services.AddDbContext<TaxContext>
+            (fun options ->
+                options.UseNpgsql(this.Configuration.GetConnectionString("Default"))
+                |> ignore)
         |> ignore
 
         services.AddScoped<DbContext>(fun provider -> provider.GetService<TaxContext>() :> DbContext)
@@ -47,16 +47,19 @@ type Startup private () =
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     member this.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =
-        if (env.IsDevelopment())
-        then app.UseDeveloperExceptionPage() |> ignore
+        if (env.IsDevelopment()) then
+            app.UseDeveloperExceptionPage() |> ignore
 
-        app.UseExceptionHandler(fun builder ->
-            builder.Run(fun context ->
-                ExceptionResponse.asyncUpdateResponseToDefaultError
-                    context
-                    (ResponseCreator())
-                    (DefaultJsonSerializer())
-                |> Async.StartAsTask :> Task))
+        app.UseExceptionHandler
+            (fun builder ->
+                builder.Run
+                    (fun context ->
+                        ExceptionResponse.asyncUpdateResponseToDefaultError
+                            context
+                            (ResponseCreator())
+                            (DefaultJsonSerializer())
+                        |> Async.StartAsTask
+                        :> Task))
         |> ignore
 
         app.UseHttpsRedirection() |> ignore
