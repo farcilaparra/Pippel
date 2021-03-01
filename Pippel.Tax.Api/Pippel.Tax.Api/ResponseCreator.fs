@@ -5,6 +5,5 @@ open Pippel.Core
 
 type ResponseCreator() =
     interface IResponseCreator with
-    
-        member this.FuncCreateCustomCode(ex: Exception): int =
-            0
+
+        member this.FuncCreateCustomCode(ex: Exception) : int = 0

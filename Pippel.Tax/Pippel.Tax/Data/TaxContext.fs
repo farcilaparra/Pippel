@@ -14,4 +14,6 @@ type TaxContext(options: DbContextOptions<TaxContext>) =
         with get () = this._vats
         and set v = this._vats <- v
 
-    override this.OnModelCreating builder = builder.ApplyConfiguration(VatEntityTypeConfiguration()) |> ignore
+    override this.OnModelCreating builder =
+        builder.ApplyConfiguration(VatEntityTypeConfiguration())
+        |> ignore
