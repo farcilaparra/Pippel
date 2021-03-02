@@ -21,19 +21,19 @@ It's an interface with the basic functions to persist data.
 
 ```f#
 [<Interface>]
-type IRepository<'T when 'T: not struct> =
+type IRepository<'TEntity when 'TEntity: not struct> =
 
-    abstract AsyncFindByKey: obj [] -> Async<'T>
+    abstract AsyncFindByKey : obj [] -> Async<'TEntity>
 
-    abstract AsyncFind: IQueryObject -> Async<obj seq>
-    
-    abstract AsyncFind: IQueryObject * int * int -> Async<obj Page>
+    abstract AsyncFind<'TResult> : IQueryObject -> Async<'TResult seq>
 
-    abstract AsyncAdd: 'T seq -> Async<'T seq>
+    abstract AsyncFindWithPagination<'TResult> : IQueryObject -> int -> int -> Async<'TResult Page>
 
-    abstract AsyncUpdate: 'T seq -> Async<'T seq>
+    abstract AsyncAdd : 'TEntity seq -> Async<'TEntity seq>
 
-    abstract AsyncRemove: obj [] seq -> Async<'T seq>
+    abstract AsyncUpdate : 'TEntity seq -> Async<'TEntity seq>
+
+    abstract AsyncRemove : obj [] seq -> Async<'TEntity seq>
 ```
 
 ## `Repository`
@@ -62,15 +62,15 @@ Marks several items for remove.
 
 ## `IQueryRepository`
 
-It's an interface with the basic functions to query data
+It's an interface to query data.
 
 ```f#
 [<Interface>]
-type IQueryRepository<'T when 'T: not struct> =
+type IQueryRepository<'TSource when 'TSource: not struct> =
 
-    abstract AsyncFind: IQueryObject -> Async<obj seq>
-    
-    abstract AsyncFind: IQueryObject * int * int -> Async<obj Page>
+    abstract AsyncFind<'TResult> : IQueryObject -> Async<'TResult seq>
+
+    abstract AsyncFindWithPagination<'TResult> : IQueryObject -> int -> int -> Async<'TResult Page>
 ```
 
 ## `QueryRepository`

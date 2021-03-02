@@ -33,9 +33,9 @@ type BetController
         }
 
     [<HttpGet("matches")>]
-    member this.AsyncGetMatches(groupBetID: Uuid) : Async<MatchViewDto seq> =
+    member this.AsyncGetMatches(poolID: Uuid) : Async<MatchViewDto seq> =
         async {
-            let! items = findMatchesByPoolAction.AsyncExecute(groupBetID)
+            let! items = findMatchesByPoolAction.AsyncExecute poolID
 
             return
                 items
@@ -57,9 +57,9 @@ type BetController
         }
 
     [<HttpGet("position")>]
-    member this.AsyncGetPositions(groupBetID: Uuid) : Async<BetPositionViewDto seq> =
+    member this.AsyncGetPositions(poolID: Uuid) : Async<BetPositionViewDto seq> =
         async {
-            let! items = findBetsByPoolAction.AsyncExecute(groupBetID)
+            let! items = findBetsByPoolAction.AsyncExecute(poolID)
 
             return
                 items
@@ -67,10 +67,10 @@ type BetController
         }
 
     [<HttpGet("positionandonplayingmatches")>]
-    member this.AsyncGetPositionsAndOnPlayingMatches(groupBetID: Uuid) : Async<BetPositionAndOnPlayingMatchViewDto> =
+    member this.AsyncGetPositionsAndOnPlayingMatches(poolID: Uuid) : Async<BetPositionAndOnPlayingMatchViewDto> =
         async {
-            let! positions = findBetsByPoolAction.AsyncExecute(groupBetID)
-            let! onPlayingMatches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(groupBetID)
+            let! positions = findBetsByPoolAction.AsyncExecute(poolID)
+            let! onPlayingMatches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(poolID)
 
             return
                 { BetPositionAndOnPlayingMatchViewDto.BetsPositions =

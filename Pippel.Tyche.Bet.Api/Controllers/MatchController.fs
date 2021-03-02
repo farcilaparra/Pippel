@@ -19,9 +19,9 @@ type MatchController
     inherit ControllerBase()
 
     [<HttpGet>]
-    member this.Get(groupMatchID: Uuid) : Async<MasterPoolMatchViewDto seq> =
+    member this.Get(masterPoolID: Uuid) : Async<MasterPoolMatchViewDto seq> =
         async {
-            let! matches = findMatchesByMasterPoolAction.AsyncExecute(groupMatchID)
+            let! matches = findMatchesByMasterPoolAction.AsyncExecute(masterPoolID)
 
             return
                 matches
@@ -29,9 +29,9 @@ type MatchController
         }
 
     [<HttpGet("onplaying")>]
-    member this.GetOnPlayingMatches(groupBetID: Uuid) : Async<OnPlayingMatchViewDto seq> =
+    member this.GetOnPlayingMatches(poolID: Uuid) : Async<OnPlayingMatchViewDto seq> =
         async {
-            let! matches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(groupBetID)
+            let! matches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(poolID)
 
             return
                 matches
