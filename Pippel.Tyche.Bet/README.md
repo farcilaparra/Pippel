@@ -7,10 +7,13 @@ This project let to manage the domain and the persistence of bets.
 ### `Bet`
 
 ```f#
-type BetDomain =
-    { GroupBetID: Uuid
+type BetPK =
+    { PoolID: Uuid
       GamblerID: Uuid
-      MatchID: Uuid
+      MatchID: Uuid }
+
+type BetDomain =
+    { ID: BetPK
       HomeTeamValue: PositiveInt
       AwayTeamValue: PositiveInt }
 ```
@@ -18,57 +21,59 @@ type BetDomain =
 ### `Gambler`
 
 ```f#
-type GamblerDomain = { UserID: Uuid }
+type GamblerPK =
+    { UserID: Uuid }
+
+type GamblerDomain =
+    { ID: GamblerPK }
 ```
 
-### `GroupBet`
+### `Pool`
 
 ```f#
-type GroupBetDomain =
-    { ID: Uuid
+type PoolPK =
+    { PoolID: Uuid }
+
+type PoolDomain =
+    { ID: PoolPK
       GroupMatchID: Uuid
       OwnerGamblerID: Uuid
       CreationDate: DateTime }
 ```
 
-### `GroupBetGambler`
+### `PoolEnrollment`
 
 ```f#
-type GroupBetGamblerDomain =
-    { GroupBetID: Uuid
-      GamblerID: Uuid
-      Role: GamblerRole
+type PoolEnrollmentPK =
+    { PoolID: Uuid
+      GamblerID: Uuid }
+
+type PoolEnrollmentDomain =
+    { ID: PoolEnrollmentPK
       EnrollmentDate: DateTime }
 ```
 
-### `GroupMatch`
+### `MasterPool`
 
 ```f#
-type GroupMatchDomain =
-    { ID: Uuid
-      Name: NonEmptyString
+type MasterPoolPK =
+    { MasterPoolID: Uuid }
+
+type MasterPoolDomain =
+    { ID: MasterPoolPK
+      Name: NotEmptyString
       StartDate: DateTime
       EndDate: DateTime }
-```
-
-### `HistoryBet`
-
-```f#
-type HistoryBetDomain =
-    { ID: Uuid
-      GroupBetID: Uuid
-      GamblerID: Uuid
-      MatchID: Uuid
-      HomeTeamValue: PositiveInt
-      AwayTeamValue: PositiveInt
-      CreationDate: DateTime }
 ```
 
 ### `Match`
 
 ```f#
+type MatchPK =
+    { MatchID: Uuid }
+
 type MatchDomain =
-    { ID: Uuid
+    { ID: MatchPK
       HomeTeamID: Uuid
       AwayTeamID: Uuid
       RoundMatchID: Uuid
@@ -78,43 +83,50 @@ type MatchDomain =
       Status: MatchStatus }
 ```
 
-### `RoundMatchConfig`
+### `Point`
 
 ```f#
-type RoundMatchConfigDomain =
-    { RoundMatchID: Uuid
+type PointPK =
+    { PointID: Uuid }
+
+type PointDomain =
+    { ID: PointPK
+      WinOrDrawPoint: PositiveInt
       HomeResultPoint: PositiveInt
       AwayResultPoint: PositiveInt
       DiferencePoint: PositiveInt
-      InvertedDiferentePoint: PositiveInt
-      WinOrDrawPoint: PositiveInt }
+      InvertedDiferentePoint: PositiveInt }
 ```
 
-### `Bet`
+### `Round`
 
 ```f#
-type RoundMatchDomain =
-    { ID: Uuid
-      GroupMatchID: Uuid
-      Name: NonEmptyString
-      Config: RoundMatchConfigDomain }
+type RoundPK =
+    { RoundID: Uuid }
+
+type RoundDomain =
+    { ID: RoundPK
+      MasterPoolID: Uuid
+      Name: NotEmptyString
+      PointID: Uuid }
 ```
 
 ### `Team`
 
 ```f#
-type TeamDomain = { ID: Uuid; Name: NonEmptyString }
+type TeamPK =
+    { TeamID: Uuid }
+
+type TeamDomain =
+    { ID: TeamPK
+      Name: NotEmptyString }
 ```
 
 ## Actions
 
 ### `AddBetsAction`
 
-Marks several `Bet` to persist. 
-
-### `AddHistoryBetsAction`
-
-Marks several `HistoryBet` to persist.
+Marks several `Bet` to persist.
 
 ### `EditBetAction`
 
@@ -124,13 +136,13 @@ Saves several `Bet`.
 
 Finds a `Bet` by its primary key.
 
-### `FindGroupBetByKeyAction`
+### `FindPoolByKeyAction`
 
-Finds a `GroupBet` by its primary key.
+Finds a `Pool` by its primary key.
 
-### `FindGroupBetByKeyAction`
+### `FindBetByKeyAction`
 
-Marks several `Bet` to persist.
+Finds a `Bet` by its primary key.
 
 ### `FindMatchByKeyAction`
 

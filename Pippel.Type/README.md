@@ -4,7 +4,7 @@ This project has the next types:
 
 - `Barcode`
 - `DateTime`
-- `NonEmptyString`
+- `NotEmptyString`
 - `Percentage`
 - `PositiveInt`
 - `Uuid`
@@ -45,7 +45,7 @@ Data type to manage date and time. It has the next functions:
 - `toStringWithFormat`: Returns the DateTime string applying a format.
 - `toUniversalTime`: Returns the utc time.
 
-## `NonEmptyString`
+## `NotEmptyString`
 
 Data type to manage strings that don't let null or non empty values. It has the next functions:
 

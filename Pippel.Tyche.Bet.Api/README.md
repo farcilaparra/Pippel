@@ -13,29 +13,29 @@ Returns the opened group match for a gambler.
 #### Response
 
 ```json
-[{ "GroupBetID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+[{ "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "GroupMatchName": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+   "MasterPoolName": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "CurrentPoint": 15,
    "CurrentPosition": 2,
    "BeforePosition": 3 }]
 ```
 
-### GET `/bet/matches?groupbetid=*`
+### GET `/bet/matches?poolid=*`
 
-Returns the matches filtered by group bet id.
+Returns the matches filtered by pool id.
 
 #### Request
 
-`/bet/matches?groupbetid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
+`/bet/matches?poolid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
 
 #### Response
 
 ```json
 [{ "MatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "RoundMatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "GroupMatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "GroupBetID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+   "RoundID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+   "MasterPoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+   "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "MatchStatus": 1,
    "HomeTeamID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "AwayTeamID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
@@ -54,7 +54,7 @@ Saves several bets.
 #### Request
 
 ```json
-{ "GroupBetID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+{ "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
   "MatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
   "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
   "HomeTeamValue": 2,
@@ -64,25 +64,25 @@ Saves several bets.
 #### Response
 
 ```json
-[{ "GroupBetID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+[{ "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "MatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "HomeTeamValue": 2,
    "AwayTeamValue": 1 }]
 ```
 
-### GET `/bet/position?groupbetid=*`
+### GET `/bet/position?poolid=*`
 
-Returns the bet's position filtered by group bet id.
+Returns the bet's position filtered by pool id.
 
 #### Request
 
-`/bet/position?groupbetid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
+`/bet/position?poolid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
 
 #### Response
 
 ```json
-[{ "GroupBetID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+[{ "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "EnrollmentDate": "",
    "Point": null,
@@ -90,9 +90,9 @@ Returns the bet's position filtered by group bet id.
    "BeforePosition": null }]
 ```
 
-### GET `/bet/positionandonplayingmatches?groupbetid=*`
+### GET `/bet/positionandonplayingmatches?poolid=*`
 
-Returns the bet's positions and the matches is on playing filtered by group bet id.
+Returns the bet's positions and the matches is on playing filtered by pool id.
 
 #### Request
 
@@ -102,7 +102,7 @@ Returns the bet's positions and the matches is on playing filtered by group bet 
 
 ```json
 { "BetsPositions": [
-    { "GroupBetID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+    { "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
       "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
       "EnrollmentDate": "",
       "Point": null,
@@ -115,35 +115,35 @@ Returns the bet's positions and the matches is on playing filtered by group bet 
       "MatchDate": "",
       "HomeTeamName": "Colombia",
       "AwayTeamName": "Brasil",
-      "GroupMatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e" }]}
+      "MasterPoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e" }]}
 ```
 
 ## Match
 
-### GET `/match?groupmatchid=*`
+### GET `/match?masterpoolid=*`
 
-Returns the matches filtered by group match id.
+Returns the matches filtered by master pool id.
 
 #### Request
 
-`/match?groupmatchid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
+`/match?masterpoolid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
 
 #### Response
 
 ```json
-[{ "GroupMatchId": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
+[{ "MasterPoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
    "HomeTeamName": "Colombia",
    "AwayTeamName": "Brasil",
    "MatchDate": "" }]
 ```
 
-### GET `/match/onplaying?groupbetid=*`
+### GET `/match/onplaying?poolid=*`
 
-Returns the opened group match for a gambler.
+Returns the on playing matches filtered by pool id.
 
 #### Request
 
-`/match/onplaying?groupmatchid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
+`/match/onplaying?poolid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
 
 #### Response
 
@@ -154,5 +154,5 @@ Returns the opened group match for a gambler.
    "MatchDate": "",
    "HomeTeamName": "Colombia",
    "AwayTeamName": "Brasil",
-   "GroupMatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e" }]
+   "MasterPoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e" }]
 ```
