@@ -43,12 +43,12 @@ module PositiveInt =
 
     module internal EntityFrameworkCore =
 
-        let internal toModelExpression =
+        let toModelExpression =
             <@ Func<int, PositiveInt>(from) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<int, PositiveInt>>>
 
-        let internal fromModelExpression =
+        let fromModelExpression =
             <@ Func<PositiveInt, int>(value) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<PositiveInt, int>>>
@@ -58,7 +58,7 @@ module PositiveInt =
             | false -> None
             | true -> Some(element.Value |> from)
 
-        let internal toOptionExpression =
+        let toOptionExpression =
             <@ Func<int Nullable, PositiveInt option>(toOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<int Nullable, PositiveInt option>>>
@@ -68,7 +68,7 @@ module PositiveInt =
             | Some y -> y |> value |> Nullable
             | None -> Unchecked.defaultof<int Nullable>
 
-        let internal fromOptionExpression =
+        let fromOptionExpression =
             <@ Func<PositiveInt option, int Nullable>(fromOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<PositiveInt option, int Nullable>>>

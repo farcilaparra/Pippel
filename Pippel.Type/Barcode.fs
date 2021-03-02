@@ -60,12 +60,12 @@ module Barcode =
 
     module internal EntityFrameworkCore =
 
-        let internal toModelExpression =
+        let toModelExpression =
             <@ Func<string, Barcode>(from) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<string, Barcode>>>
 
-        let internal fromModelExpression =
+        let fromModelExpression =
             <@ Func<Barcode, string>(value) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<Barcode, string>>>
@@ -75,7 +75,7 @@ module Barcode =
             | true -> None
             | false -> Some(element |> from)
 
-        let internal toOptionExpression =
+        let toOptionExpression =
             <@ Func<string, Barcode option>(toOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<string, Barcode option>>>
@@ -85,7 +85,7 @@ module Barcode =
             | Some y -> y |> value
             | None -> Unchecked.defaultof<string>
 
-        let internal fromOptionExpression =
+        let fromOptionExpression =
             <@ Func<Barcode option, string>(fromOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<Barcode option, string>>>

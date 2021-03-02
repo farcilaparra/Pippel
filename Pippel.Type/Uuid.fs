@@ -4,6 +4,7 @@ open System
 open System.ComponentModel
 open System.Globalization
 open System.Linq.Expressions
+open System.Runtime.CompilerServices
 open System.Text.Json
 open System.Text.Json.Serialization
 open Microsoft.EntityFrameworkCore.Storage.ValueConversion
@@ -52,12 +53,12 @@ module Uuid =
 
     module internal EntityFrameworkCore =
 
-        let internal toModelExpression =
+        let toModelExpression =
             <@ Func<Guid, Uuid>(from) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<Guid, Uuid>>>
 
-        let internal fromModelExpression =
+        let fromModelExpression =
             <@ Func<Uuid, Guid>(value) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<Uuid, Guid>>>
@@ -67,7 +68,7 @@ module Uuid =
             | false -> None
             | true -> Some(element.Value |> from)
 
-        let internal toOptionExpression =
+        let toOptionExpression =
             <@ Func<Guid Nullable, Uuid option>(toOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<Guid Nullable, Uuid option>>>
@@ -77,7 +78,7 @@ module Uuid =
             | Some y -> y |> value |> Nullable
             | None -> Unchecked.defaultof<Guid Nullable>
 
-        let internal fromOptionExpression =
+        let fromOptionExpression =
             <@ Func<Uuid option, Guid Nullable>(fromOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<Uuid option, Guid Nullable>>>
