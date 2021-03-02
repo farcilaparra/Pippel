@@ -6,8 +6,7 @@ open Pippel.Type
 open Pippel.Type.Uuid
 
 [<CLIMutable>]
-type GamblerDao =
-    { UserID: Uuid }
+type GamblerDao = { UserID: Uuid }
 
 type GamblerEntityTypeConfiguration() =
     interface IEntityTypeConfiguration<GamblerDao> with

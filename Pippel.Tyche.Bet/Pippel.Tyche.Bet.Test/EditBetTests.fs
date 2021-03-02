@@ -14,7 +14,7 @@ open Xunit
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Tyche.Bet.Domain.Models
 
-let editingBetsWithEntityDoesNoExist: obj [] seq =
+let editingBetsWithEntityDoesNoExist : obj [] seq =
     seq {
         yield
             [| [| { BetDomain.ID =
@@ -59,7 +59,7 @@ let editingBetsWithEntityDoesNoExist: obj [] seq =
                     AwayTeamValue = 1 |> PositiveInt.from } |] |]
     }
 
-let editingBetsWithMatchStatusNonEqualToPlaying: obj [] seq =
+let editingBetsWithMatchStatusNonEqualToPlaying : obj [] seq =
     seq {
         yield
             [| [| { BetDomain.ID =
@@ -119,9 +119,13 @@ let editingBetsWithMatchStatusNonEqualToPlaying: obj [] seq =
     }
 
 let createContext () =
-    new Context(DbContextOptionsBuilder<Context>()
-        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        .Options)
+    new Context(
+        DbContextOptionsBuilder<Context>()
+            .UseInMemoryDatabase(
+            Guid.NewGuid().ToString()
+        )
+            .Options
+    )
 
 let createUnitOfWork (context: Context) = UnitOfWork(context) :> IUnitOfWork
 
@@ -263,12 +267,15 @@ let createEditBetAction (context: Context) =
 
     let betRepository =
         BetRepositoryInDB(context) :> IBetRepository
-    EditBetAction
-        (FindPoolEnrollmentByKeyAction(poolEnrollmentRepository),
-         FindMatchByKeyAction(matchRepository),
-         FindBetByKeyAction(betRepository),
-         UpdateBetsAction(betRepository),
-         AddBetsAction(betRepository)) :> IEditBetAction
+
+    EditBetAction(
+        FindPoolEnrollmentByKeyAction(poolEnrollmentRepository),
+        FindMatchByKeyAction(matchRepository),
+        FindBetByKeyAction(betRepository),
+        UpdateBetsAction(betRepository),
+        AddBetsAction(betRepository)
+    )
+    :> IEditBetAction
 
 [<Fact>]
 let ``given several bets when an action to edit them is executed then the bets are edited`` () =
@@ -318,7 +325,9 @@ let ``given several bets when an action to edit them is executed then the bets a
 
 [<Theory>]
 [<MemberData(nameof (editingBetsWithEntityDoesNoExist))>]
-let ``given a bet wich has an item doesn't exist when an action to edit them is executed then a NotFoundException is raised`` (betsDomain: BetDomain []) =
+let ``given a bet wich has an item doesn't exist when an action to edit them is executed then a NotFoundException is raised``
+    (betsDomain: BetDomain [])
+    =
     async {
 
         let context = createContext ()
@@ -329,16 +338,19 @@ let ``given a bet wich has an item doesn't exist when an action to edit them is 
 
         let editBetAction = createEditBetAction context
 
-        Assert.Throws<NotFoundException>(fun () ->
-            editBetAction.AsyncExecute betsDomain
-            |> Async.RunSynchronously
-            |> ignore)
+        Assert.Throws<NotFoundException>
+            (fun () ->
+                editBetAction.AsyncExecute betsDomain
+                |> Async.RunSynchronously
+                |> ignore)
         |> ignore
     }
 
 [<Theory>]
 [<MemberData(nameof (editingBetsWithMatchStatusNonEqualToPlaying))>]
-let ``given a bet wich has an match non equal to pending when an action to edit them is executed then a EditingBetNotAllowedException is raised`` (betsDomain: BetDomain []) =
+let ``given a bet wich has an match non equal to pending when an action to edit them is executed then a EditingBetNotAllowedException is raised``
+    (betsDomain: BetDomain [])
+    =
     async {
 
         let context = createContext ()
@@ -347,9 +359,10 @@ let ``given a bet wich has an match non equal to pending when an action to edit 
 
         let editBetAction = createEditBetAction context
 
-        Assert.Throws<EditingBetNotAllowedException>(fun () ->
-            editBetAction.AsyncExecute betsDomain
-            |> Async.RunSynchronously
-            |> ignore)
+        Assert.Throws<EditingBetNotAllowedException>
+            (fun () ->
+                editBetAction.AsyncExecute betsDomain
+                |> Async.RunSynchronously
+                |> ignore)
         |> ignore
     }

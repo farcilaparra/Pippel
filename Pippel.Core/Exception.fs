@@ -16,8 +16,7 @@ type Error =
       Message: string }
 
 [<CLIMutable>]
-type ExceptionResponse =
-    { Error: Error }
+type ExceptionResponse = { Error: Error }
 
 type ExceptionCode =
     | Generic = 0

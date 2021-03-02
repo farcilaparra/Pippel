@@ -16,14 +16,22 @@ open MatchDataHelper
 open Xunit
 
 let createContext () =
-    new Context(DbContextOptionsBuilder<Context>()
-        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        .Options)
+    new Context(
+        DbContextOptionsBuilder<Context>()
+            .UseInMemoryDatabase(
+            Guid.NewGuid().ToString()
+        )
+            .Options
+    )
 
 let createQueryContext () =
-    new QueryContext(DbContextOptionsBuilder<QueryContext>()
-        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        .Options)
+    new QueryContext(
+        DbContextOptionsBuilder<QueryContext>()
+            .UseInMemoryDatabase(
+            Guid.NewGuid().ToString()
+        )
+            .Options
+    )
 
 [<Fact>]
 let ``given a group match id when a request to query the matches by group match id then the matches are returned`` () =
@@ -37,8 +45,10 @@ let ``given a group match id when a request to query the matches by group match 
 
         findMatchesByMasterPoolAction
             .AsyncExecute(Arg.Any<Uuid>())
-            .Returns(Task.FromResult(matchesToReturn |> Array.toSeq)
-                     |> Async.AwaitTask)
+            .Returns(
+                Task.FromResult(matchesToReturn |> Array.toSeq)
+                |> Async.AwaitTask
+            )
         |> ignore
 
         let builder =
@@ -67,7 +77,9 @@ let ``given a group match id when a request to query the matches by group match 
     }
 
 [<Fact>]
-let ``given a group bet id when a request to query the on playing matches by group bet id then the matches are returned`` () =
+let ``given a group bet id when a request to query the on playing matches by group bet id then the matches are returned``
+    ()
+    =
     async {
 
         let matchesToReturn =
@@ -78,8 +90,10 @@ let ``given a group bet id when a request to query the on playing matches by gro
 
         findOnPlayingMatchesByPoolAction
             .AsyncExecute(Arg.Any<Uuid>())
-            .Returns(Task.FromResult(matchesToReturn |> Array.toSeq)
-                     |> Async.AwaitTask)
+            .Returns(
+                Task.FromResult(matchesToReturn |> Array.toSeq)
+                |> Async.AwaitTask
+            )
         |> ignore
 
         let builder =
@@ -91,8 +105,8 @@ let ``given a group bet id when a request to query the on playing matches by gro
                     services.AddScoped<QueryContext>(fun provider -> createQueryContext ())
                     |> ignore
 
-                    services.AddTransient<IFindOnPlayingMatchesByPoolAction>(fun provider ->
-                        findOnPlayingMatchesByPoolAction)
+                    services.AddTransient<IFindOnPlayingMatchesByPoolAction>
+                        (fun provider -> findOnPlayingMatchesByPoolAction)
                     |> ignore)
                 .UseEnvironment("Development")
                 .UseStartup<Startup>()
@@ -101,7 +115,10 @@ let ``given a group bet id when a request to query the on playing matches by gro
         let client = server.CreateClient()
 
         let request =
-            new HttpRequestMessage(HttpMethod("GET"), "/match/onplaying?groupbetid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36")
+            new HttpRequestMessage(
+                HttpMethod("GET"),
+                "/match/onplaying?groupbetid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36"
+            )
 
         let! response = client.SendAsync(request) |> Async.AwaitTask
 
