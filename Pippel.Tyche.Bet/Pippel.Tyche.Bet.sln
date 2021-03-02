@@ -8,6 +8,14 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Type", "..\Pippel.Ty
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Data", "..\Pippel.Data\Pippel.Data.fsproj", "{5563C220-3676-4B81-8609-AEEA3E13B43B}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Core.Test", "..\Pippel.Core\Pippel.Core.Test\Pippel.Core.Test.fsproj", "{72D563EB-F4CE-44DE-A44C-58BFFC3879AA}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Type.Test", "..\Pippel.Type\Pippel.Type.Test\Pippel.Type.Test.fsproj", "{4AA92BFF-A322-4D99-AD1E-251A3AF2149E}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Data.Test", "..\Pippel.Data\Pippel.Data.Test\Pippel.Data.Test.fsproj", "{530E860A-10AB-4488-B6F8-D022F2306942}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Tyche.Bet.Test", "Pippel.Tyche.Bet.Test\Pippel.Tyche.Bet.Test.fsproj", "{FCB1090C-FF2A-4121-9F53-0EA90BCD0FFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +38,21 @@ Global
 		{5563C220-3676-4B81-8609-AEEA3E13B43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5563C220-3676-4B81-8609-AEEA3E13B43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5563C220-3676-4B81-8609-AEEA3E13B43B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72D563EB-F4CE-44DE-A44C-58BFFC3879AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72D563EB-F4CE-44DE-A44C-58BFFC3879AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72D563EB-F4CE-44DE-A44C-58BFFC3879AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72D563EB-F4CE-44DE-A44C-58BFFC3879AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AA92BFF-A322-4D99-AD1E-251A3AF2149E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA92BFF-A322-4D99-AD1E-251A3AF2149E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA92BFF-A322-4D99-AD1E-251A3AF2149E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA92BFF-A322-4D99-AD1E-251A3AF2149E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{530E860A-10AB-4488-B6F8-D022F2306942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{530E860A-10AB-4488-B6F8-D022F2306942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{530E860A-10AB-4488-B6F8-D022F2306942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{530E860A-10AB-4488-B6F8-D022F2306942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCB1090C-FF2A-4121-9F53-0EA90BCD0FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCB1090C-FF2A-4121-9F53-0EA90BCD0FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCB1090C-FF2A-4121-9F53-0EA90BCD0FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCB1090C-FF2A-4121-9F53-0EA90BCD0FFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

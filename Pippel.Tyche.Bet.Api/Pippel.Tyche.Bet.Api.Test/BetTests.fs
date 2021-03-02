@@ -9,7 +9,7 @@ open Microsoft.AspNetCore.Hosting
 open Microsoft.AspNetCore.TestHost
 open Microsoft.EntityFrameworkCore
 open Microsoft.Extensions.DependencyInjection
-open Moq
+open NSubstitute
 open Pippel.Tyche.Bet
 open Pippel.Tyche.Bet.Api
 open Pippel.Tyche.Bet.Domain.Actions
@@ -23,22 +23,14 @@ open Pippel.Type.Uuid
 open Xunit
 
 let createContext () =
-    new Context(
-        DbContextOptionsBuilder<Context>()
-            .UseInMemoryDatabase(
-            Guid.NewGuid().ToString()
-        )
-            .Options
-    )
+    new Context(DbContextOptionsBuilder<Context>()
+        .UseInMemoryDatabase(Guid.NewGuid().ToString())
+        .Options)
 
 let createQueryContext () =
-    new QueryContext(
-        DbContextOptionsBuilder<QueryContext>()
-            .UseInMemoryDatabase(
-            Guid.NewGuid().ToString()
-        )
-            .Options
-    )
+    new QueryContext(DbContextOptionsBuilder<QueryContext>()
+        .UseInMemoryDatabase(Guid.NewGuid().ToString())
+        .Options)
 
 [<Fact>]
 let ``given several editing bets when a request to edit the bets is raised then a correct answer is gotten`` () =
@@ -46,10 +38,10 @@ let ``given several editing bets when a request to edit the bets is raised then 
 
         let betsToReturn = createBetsToReturn ()
 
-        let editBetActionMock = Mock<IEditBetAction>()
+        let editBetAction = Substitute.For<IEditBetAction>()
 
-        editBetActionMock
-            .Setup(fun x -> x.AsyncExecute(It.IsAny<BetDomain seq>()))
+        editBetAction
+            .AsyncExecute(Arg.Any<BetDomain seq>())
             .Returns(Task.FromResult(betsToReturn |> Array.toSeq)
                      |> Async.AwaitTask)
         |> ignore
@@ -63,7 +55,7 @@ let ``given several editing bets when a request to edit the bets is raised then 
                     services.AddScoped<QueryContext>(fun provider -> createQueryContext ())
                     |> ignore
 
-                    services.AddTransient<IEditBetAction>(fun provider -> editBetActionMock.Object)
+                    services.AddTransient<IEditBetAction>(fun provider -> editBetAction)
                     |> ignore)
                 .UseEnvironment("Development")
                 .UseStartup<Startup>()
@@ -93,19 +85,17 @@ let ``given several editing bets when a request to edit the bets is raised then 
     }
 
 [<Fact>]
-let ``given a gambler id when a request to query the opened matches by gambler id then the opened matches are returned``
-    ()
-    =
+let ``given a gambler id when a request to query the opened master pools by gambler id then a correct answer is gotten`` () =
     async {
 
-        let matchesToReturn = createMatchesToReturn ()
+        let poolsReviewToReturn = createPoolsReviewToReturn ()
 
-        let findOpenedGroupsMatchesByGamblerAction =
-            Mock<IFindOpenedGroupsMatchesByGamblerAction>()
+        let findOpenedMasterPoolsByGamblerAction =
+            Substitute.For<IFindOpenedMasterPoolsByGamblerAction>()
 
-        findOpenedGroupsMatchesByGamblerAction
-            .Setup(fun x -> x.AsyncExecute(It.IsAny<Uuid>()))
-            .Returns(Task.FromResult(matchesToReturn |> Array.toSeq)
+        findOpenedMasterPoolsByGamblerAction
+            .AsyncExecute(Arg.Any<Uuid>())
+            .Returns(Task.FromResult(poolsReviewToReturn |> Array.toSeq)
                      |> Async.AwaitTask)
         |> ignore
 
@@ -118,8 +108,8 @@ let ``given a gambler id when a request to query the opened matches by gambler i
                     services.AddScoped<QueryContext>(fun provider -> createQueryContext ())
                     |> ignore
 
-                    services.AddTransient<IFindOpenedGroupsMatchesByGamblerAction>
-                        (fun provider -> findOpenedGroupsMatchesByGamblerAction.Object)
+                    services.AddTransient<IFindOpenedMasterPoolsByGamblerAction>(fun provider ->
+                        findOpenedMasterPoolsByGamblerAction)
                     |> ignore)
                 .UseEnvironment("Development")
                 .UseStartup<Startup>()
@@ -136,15 +126,16 @@ let ``given a gambler id when a request to query the opened matches by gambler i
     }
 
 [<Fact>]
-let ``given a group bet id when a request to query the matches by group bet id then the matches are returned`` () =
+let ``given a pool id when a request to query the matches by pool id then a correct answer is gotten`` () =
     async {
 
         let matchesToReturn = createMatchesViewDaosToReturn ()
 
-        let findMatchesByGroupBetAction = Mock<IFindMatchesByGroupBetAction>()
+        let findMatchesByPoolAction =
+            Substitute.For<IFindMatchesByPoolAction>()
 
-        findMatchesByGroupBetAction
-            .Setup(fun x -> x.AsyncExecute(It.IsAny<Uuid>()))
+        findMatchesByPoolAction
+            .AsyncExecute(Arg.Any<Uuid>())
             .Returns(Task.FromResult(matchesToReturn |> Array.toSeq)
                      |> Async.AwaitTask)
         |> ignore
@@ -158,8 +149,7 @@ let ``given a group bet id when a request to query the matches by group bet id t
                     services.AddScoped<QueryContext>(fun provider -> createQueryContext ())
                     |> ignore
 
-                    services.AddTransient<IFindMatchesByGroupBetAction>
-                        (fun provider -> findMatchesByGroupBetAction.Object)
+                    services.AddTransient<IFindMatchesByPoolAction>(fun provider -> findMatchesByPoolAction)
                     |> ignore)
                 .UseEnvironment("Development")
                 .UseStartup<Startup>()
@@ -168,7 +158,7 @@ let ``given a group bet id when a request to query the matches by group bet id t
         let client = server.CreateClient()
 
         let request =
-            new HttpRequestMessage(HttpMethod("GET"), "/bet/matches?groupbetid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36")
+            new HttpRequestMessage(HttpMethod("GET"), "/bet/matches?poolid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36")
 
         let! response = client.SendAsync(request) |> Async.AwaitTask
 
@@ -176,17 +166,15 @@ let ``given a group bet id when a request to query the matches by group bet id t
     }
 
 [<Fact>]
-let ``given a group bet id when a request to query the bet's positions by group bet id then the bet's positions are returned``
-    ()
-    =
+let ``given a pool id when a request to query the bet's positions by pool id then a correct answer is gotten`` () =
     async {
 
         let betsPositionsToReturn = createBetsPositionsViewDaosToReturn ()
 
-        let findBetsByGroupBetAction = Mock<IFindBetsByGroupBetAction>()
+        let findBetsByPoolAction = Substitute.For<IFindBetsByPoolAction>()
 
-        findBetsByGroupBetAction
-            .Setup(fun x -> x.AsyncExecute(It.IsAny<Uuid>()))
+        findBetsByPoolAction
+            .AsyncExecute(Arg.Any<Uuid>())
             .Returns(Task.FromResult(betsPositionsToReturn |> Array.toSeq)
                      |> Async.AwaitTask)
         |> ignore
@@ -200,7 +188,7 @@ let ``given a group bet id when a request to query the bet's positions by group 
                     services.AddScoped<QueryContext>(fun provider -> createQueryContext ())
                     |> ignore
 
-                    services.AddTransient<IFindBetsByGroupBetAction>(fun provider -> findBetsByGroupBetAction.Object)
+                    services.AddTransient<IFindBetsByPoolAction>(fun provider -> findBetsByPoolAction)
                     |> ignore)
                 .UseEnvironment("Development")
                 .UseStartup<Startup>()
@@ -209,7 +197,7 @@ let ``given a group bet id when a request to query the bet's positions by group 
         let client = server.CreateClient()
 
         let request =
-            new HttpRequestMessage(HttpMethod("GET"), "/bet/position?groupbetid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36")
+            new HttpRequestMessage(HttpMethod("GET"), "/bet/position?poolid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36")
 
         let! response = client.SendAsync(request) |> Async.AwaitTask
 
@@ -217,9 +205,7 @@ let ``given a group bet id when a request to query the bet's positions by group 
     }
 
 [<Fact>]
-let ``given a group bet id when a request to get the on playing matches and the bet's positions by group bet id then the on playing matches and the bet's positions are returned``
-    ()
-    =
+let ``given a pool id when a request to get the on playing matches and the bet's positions by pool id then a correct answer is gotten`` () =
     async {
 
         let betsPositionsToReturn = createBetsPositionsViewDaosToReturn ()
@@ -227,19 +213,19 @@ let ``given a group bet id when a request to get the on playing matches and the 
         let matchesToReturn =
             createOnPlayingMatchesViewDaosToReturn ()
 
-        let findBetsByGroupBetAction = Mock<IFindBetsByGroupBetAction>()
+        let findBetsByPoolAction = Substitute.For<IFindBetsByPoolAction>()
 
-        findBetsByGroupBetAction
-            .Setup(fun x -> x.AsyncExecute(It.IsAny<Uuid>()))
+        findBetsByPoolAction
+            .AsyncExecute(Arg.Any<Uuid>())
             .Returns(Task.FromResult(betsPositionsToReturn |> Array.toSeq)
                      |> Async.AwaitTask)
         |> ignore
 
-        let findOnPlayingMatchesByGroupMatchAction =
-            Mock<IFindOnPlayingMatchesByGroupBetAction>()
+        let findOnPlayingMatchesByPoolAction =
+            Substitute.For<IFindOnPlayingMatchesByPoolAction>()
 
-        findOnPlayingMatchesByGroupMatchAction
-            .Setup(fun x -> x.AsyncExecute(It.IsAny<Uuid>()))
+        findOnPlayingMatchesByPoolAction
+            .AsyncExecute(Arg.Any<Uuid>())
             .Returns(Task.FromResult(matchesToReturn |> Array.toSeq)
                      |> Async.AwaitTask)
         |> ignore
@@ -253,11 +239,11 @@ let ``given a group bet id when a request to get the on playing matches and the 
                     services.AddScoped<QueryContext>(fun provider -> createQueryContext ())
                     |> ignore
 
-                    services.AddTransient<IFindBetsByGroupBetAction>(fun provider -> findBetsByGroupBetAction.Object)
+                    services.AddTransient<IFindBetsByPoolAction>(fun provider -> findBetsByPoolAction)
                     |> ignore
 
-                    services.AddTransient<IFindOnPlayingMatchesByGroupBetAction>
-                        (fun provider -> findOnPlayingMatchesByGroupMatchAction.Object)
+                    services.AddTransient<IFindOnPlayingMatchesByPoolAction>(fun provider ->
+                        findOnPlayingMatchesByPoolAction)
                     |> ignore)
                 .UseEnvironment("Development")
                 .UseStartup<Startup>()
@@ -266,10 +252,8 @@ let ``given a group bet id when a request to get the on playing matches and the 
         let client = server.CreateClient()
 
         let request =
-            new HttpRequestMessage(
-                HttpMethod("GET"),
-                "/bet/positionandonplayingmatches?groupbetid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36"
-            )
+            new HttpRequestMessage(HttpMethod("GET"),
+                                   "/bet/positionandonplayingmatches?poolid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36")
 
         let! response = client.SendAsync(request) |> Async.AwaitTask
 

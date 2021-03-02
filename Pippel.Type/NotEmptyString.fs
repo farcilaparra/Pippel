@@ -41,12 +41,12 @@ module NotEmptyString =
 
     module internal EntityFrameworkCore =
 
-        let internal toModelExpression =
+        let toModelExpression =
             <@ Func<string, NotEmptyString>(from) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<string, NotEmptyString>>>
 
-        let internal fromModelExpression =
+        let fromModelExpression =
             <@ Func<NotEmptyString, string>(value) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<NotEmptyString, string>>>
@@ -56,7 +56,7 @@ module NotEmptyString =
             | true -> None
             | false -> Some(element |> from)
 
-        let internal toOptionExpression =
+        let toOptionExpression =
             <@ Func<string, NotEmptyString option>(toOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<string, NotEmptyString option>>>
@@ -66,7 +66,7 @@ module NotEmptyString =
             | Some y -> y |> value
             | None -> Unchecked.defaultof<string>
 
-        let internal fromOptionExpression =
+        let fromOptionExpression =
             <@ Func<NotEmptyString option, string>(fromOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<NotEmptyString option, string>>>

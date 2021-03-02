@@ -14,7 +14,7 @@ type MatchController
     (
         logger: ILogger<MatchController>,
         findMatchesByMasterPoolAction: IFindMatchesByMasterPoolAction,
-        findOnPlayingMatchesByMasterPoolAction: IFindOnPlayingMatchesByMasterPoolAction
+        findOnPlayingMatchesByMasterPoolAction: IFindOnPlayingMatchesByPoolAction
     ) =
     inherit ControllerBase()
 

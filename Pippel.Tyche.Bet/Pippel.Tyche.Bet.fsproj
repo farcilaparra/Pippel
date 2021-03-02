@@ -84,12 +84,8 @@
         <Compile Include="Domain\Actions\Queries\FindOpenedMasterPoolsByGamblerAction.fs" />
         <Compile Include="Domain\Actions\Queries\IFindMatchesByPoolAction.fs" />
         <Compile Include="Domain\Actions\Queries\FindMatchesByPoolAction.fs" />
-        <Compile Include="Domain\Actions\Queries\IFindOnPlayingMatchesByMasterPoolAction.fs" />
-        <Compile Include="Domain\Actions\Queries\FindOnPlayingMatchesByMasterPoolAction.fs" />
-    </ItemGroup>
-    
-    <ItemGroup Condition="'$(Configuration)'=='Debug'">
-        <Compile Include="Test\EditBetTests.fs" />
+        <Compile Include="Domain\Actions\Queries\IFindOnPlayingMatchesByPoolAction.fs" />
+        <Compile Include="Domain\Actions\Queries\FindOnPlayingMatchesByPoolAction.fs" />
     </ItemGroup>
     
     <ItemGroup>
@@ -98,11 +94,5 @@
         <ProjectReference Include="..\Pippel.Core\Pippel.Core.fsproj" />
         <ProjectReference Include="..\Pippel.Data\Pippel.Data.fsproj" />
         <ProjectReference Include="..\Pippel.Type\Pippel.Type.fsproj" />
-    </ItemGroup>
-    
-    <ItemGroup Condition="'$(Configuration)'=='Debug'">
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
-        <PackageReference Include="NSubstitute" Version="4.2.2" />
-        <PackageReference Include="xunit" Version="2.4.1" />
     </ItemGroup>
 </Project>

@@ -43,12 +43,12 @@ module Percentage =
 
     module internal EntityFrameworkCore =
 
-        let internal toModelExpression =
+        let toModelExpression =
             <@ Func<float, Percentage>(from) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<float, Percentage>>>
 
-        let internal fromModelExpression =
+        let fromModelExpression =
             <@ Func<Percentage, float>(value) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<Percentage, float>>>
@@ -58,7 +58,7 @@ module Percentage =
             | false -> None
             | true -> Some(element.Value |> from)
 
-        let internal toOptionExpression =
+        let toOptionExpression =
             <@ Func<float Nullable, Percentage option>(toOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<float Nullable, Percentage option>>>
@@ -68,7 +68,7 @@ module Percentage =
             | Some y -> y |> value |> Nullable
             | None -> Unchecked.defaultof<float Nullable>
 
-        let internal fromOptionExpression =
+        let fromOptionExpression =
             <@ Func<Percentage option, float Nullable>(fromOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<Percentage option, float Nullable>>>

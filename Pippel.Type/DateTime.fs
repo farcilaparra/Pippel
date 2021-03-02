@@ -58,12 +58,12 @@ module DateTime =
 
     module internal EntityFrameworkCore =
 
-        let internal toModelExpression =
+        let toModelExpression =
             <@ Func<System.DateTime, DateTime>(from) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<System.DateTime, DateTime>>>
 
-        let internal fromModelExpression =
+        let fromModelExpression =
             <@ Func<DateTime, System.DateTime>(value) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<DateTime, System.DateTime>>>
@@ -73,7 +73,7 @@ module DateTime =
             | false -> None
             | true -> Some(element.Value |> from)
 
-        let internal toOptionExpression =
+        let toOptionExpression =
             <@ Func<System.DateTime Nullable, DateTime option>(toOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<System.DateTime Nullable, DateTime option>>>
@@ -83,7 +83,7 @@ module DateTime =
             | Some y -> y |> value |> Nullable
             | None -> Unchecked.defaultof<System.DateTime Nullable>
 
-        let internal fromOptionExpression =
+        let fromOptionExpression =
             <@ Func<DateTime option, System.DateTime Nullable>(fromOption) @>
             |> LeafExpressionConverter.QuotationToExpression
             |> unbox<Expression<Func<DateTime option, System.DateTime Nullable>>>

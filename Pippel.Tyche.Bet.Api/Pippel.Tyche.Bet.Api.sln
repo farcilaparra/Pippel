@@ -10,6 +10,16 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Data", "..\Pippel.Da
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Tyche.Bet", "..\Pippel.Tyche.Bet\Pippel.Tyche.Bet.fsproj", "{1B086493-D106-4FC8-9033-B5E46BB2D70D}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Core.Test", "..\Pippel.Core\Pippel.Core.Test\Pippel.Core.Test.fsproj", "{7AF02C21-B790-4063-BB74-4F1BE3F72830}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Type.Test", "..\Pippel.Type\Pippel.Type.Test\Pippel.Type.Test.fsproj", "{D480AE3A-280A-45E7-A81E-A51B5F6A16EE}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Data.Test", "..\Pippel.Data\Pippel.Data.Test\Pippel.Data.Test.fsproj", "{C3D6709A-8A54-4F08-8B4A-FB3E37A0204C}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Tyche.Bet.Test", "..\Pippel.Tyche.Bet\Pippel.Tyche.Bet.Test\Pippel.Tyche.Bet.Test.fsproj", "{95E14FB1-6B2D-467E-993F-A29DB746856F}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pippel.Tyche.Bet.Api.Test", "Pippel.Tyche.Bet.Api.Test\Pippel.Tyche.Bet.Api.Test.fsproj", "{A22BE236-03C9-4B2C-A8DD-C71D0115C92E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +46,25 @@ Global
 		{1B086493-D106-4FC8-9033-B5E46BB2D70D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B086493-D106-4FC8-9033-B5E46BB2D70D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B086493-D106-4FC8-9033-B5E46BB2D70D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AF02C21-B790-4063-BB74-4F1BE3F72830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF02C21-B790-4063-BB74-4F1BE3F72830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF02C21-B790-4063-BB74-4F1BE3F72830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF02C21-B790-4063-BB74-4F1BE3F72830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D480AE3A-280A-45E7-A81E-A51B5F6A16EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D480AE3A-280A-45E7-A81E-A51B5F6A16EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D480AE3A-280A-45E7-A81E-A51B5F6A16EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D480AE3A-280A-45E7-A81E-A51B5F6A16EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3D6709A-8A54-4F08-8B4A-FB3E37A0204C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D6709A-8A54-4F08-8B4A-FB3E37A0204C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3D6709A-8A54-4F08-8B4A-FB3E37A0204C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D6709A-8A54-4F08-8B4A-FB3E37A0204C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95E14FB1-6B2D-467E-993F-A29DB746856F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E14FB1-6B2D-467E-993F-A29DB746856F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95E14FB1-6B2D-467E-993F-A29DB746856F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95E14FB1-6B2D-467E-993F-A29DB746856F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A22BE236-03C9-4B2C-A8DD-C71D0115C92E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A22BE236-03C9-4B2C-A8DD-C71D0115C92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A22BE236-03C9-4B2C-A8DD-C71D0115C92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A22BE236-03C9-4B2C-A8DD-C71D0115C92E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

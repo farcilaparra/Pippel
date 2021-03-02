@@ -18,7 +18,7 @@ type BetController
         findOpenedMasterPoolsByGamblerAction: IFindOpenedMasterPoolsByGamblerAction,
         findMatchesByPoolAction: IFindMatchesByPoolAction,
         findBetsByPoolAction: IFindBetsByPoolAction,
-        findOnPlayingMatchesByMasterPoolAction: IFindOnPlayingMatchesByMasterPoolAction
+        findOnPlayingMatchesByMasterPoolAction: IFindOnPlayingMatchesByPoolAction
     ) =
     inherit ControllerBase()
 

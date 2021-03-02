@@ -92,7 +92,7 @@ type Startup private () =
         services.AddScoped<IFindMatchesByMasterPoolAction, FindMatchesByMasterPoolAction>()
         |> ignore
 
-        services.AddScoped<IFindOnPlayingMatchesByMasterPoolAction, FindOnPlayingMatchesByMasterPoolAction>()
+        services.AddScoped<IFindOnPlayingMatchesByPoolAction, FindOnPlayingMatchesByPoolAction>()
         |> ignore
 
     let initTypeConverters () = Uuid.initTypeConverter ()
