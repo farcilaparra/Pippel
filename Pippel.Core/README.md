@@ -7,7 +7,7 @@ It let to manage the response of rest service when an error occurs. An example o
 ```json
 {
     "Error": {
-        "Code": 0,
+        "Code": "GENERIC-0",
         "Message": "Internal server error"
     }
 }
@@ -23,13 +23,15 @@ member this.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =
             builder.Run(fun context ->
                 ExceptionResponse.asyncUpdateResponseToDefaultError
                     context
-                    (DefaultResponseCreator())
+                    (funcCreateCustomCode)
                     (JsonSerializer())
                 |> Async.StartAsTask :> Task))
         |> ignore
 
         ...
 ```
+
+**_NOTE:_** `funcCreateCustomCode` is a function with type `Exception -> string` used for return the code of custom exceptions. 
 
 The lines must be before of `app.UseHttpsRedirection()`.
 
@@ -55,17 +57,10 @@ It has extension methods to select, filter, group, and sort an `IQueryable` thro
  let items = query.Where("percentage > 0.1").ToList()
 ``` 
 
-## IMapper
-
-It's an interface to map objects.
+or
 
 ```f#
-[<Interface>]
-type IMapper<'TSource, 'TTarget> =
-
-    abstract MapToTarget: 'TSource -> 'TTarget
-
-    abstract MapToSource: 'TTarget -> 'TSource
+ let items = query.Where("percentage > @0", 0.1).ToList()
 ```
 
 ## IJsonSerializer

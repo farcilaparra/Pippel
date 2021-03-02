@@ -1,35 +1,87 @@
-# Base project to manage the data persistence in F#
+# Base project to manage data persistence in F#
 
-## IRepository
+## `IQueryObject`
+
+It's a interface to filter a `IQueryable`.
+
+```f#
+[<Interface>]
+type IQueryObject =
+
+    abstract Query: IQueryable -> IQueryable
+```
+
+## `DynamicQueryObject`
+
+It's an implementation of `IQueryObject` that let filter an `IQueryable` by string criteria.
+
+## `IRepository`
 
 It's an interface with the basic functions to persist data.
 
 ```f#
 [<Interface>]
-type IRepository<'T when 'T: not struct> =
+type IRepository<'TEntity when 'TEntity: not struct> =
 
-    abstract AsyncFindByKey: obj [] -> Async<'T>
+    abstract AsyncFindByKey : obj [] -> Async<'TEntity>
 
-    abstract AsyncFind: QueryObject -> Async<obj Page>
+    abstract AsyncFind<'TResult> : IQueryObject -> Async<'TResult seq>
 
-    abstract AsyncAdd: 'T seq -> Async<'T seq>
+    abstract AsyncFindWithPagination<'TResult> : IQueryObject -> int -> int -> Async<'TResult Page>
 
-    abstract AsyncUpdate: 'T seq -> Async<'T seq>
+    abstract AsyncAdd : 'TEntity seq -> Async<'TEntity seq>
 
-    abstract AsyncRemove: obj [] seq -> Async<'T seq>
+    abstract AsyncUpdate : 'TEntity seq -> Async<'TEntity seq>
+
+    abstract AsyncRemove : obj [] seq -> Async<'TEntity seq>
 ```
 
-## Repository
+## `Repository`
 
-It's an implementation of `IRepository` that uses Entity Framework Core. It has five functions:
+It's an implementation of `IRepository` that uses Entity Framework Core.
 
-* **AsyncFindByKey**: Finds an item by its primary key.
-* **AsyncFind**: Finds several items by the given criteria.
-* **AsyncAdd**: Marks serveral items for persist.
-* **AsyncUpdate**: Marks serveral items for update.
-* **AsyncRemove**: Marks several items for remove.
+### `AsyncFindByKey`
 
-## IUnitOfWork
+Finds an item by its primary key.
+
+### `AsyncFind`
+
+Finds several items by any criteria.
+
+### `AsyncAdd`
+
+Marks several items for persist.
+
+### `AsyncUpdate`
+
+Marks several items for update.
+
+### `AsyncRemove`
+
+Marks several items for remove.
+
+## `IQueryRepository`
+
+It's an interface to query data.
+
+```f#
+[<Interface>]
+type IQueryRepository<'TSource when 'TSource: not struct> =
+
+    abstract AsyncFind<'TResult> : IQueryObject -> Async<'TResult seq>
+
+    abstract AsyncFindWithPagination<'TResult> : IQueryObject -> int -> int -> Async<'TResult Page>
+```
+
+## `QueryRepository`
+
+It's an implementation of `IQueryRepository` that uses Entity Framework Core.
+
+### `AsyncFind`
+
+Finds several items by any criteria.
+
+## `IUnitOfWork`
 
 It's an interface to manage the changes to the persistence.
 
@@ -40,26 +92,6 @@ type IUnitOfWork =
     abstract SaveChanges: unit -> unit
 ```
 
-## UnitOfWork
+## `UnitOfWork`
 
 It's an implementatio of `IUnitOfWork` that uses Entity Framework Core.
-
-## AddAction
-
-It executes the action to mark an item for persist.
-
-## FindAction
-
-It executes the action to find several items by any criteria.
-
-## FindByKeyAction
-
-It executes the action to find an item by ids primary key.
-
-## RemoveAction
-
-It executes the action to mark an item for remove.
-
-## UpdateAction
-
-It executes the action to mark several items for update.

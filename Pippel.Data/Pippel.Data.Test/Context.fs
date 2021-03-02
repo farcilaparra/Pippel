@@ -11,3 +11,7 @@ type Context(options: DbContextOptions<Context>) =
     member this.Products
         with get () = this.products
         and set v = this.products <- v
+
+    override this.OnModelCreating builder =
+        builder.ApplyConfiguration(ProductEntityTypeConfiguration())
+        |> ignore

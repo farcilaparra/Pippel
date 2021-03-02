@@ -15,10 +15,9 @@ module Program =
     let exitCode = 0
 
     let CreateHostBuilder args =
-        Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(fun webBuilder ->
-                webBuilder.UseStartup<Startup>() |> ignore
-            )
+        Host
+            .CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(fun webBuilder -> webBuilder.UseStartup<Startup>() |> ignore)
 
     [<EntryPoint>]
     let main args =

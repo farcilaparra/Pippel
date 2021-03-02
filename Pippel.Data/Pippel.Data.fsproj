@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="IQueryObject.fs"/>
+        <Compile Include="DynamicQueryObject.fs"/>
+        <Compile Include="IQueryRepository.fs"/>
+        <Compile Include="IRepository.fs"/>
+        <Compile Include="IUnitOfWork.fs"/>
+        <Compile Include="EntityFrameworkCore\QueryRepository.fs"/>
+        <Compile Include="EntityFrameworkCore\Repository.fs"/>
+        <Compile Include="EntityFrameworkCore\UnitOfWork.fs"/>
+        <Compile Include="Actions.fs"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3"/>
+        <ProjectReference Include="..\Pippel.Core\Pippel.Core.fsproj"/>
+        <ProjectReference Include="..\Pippel.Type\Pippel.Type.fsproj"/>
+    </ItemGroup>
+
+</Project>

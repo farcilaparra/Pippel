@@ -7,4 +7,3 @@ type VatDao =
     { ID: Guid
       Name: string
       Percentage: float }
-            

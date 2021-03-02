@@ -2,112 +2,152 @@
 
 This project let to manage the domain and the persistence of bets.
 
-## IAppUserRepository
+## Models
 
-It's an interface with the actions over the ```AppUserDao```.
-
-```f#
-[<Interface>]
-type IAppUserRepository =
-    inherit IRepository<AppUserDao>
-```
-
-## IBetRepository
-
-It's an interface with the actions over the ```BetDao```.
+### `Bet`
 
 ```f#
-[<Interface>]
-type IBetRepository =
-    inherit IRepository<BetDao>
+type BetPK =
+    { PoolID: Uuid
+      GamblerID: Uuid
+      MatchID: Uuid }
+
+type BetDomain =
+    { ID: BetPK
+      HomeTeamValue: PositiveInt
+      AwayTeamValue: PositiveInt }
 ```
 
-## IBetConfigRepository
-
-It's an interface with the actions over the ```BetConfigDao```.
+### `Gambler`
 
 ```f#
-[<Interface>]
-type IBetConfigRepository =
-    inherit IRepository<BetConfigDao>
+type GamblerPK =
+    { UserID: Uuid }
+
+type GamblerDomain =
+    { ID: GamblerPK }
 ```
 
-## IGamblerRepository
-
-It's an interface with the actions over the ```GamblerDao```.
+### `Pool`
 
 ```f#
-[<Interface>]
-type IGamblerRepository =
-    inherit IRepository<GamblerDao>
+type PoolPK =
+    { PoolID: Uuid }
+
+type PoolDomain =
+    { ID: PoolPK
+      GroupMatchID: Uuid
+      OwnerGamblerID: Uuid
+      CreationDate: DateTime }
 ```
 
-## IGroupBetRepository
-
-It's an interface with the actions over the ```GroupBetDao```.
+### `PoolEnrollment`
 
 ```f#
-[<Interface>]
-type IGroupBetRepository =
-    inherit IRepository<GroupBetDao>
+type PoolEnrollmentPK =
+    { PoolID: Uuid
+      GamblerID: Uuid }
+
+type PoolEnrollmentDomain =
+    { ID: PoolEnrollmentPK
+      EnrollmentDate: DateTime }
 ```
 
-## IGroupBetGamblerRepository
-
-It's an interface with the actions over the ```GroupBetGamblerDao```.
+### `MasterPool`
 
 ```f#
-[<Interface>]
-type IGroupBetGamblerRepository =
-    inherit IRepository<GroupBetGamblerDao>
+type MasterPoolPK =
+    { MasterPoolID: Uuid }
+
+type MasterPoolDomain =
+    { ID: MasterPoolPK
+      Name: NotEmptyString
+      StartDate: DateTime
+      EndDate: DateTime }
 ```
 
-## IGroupMatchRepository
-
-It's an interface with the actions over the ```GroupMatchDao```.
+### `Match`
 
 ```f#
-[<Interface>]
-type IGroupMatchRepository =
-    inherit IRepository<GroupMatchDao>
+type MatchPK =
+    { MatchID: Uuid }
+
+type MatchDomain =
+    { ID: MatchPK
+      HomeTeamID: Uuid
+      AwayTeamID: Uuid
+      RoundMatchID: Uuid
+      MatchDate: DateTime
+      HomeResult: PositiveInt option
+      AwayResult: PositiveInt option
+      Status: MatchStatus }
 ```
 
-## IHistoryBetRepository
-
-It's an interface with the actions over the ```HistoryBetDao```.
+### `Point`
 
 ```f#
-[<Interface>]
-type IHistoryBetRepository =
-    inherit IRepository<HistoryBetDao>
+type PointPK =
+    { PointID: Uuid }
+
+type PointDomain =
+    { ID: PointPK
+      WinOrDrawPoint: PositiveInt
+      HomeResultPoint: PositiveInt
+      AwayResultPoint: PositiveInt
+      DiferencePoint: PositiveInt
+      InvertedDiferentePoint: PositiveInt }
 ```
 
-## IMatchRepository
-
-It's an interface with the actions over the ```MatchDao```.
+### `Round`
 
 ```f#
-[<Interface>]
-type IMatchRepository =
-    inherit IRepository<MatchDao>
+type RoundPK =
+    { RoundID: Uuid }
+
+type RoundDomain =
+    { ID: RoundPK
+      MasterPoolID: Uuid
+      Name: NotEmptyString
+      PointID: Uuid }
 ```
 
-## IRoundMatchRepository
-
-It's an interface with the actions over the ```RoundMatchDao```.
+### `Team`
 
 ```f#
-[<Interface>]
-type IRoundMatchRepository =
-    inherit IRepository<RoundMatchDao>
+type TeamPK =
+    { TeamID: Uuid }
+
+type TeamDomain =
+    { ID: TeamPK
+      Name: NotEmptyString }
 ```
 
-## ITeamRepository
+## Actions
 
-It's an interface with the actions over the ```TeamDao```.
+### `AddBetsAction`
 
-```f#
-[<Interface>]
-type ITeamRepository =
-    inherit IRepository<TeamDao>
-```
+Marks several `Bet` to persist.
+
+### `EditBetAction`
+
+Saves several `Bet`.
+
+### `FindBetByKeyAction`
+
+Finds a `Bet` by its primary key.
+
+### `FindPoolByKeyAction`
+
+Finds a `Pool` by its primary key.
+
+### `FindBetByKeyAction`
+
+Finds a `Bet` by its primary key.
+
+### `FindMatchByKeyAction`
+
+Finds a `Match` by its primary key.
+
+### `UpdateBetsAction`
+
+Marks several `Bet` to update.

@@ -5,9 +5,12 @@ open Xunit
 
 [<Fact>]
 let ``given an object when it's serialized and after deserialized then the object is equal to deserialized object`` () =
-    let jsonSerializer = DefaultJsonSerializer() :> IJsonSerializer
-    
-    let obj = {| Code = "c1"; Name = "Code c1" |}
+    let jsonSerializer =
+        DefaultJsonSerializer() :> IJsonSerializer
+
+    let obj =
+        {| Code = "c1"
+           Name = "Code c1" |}
 
     let serializedObj = jsonSerializer.Serialize(obj)
 

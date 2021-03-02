@@ -1,0 +1,98 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Exception.fs" />
+        <Compile Include="Data\Models\TeamDao.fs" />
+        <Compile Include="Data\Models\MatchDao.fs" />
+        <Compile Include="Data\Models\PointDao.fs" />
+        <Compile Include="Data\Models\RoundDao.fs" />
+        <Compile Include="Data\Models\MasterPoolDao.fs" />
+        <Compile Include="Data\Models\GamblerDao.fs" />
+        <Compile Include="Data\Models\BetDao.fs" />
+        <Compile Include="Data\Models\PoolDao.fs" />
+        <Compile Include="Data\Models\PoolEnrollmentDao.fs" />
+        <Compile Include="Data\Models\Queries\PoolReviewViewDao.fs" />
+        <Compile Include="Data\Models\Queries\MatchViewDao.fs" />
+        <Compile Include="Data\Models\Queries\MasterPoolMatchViewDao.fs" />
+        <Compile Include="Data\Models\Queries\BetPositionViewDao.fs" />
+        <Compile Include="Data\Models\Queries\OnPlayingMatchViewDao.fs" />
+        <Compile Include="Data\Contexts.fs" />
+        <Compile Include="Data\QueryContext.fs" />
+        <Compile Include="Data\Repositories\Queries\QueryRepositoryInDB.fs" />
+        <Compile Include="Data\Repositories\ITeamRepository.fs" />
+        <Compile Include="Data\Repositories\TeamRepositoryInDB.fs" />
+        <Compile Include="Data\Repositories\IMatchRepository.fs" />
+        <Compile Include="Data\Repositories\MatchRepositoryInDB.fs" />
+        <Compile Include="Data\Repositories\IRoundRepository.fs" />
+        <Compile Include="Data\Repositories\RoundRepositoryInDB.fs" />
+        <Compile Include="Data\Repositories\IMasterPoolRepository.fs" />
+        <Compile Include="Data\Repositories\MasterPoolRepositoryInDB.fs" />
+        <Compile Include="Data\Repositories\IGamblerRepository.fs" />
+        <Compile Include="Data\Repositories\GamblerRepositoryInDB.fs" />
+        <Compile Include="Data\Repositories\IBetRepository.fs" />
+        <Compile Include="Data\Repositories\BetRepositoryInDB.fs" />
+        <Compile Include="Data\Repositories\IPoolRepository.fs" />
+        <Compile Include="Data\Repositories\PoolRepositoryInDB.fs" />
+        <Compile Include="Data\Repositories\IPoolEnrollmentRepository.fs" />
+        <Compile Include="Data\Repositories\PoolEnrollmentRepositoryInDB.fs" />
+        <Compile Include="Domain\Models\PoolDomain.fs" />
+        <Compile Include="Domain\Models\GamblerDomain.fs" />
+        <Compile Include="Domain\Models\PoolEnrollmentDomain.fs" />
+        <Compile Include="Domain\Models\BetDomain.fs" />
+        <Compile Include="Domain\Models\PointDomain.fs" />
+        <Compile Include="Domain\Models\MasterPoolDomain.fs" />
+        <Compile Include="Domain\Models\MatchDomain.fs" />
+        <Compile Include="Domain\Models\RoundDomain.fs" />
+        <Compile Include="Domain\Models\TeamDomain.fs" />
+        <Compile Include="Domain\Mappers\PoolDomainMapper.fs" />
+        <Compile Include="Domain\Mappers\GamblerDomainMapper.fs" />
+        <Compile Include="Domain\Mappers\PoolEnrollmentDomainMapper.fs" />
+        <Compile Include="Domain\Mappers\BetDomainMapper.fs" />
+        <Compile Include="Domain\Mappers\PointDomainMapper.fs" />
+        <Compile Include="Domain\Mappers\MasterPoolDomainMapper.fs" />
+        <Compile Include="Domain\Mappers\MatchDomainMapper.fs" />
+        <Compile Include="Domain\Mappers\RoundDomainMapper.fs" />
+        <Compile Include="Domain\Mappers\TeamDomainMapper.fs" />
+        <Compile Include="Domain\Actions\IFindBetByKeyAction.fs" />
+        <Compile Include="Domain\Actions\FindBetByKeyAction.fs" />
+        <Compile Include="Domain\Actions\IAddBetsAction.fs" />
+        <Compile Include="Domain\Actions\AddBetsAction.fs" />
+        <Compile Include="Domain\Actions\IUpdateBetsAction.fs" />
+        <Compile Include="Domain\Actions\UpdateBetsAction.fs" />
+        <Compile Include="Domain\Actions\IFindMatchByKeyAction.fs" />
+        <Compile Include="Domain\Actions\FindMatchByKeyAction.fs" />
+        <Compile Include="Domain\Actions\IFindPoolEnrollmentByKeyAction.fs" />
+        <Compile Include="Domain\Actions\FindPoolEnrollmentByKeyAction.fs" />
+        <Compile Include="Domain\Actions\IEditBetAction.fs" />
+        <Compile Include="Domain\Actions\EditBetAction.fs" />
+        <Compile Include="Domain\Actions\IFindPoolByKeyAction.fs" />
+        <Compile Include="Domain\Actions\FindPoolByKeyAction.fs" />
+        <Compile Include="Domain\Actions\Queries\QueriesObjects\OpenedMasterPoolsByGamblerQueryObject.fs" />
+        <Compile Include="Domain\Actions\Queries\QueriesObjects\MatchesByPoolQueryObject.fs" />
+        <Compile Include="Domain\Actions\Queries\QueriesObjects\MatchesByMasterPoolQueryObject.fs" />
+        <Compile Include="Domain\Actions\Queries\QueriesObjects\BetsByPoolQueryObject.fs" />
+        <Compile Include="Domain\Actions\Queries\QueriesObjects\OnPlayingMatchesByMasterPoolQueryObject.fs" />
+        <Compile Include="Domain\Actions\Queries\IFindBetsByPoolAction.fs" />
+        <Compile Include="Domain\Actions\Queries\FindBetsByPoolAction.fs" />
+        <Compile Include="Domain\Actions\Queries\IFindMatchesByMasterPoolAction.fs" />
+        <Compile Include="Domain\Actions\Queries\FindMatchesByMasterPoolAction.fs" />
+        <Compile Include="Domain\Actions\Queries\IFindOpenedMasterPoolsByGamblerAction.fs" />
+        <Compile Include="Domain\Actions\Queries\FindOpenedMasterPoolsByGamblerAction.fs" />
+        <Compile Include="Domain\Actions\Queries\IFindMatchesByPoolAction.fs" />
+        <Compile Include="Domain\Actions\Queries\FindMatchesByPoolAction.fs" />
+        <Compile Include="Domain\Actions\Queries\IFindOnPlayingMatchesByPoolAction.fs" />
+        <Compile Include="Domain\Actions\Queries\FindOnPlayingMatchesByPoolAction.fs" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+        <ProjectReference Include="..\Pippel.Core\Pippel.Core.fsproj" />
+        <ProjectReference Include="..\Pippel.Data\Pippel.Data.fsproj" />
+        <ProjectReference Include="..\Pippel.Type\Pippel.Type.fsproj" />
+    </ItemGroup>
+</Project>

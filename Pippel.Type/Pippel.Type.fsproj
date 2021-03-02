@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp5.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Validation.fs" />
+        <Compile Include="Uuid.fs" />
+        <Compile Include="Barcode.fs" />
+        <Compile Include="NotEmptyString.fs" />
+        <Compile Include="Percentage.fs" />
+        <Compile Include="PositiveInt.fs" />
+        <Compile Include="DateTime.fs" />
+        <Compile Include="AssemblyInfo.fs" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+    </ItemGroup>
+</Project>

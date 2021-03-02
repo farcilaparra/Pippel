@@ -21,7 +21,13 @@ open Pippel.Core
 
 /// Creates a context
 let createContext () =
-    new TaxContext(DbContextOptionsBuilder<TaxContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options)
+    new TaxContext(
+        DbContextOptionsBuilder<TaxContext>()
+            .UseInMemoryDatabase(
+            Guid.NewGuid().ToString()
+        )
+            .Options
+    )
 
 /// Creates example data
 let createVatsDaos () =
@@ -47,8 +53,10 @@ let createHttpClientWithData (vatEntities: VatDao []) =
     let builder =
         WebHostBuilder()
             .ConfigureTestServices(fun services ->
-                                  services.AddScoped<TaxContext>(fun provider -> createContextWithData(vatEntities))
-                                  |> ignore).UseEnvironment("Development").UseStartup<Startup>()
+                services.AddScoped<TaxContext>(fun provider -> createContextWithData (vatEntities))
+                |> ignore)
+            .UseEnvironment("Development")
+            .UseStartup<Startup>()
 
     let server = new TestServer(builder)
     server.CreateClient()
@@ -65,7 +73,11 @@ let ``given an id of a vat that exist when a request to get vat's info is raised
 
         let vatsDtos =
             vatsDaos
-            |> Array.map (fun x -> x |> vatDomainMapper.MapToSource |> vatViewMapper.MapToSource)
+            |> Array.map
+                (fun x ->
+                    x
+                    |> vatDomainMapper.MapToSource
+                    |> vatViewMapper.MapToSource)
 
         let indexToFind = 1
         let httpClient = createHttpClientWithData (vatsDaos)
@@ -90,7 +102,9 @@ let ``given an id of a vat that exist when a request to get vat's info is raised
     }
 
 [<Fact>]
-let ``given an id of a vat that doesn't exist when a request to get vat's info is executed then a code of error NotFound is returned`` () =
+let ``given an id of a vat that doesn't exist when a request to get vat's info is executed then a code of error NotFound is returned``
+    ()
+    =
     async {
         let httpClient =
             createHttpClientWithData (createVatsDaos ())
@@ -128,13 +142,15 @@ let ``given a vat when a request to persist it is executed then the vat is persi
             JsonSerializerOptions(PropertyNamingPolicy = JsonNamingPolicy.CamelCase)
 
         let json =
-            JsonSerializer.Serialize
-                ([| { VatDto.Id = null
-                      Name = "Vat for 50%"
-                      Percentage = 0.5 } |],
-                 jsonOptions)
+            JsonSerializer.Serialize(
+                [| { VatDto.Id = null
+                     Name = "Vat for 50%"
+                     Percentage = 0.5 } |],
+                jsonOptions
+            )
 
         request.Content <- new StringContent(json, Encoding.UTF8, "application/json")
+
         let! response = httpClient.SendAsync(request) |> Async.AwaitTask
 
         response.EnsureSuccessStatusCode() |> ignore
@@ -153,7 +169,9 @@ let ``given a vat when a request to persist it is executed then the vat is persi
     }
 
 [<Fact>]
-let ``given an vat that exists when a request to persist it is executed then a code of error AlreadyExist is returned`` () =
+let ``given an vat that exists when a request to persist it is executed then a code of error AlreadyExist is returned``
+    ()
+    =
     async {
         let vatDaos = createVatsDaos ()
         let httpClient = createHttpClientWithData (vatDaos)
@@ -170,13 +188,15 @@ let ``given an vat that exists when a request to persist it is executed then a c
             JsonSerializerOptions(PropertyNamingPolicy = JsonNamingPolicy.CamelCase)
 
         let json =
-            JsonSerializer.Serialize
-                ([| vatDaos.ElementAt(0)
-                    |> vatDomainMapper.MapToSource
-                    |> vatViewMapper.MapToSource |],
-                 jsonOptions)
+            JsonSerializer.Serialize(
+                [| vatDaos.ElementAt(0)
+                   |> vatDomainMapper.MapToSource
+                   |> vatViewMapper.MapToSource |],
+                jsonOptions
+            )
 
         request.Content <- new StringContent(json, Encoding.UTF8, "application/json")
+
         let! response = httpClient.SendAsync(request) |> Async.AwaitTask
 
         Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode)
@@ -219,6 +239,7 @@ let ``given a vat that persist when a request to update it is executed then the 
             JsonSerializer.Serialize([| vat |], jsonOptions)
 
         request.Content <- new StringContent(json, Encoding.UTF8, "application/json")
+
         let! response = httpClient.SendAsync(request) |> Async.AwaitTask
 
         response.EnsureSuccessStatusCode() |> ignore
@@ -261,6 +282,7 @@ let ``given an id of a vat that persist when a request to remove is executed the
             JsonSerializer.Serialize([| vat.Id |], jsonOptions)
 
         request.Content <- new StringContent(json, Encoding.UTF8, "application/json")
+
         let! response = httpClient.SendAsync(request) |> Async.AwaitTask
 
         response.EnsureSuccessStatusCode() |> ignore

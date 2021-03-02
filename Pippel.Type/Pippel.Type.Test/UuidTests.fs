@@ -4,50 +4,103 @@ open System
 open Xunit
 open Pippel.Type
 
-let wrongValues: obj [] seq =
-    seq {
-        yield [| null |]
-        yield [| "hello" |]
-    }
-
-[<Fact>]
-let ``given a correct value for an Uuid when an Uuid is created from it then an Uuid is returned`` () =
-    let value = "123e4567-e89b-12d3-a456-426655440000"
-    let uuid = value |> Uuid.create
-    Assert.True(true)
-    Assert.Equal(value, uuid |> Uuid.value)
-
-
-[<Theory>]
-[<MemberData("wrongValues")>]
-let ``given a wrong value for an Uuid when a Uuid is created from it then an exception is raised`` (value: string) =
-    Assert.Throws<ArgumentException>(fun () -> value |> Uuid.create |> ignore)
-
-
-[<Fact>]
-let ``given a correct value for an Uuid when an Uuid try to create then an option with the Uuid is returned`` () =
-    let value = "123e4567-e89b-12d3-a456-426655440000"
-    let uuidOpt = value |> Uuid.tryCreate
-    Assert.True(uuidOpt.IsSome)
-    Assert.Equal(value, uuidOpt.Value |> Uuid.value)
-
-
-[<Theory>]
-[<MemberData("wrongValues")>]
-let ``given a wrong value for an Uuid when an Uuid try to create then an option without value is returned`` (value: string) =
-    let uuidOpt = value |> Uuid.tryCreate
-    Assert.True(uuidOpt.IsNone)
-
-
 [<Fact>]
 let ``given a Guid when an Uuid is created from it then an Uuid is returned`` () =
-    let guid = Guid.NewGuid()
-    let uuid = guid |> Uuid.createFromGuid
-    Assert.Equal(guid.ToString(), uuid |> Uuid.value)
-    
-    
+    let value = Guid.NewGuid()
+    let uuid = value |> Uuid.from
+    Assert.Equal(value, uuid |> Uuid.value)
+
 [<Fact>]
-let ``given an Uuid when it's converted to Guid then a Guid is returned`` () =
-    let uuid = Uuid.newUuid ()
-    let guid = uuid |> Uuid.toGuid
-    Assert.Equal(uuid |> Uuid.value, guid.ToString())
+let ``given a valid string when an Uuid is created from it then an Uuid is returned`` () =
+    let value = Guid.NewGuid().ToString()
+    let uuid = value |> Uuid.fromString
+    Assert.Equal(value, uuid |> Uuid.toString)
+
+[<Fact>]
+let ``given a invalid string when an Uuid is created from it then an exception is raised`` () =
+    let value = ""
+    Assert.Throws<ArgumentException>(fun () -> value |> Uuid.fromString |> ignore)
+
+[<Fact>]
+let ``given a valid string when an Uuid tries to create from it then an Uuid option with value is returned`` () =
+    let value = Guid.NewGuid().ToString()
+    let uuidOpt = value |> Uuid.tryFrom
+    Assert.True(uuidOpt.IsSome)
+    Assert.Equal(value, uuidOpt.Value |> Uuid.toString)
+
+[<Fact>]
+let ``given a invalid string when an Uuid tries to create from it then an Uuid option without value is returned`` () =
+    let value = ""
+    let uuidOpt = value |> Uuid.tryFrom
+    Assert.True(uuidOpt.IsNone)
+
+[<Fact>]
+let ``given a guid nullable when an it's converted to Uuid option then an Uuid option is returned`` () =
+    let provider = Guid.NewGuid() |> Nullable
+
+    let model =
+        Uuid.EntityFrameworkCore.toOption provider
+
+    Assert.True(model.IsSome)
+    Assert.Equal(provider.Value, model.Value |> Uuid.value)
+
+[<Fact>]
+let ``given a guid nullable with null when it's converted to Uuid option then an Uuid option is returned`` () =
+    let provider = Nullable<Guid>()
+
+    let model =
+        Uuid.EntityFrameworkCore.toOption provider
+
+    Assert.True(model.IsNone)
+
+[<Fact>]
+let ``given a Uuid option with value when it's converted to guid nullable then an guid nullable with value is returned``
+    ()
+    =
+    let model = Some(Uuid.newUuid ())
+
+    let provider =
+        Uuid.EntityFrameworkCore.fromOption model
+
+    Assert.True(provider.HasValue)
+    Assert.Equal(model.Value |> Uuid.value, provider.Value)
+
+[<Fact>]
+let ``given a Uuid option with none when it's converted to guid nullable then an guid nullable with null is returned``
+    ()
+    =
+    let model : Uuid option = None
+
+    let provider =
+        Uuid.EntityFrameworkCore.fromOption model
+
+    Assert.True(not provider.HasValue)
+
+[<Fact>]
+let ``given a uuid string when it's converted to Uuid using model converter then an Uuid is returned`` () =
+    let provider = Guid.NewGuid().ToString()
+    let model = Uuid.Model.toModel provider
+    Assert.Equal(provider, model |> Uuid.toString)
+
+[<Fact>]
+let ``given an uuid string when it tries to convert to Uuid using model converter then an Uuid option with value is returned``
+    ()
+    =
+    let provider = Guid.NewGuid().ToString()
+    let model = Uuid.Model.tryToModel provider
+    Assert.True(model.IsSome)
+    Assert.Equal(provider, model.Value |> Uuid.toString)
+
+[<Fact>]
+let ``given an invalid uuid string when it tries to convert to Uuid using model converter then an Uuid option without value is returned``
+    ()
+    =
+    let provider = "hello"
+    let model = Uuid.Model.tryToModel provider
+    Assert.True(model.IsNone)
+
+[<Fact>]
+let ``given a Uuid when it's converted to uuid string using model converter then an uuid string is returned`` () =
+    let model = Uuid.newUuid ()
+    let provider = Uuid.Model.fromModel model
+    Assert.Equal(model |> Uuid.toString, provider)
