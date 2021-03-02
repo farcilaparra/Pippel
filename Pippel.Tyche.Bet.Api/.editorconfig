@@ -1,0 +1,2 @@
+[*.fs]
+maximum_width_of_single_line_record_expressions=0

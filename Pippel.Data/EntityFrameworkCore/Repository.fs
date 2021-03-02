@@ -17,7 +17,6 @@ type Repository<'TEntity when 'TEntity: not struct>(context: DbContext) =
             if isNull <| box item then
                 NotFoundException($"The item with ids = ({String.Join(',', ids)}) doesn't exist")
                 |> raise
-
             context.Entry(item).State <- EntityState.Detached
 
             return item

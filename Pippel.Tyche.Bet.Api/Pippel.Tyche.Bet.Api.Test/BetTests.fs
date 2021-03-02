@@ -23,14 +23,22 @@ open Pippel.Type.Uuid
 open Xunit
 
 let createContext () =
-    new Context(DbContextOptionsBuilder<Context>()
-        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        .Options)
+    new Context(
+        DbContextOptionsBuilder<Context>()
+            .UseInMemoryDatabase(
+            Guid.NewGuid().ToString()
+        )
+            .Options
+    )
 
 let createQueryContext () =
-    new QueryContext(DbContextOptionsBuilder<QueryContext>()
-        .UseInMemoryDatabase(Guid.NewGuid().ToString())
-        .Options)
+    new QueryContext(
+        DbContextOptionsBuilder<QueryContext>()
+            .UseInMemoryDatabase(
+            Guid.NewGuid().ToString()
+        )
+            .Options
+    )
 
 [<Fact>]
 let ``given several editing bets when a request to edit the bets is raised then a correct answer is gotten`` () =
@@ -42,8 +50,10 @@ let ``given several editing bets when a request to edit the bets is raised then 
 
         editBetAction
             .AsyncExecute(Arg.Any<BetDomain seq>())
-            .Returns(Task.FromResult(betsToReturn |> Array.toSeq)
-                     |> Async.AwaitTask)
+            .Returns(
+                Task.FromResult(betsToReturn |> Array.toSeq)
+                |> Async.AwaitTask
+            )
         |> ignore
 
         let builder =
@@ -85,7 +95,9 @@ let ``given several editing bets when a request to edit the bets is raised then 
     }
 
 [<Fact>]
-let ``given a gambler id when a request to query the opened master pools by gambler id then a correct answer is gotten`` () =
+let ``given a gambler id when a request to query the opened master pools by gambler id then a correct answer is gotten``
+    ()
+    =
     async {
 
         let poolsReviewToReturn = createPoolsReviewToReturn ()
@@ -95,8 +107,10 @@ let ``given a gambler id when a request to query the opened master pools by gamb
 
         findOpenedMasterPoolsByGamblerAction
             .AsyncExecute(Arg.Any<Uuid>())
-            .Returns(Task.FromResult(poolsReviewToReturn |> Array.toSeq)
-                     |> Async.AwaitTask)
+            .Returns(
+                Task.FromResult(poolsReviewToReturn |> Array.toSeq)
+                |> Async.AwaitTask
+            )
         |> ignore
 
         let builder =
@@ -108,8 +122,8 @@ let ``given a gambler id when a request to query the opened master pools by gamb
                     services.AddScoped<QueryContext>(fun provider -> createQueryContext ())
                     |> ignore
 
-                    services.AddTransient<IFindOpenedMasterPoolsByGamblerAction>(fun provider ->
-                        findOpenedMasterPoolsByGamblerAction)
+                    services.AddTransient<IFindOpenedMasterPoolsByGamblerAction>
+                        (fun provider -> findOpenedMasterPoolsByGamblerAction)
                     |> ignore)
                 .UseEnvironment("Development")
                 .UseStartup<Startup>()
@@ -136,8 +150,10 @@ let ``given a pool id when a request to query the matches by pool id then a corr
 
         findMatchesByPoolAction
             .AsyncExecute(Arg.Any<Uuid>())
-            .Returns(Task.FromResult(matchesToReturn |> Array.toSeq)
-                     |> Async.AwaitTask)
+            .Returns(
+                Task.FromResult(matchesToReturn |> Array.toSeq)
+                |> Async.AwaitTask
+            )
         |> ignore
 
         let builder =
@@ -175,8 +191,10 @@ let ``given a pool id when a request to query the bet's positions by pool id the
 
         findBetsByPoolAction
             .AsyncExecute(Arg.Any<Uuid>())
-            .Returns(Task.FromResult(betsPositionsToReturn |> Array.toSeq)
-                     |> Async.AwaitTask)
+            .Returns(
+                Task.FromResult(betsPositionsToReturn |> Array.toSeq)
+                |> Async.AwaitTask
+            )
         |> ignore
 
         let builder =
@@ -205,7 +223,9 @@ let ``given a pool id when a request to query the bet's positions by pool id the
     }
 
 [<Fact>]
-let ``given a pool id when a request to get the on playing matches and the bet's positions by pool id then a correct answer is gotten`` () =
+let ``given a pool id when a request to get the on playing matches and the bet's positions by pool id then a correct answer is gotten``
+    ()
+    =
     async {
 
         let betsPositionsToReturn = createBetsPositionsViewDaosToReturn ()
@@ -217,8 +237,10 @@ let ``given a pool id when a request to get the on playing matches and the bet's
 
         findBetsByPoolAction
             .AsyncExecute(Arg.Any<Uuid>())
-            .Returns(Task.FromResult(betsPositionsToReturn |> Array.toSeq)
-                     |> Async.AwaitTask)
+            .Returns(
+                Task.FromResult(betsPositionsToReturn |> Array.toSeq)
+                |> Async.AwaitTask
+            )
         |> ignore
 
         let findOnPlayingMatchesByPoolAction =
@@ -226,8 +248,10 @@ let ``given a pool id when a request to get the on playing matches and the bet's
 
         findOnPlayingMatchesByPoolAction
             .AsyncExecute(Arg.Any<Uuid>())
-            .Returns(Task.FromResult(matchesToReturn |> Array.toSeq)
-                     |> Async.AwaitTask)
+            .Returns(
+                Task.FromResult(matchesToReturn |> Array.toSeq)
+                |> Async.AwaitTask
+            )
         |> ignore
 
         let builder =
@@ -242,8 +266,8 @@ let ``given a pool id when a request to get the on playing matches and the bet's
                     services.AddTransient<IFindBetsByPoolAction>(fun provider -> findBetsByPoolAction)
                     |> ignore
 
-                    services.AddTransient<IFindOnPlayingMatchesByPoolAction>(fun provider ->
-                        findOnPlayingMatchesByPoolAction)
+                    services.AddTransient<IFindOnPlayingMatchesByPoolAction>
+                        (fun provider -> findOnPlayingMatchesByPoolAction)
                     |> ignore)
                 .UseEnvironment("Development")
                 .UseStartup<Startup>()
@@ -252,8 +276,10 @@ let ``given a pool id when a request to get the on playing matches and the bet's
         let client = server.CreateClient()
 
         let request =
-            new HttpRequestMessage(HttpMethod("GET"),
-                                   "/bet/positionandonplayingmatches?poolid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36")
+            new HttpRequestMessage(
+                HttpMethod("GET"),
+                "/bet/positionandonplayingmatches?poolid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36"
+            )
 
         let! response = client.SendAsync(request) |> Async.AwaitTask
 
