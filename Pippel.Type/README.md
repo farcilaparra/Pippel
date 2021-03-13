@@ -44,6 +44,7 @@ Data type to manage date and time. It has the next functions:
 - `toString`: Returns the DateTime string.
 - `toStringWithFormat`: Returns the DateTime string applying a format.
 - `toUniversalTime`: Returns the utc time.
+- `addDays`: Adds days to date.
 
 ## `NotEmptyString`
 
@@ -71,6 +72,9 @@ Data type to manage numbers greate or equal that 0. It has the next functions:
 - `from`: Creates a PositiveInt. Raise an exception if it hasn't a valid format.
 - `value`: Returns the PositiveInt's value as a number.
 - `toString`: Returns the PositiveInt string.
+- `tryFromNullable`: Returns a PositiveInt option from a nullable number.
+- `fromNullable`: Creates a PositiveInt. Raise an exception if it hasn't a valid format.
+- `nullableValue`: Returns the PositiveInt's value as a nullable number.
 
 ## `Uuid`
 

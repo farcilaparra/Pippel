@@ -9,6 +9,5 @@ module PoolReviewViewMapper =
         { PoolReviewViewDto.PoolID = poolReviewViewDao.PoolID
           GamblerID = poolReviewViewDao.GamblerID
           MasterPoolName = poolReviewViewDao.MasterPoolName
-          CurrentPoint = poolReviewViewDao.CurrentPoint
           CurrentPosition = poolReviewViewDao.CurrentPosition
           BeforePosition = poolReviewViewDao.BeforePosition }

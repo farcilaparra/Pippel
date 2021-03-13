@@ -1,17 +1,17 @@
 namespace Pippel.Tyche.Bet.Api.Data.Models
 
+open System
 open Pippel.Tyche.Bet.Data.Models
-open Pippel.Type
 
 type MatchViewDto =
-    { MatchID: Uuid
-      RoundID: Uuid
-      MasterPoolID: Uuid
-      PoolID: Uuid
+    { MatchID: Guid
+      RoundID: Guid
+      MasterPoolID: Guid
+      PoolID: Guid
       MatchStatus: MatchStatus
-      HomeTeamID: Uuid
-      AwayTeamID: Uuid
+      HomeTeamID: Guid
+      AwayTeamID: Guid
       MatchDate: DateTime
-      HomeTeamName: NotEmptyString
-      AwayTeamName: NotEmptyString
-      Point: PositiveInt option }
+      HomeTeamName: string
+      AwayTeamName: string
+      Point: int Nullable }

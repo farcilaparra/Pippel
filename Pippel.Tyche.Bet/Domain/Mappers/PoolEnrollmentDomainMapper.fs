@@ -2,16 +2,19 @@ namespace Pippel.Tyche.Bet.Domain.Mappers
 
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Models
+open Pippel.Type
 
 module PoolEnrollmentDomainMapper =
 
     let mapFromDomain (poolEnrollmentDomain: PoolEnrollmentDomain) : PoolEnrollmentDao =
-        { PoolEnrollmentDao.PoolID = poolEnrollmentDomain.ID.PoolID
-          PoolEnrollmentDao.GamblerID = poolEnrollmentDomain.ID.GamblerID
-          EnrollmentDate = poolEnrollmentDomain.EnrollmentDate }
+        { PoolEnrollmentDao.PoolID = poolEnrollmentDomain.ID.PoolID |> Uuid.value
+          PoolEnrollmentDao.GamblerID = poolEnrollmentDomain.ID.GamblerID |> Uuid.value
+          EnrollmentDate =
+              poolEnrollmentDomain.EnrollmentDate
+              |> DateTime.value }
 
     let mapToDomain (poolEnrollmentDao: PoolEnrollmentDao) : PoolEnrollmentDomain =
         { PoolEnrollmentDomain.ID =
-              { PoolID = poolEnrollmentDao.PoolID
-                GamblerID = poolEnrollmentDao.GamblerID }
-          EnrollmentDate = poolEnrollmentDao.EnrollmentDate }
+              { PoolID = poolEnrollmentDao.PoolID |> Uuid.from
+                GamblerID = poolEnrollmentDao.GamblerID |> Uuid.from }
+          EnrollmentDate = poolEnrollmentDao.EnrollmentDate |> DateTime.from }

@@ -1,18 +1,16 @@
 namespace Pippel.Tyche.Bet.Data.Models
 
+open System
 open Microsoft.EntityFrameworkCore
 open Microsoft.EntityFrameworkCore.Metadata.Builders
-open Pippel.Type
-open Pippel.Type.PositiveInt
-open Pippel.Type.Uuid
 
 [<CLIMutable>]
 type BetDao =
-    { PoolID: Uuid
-      GamblerID: Uuid
-      MatchID: Uuid
-      HomeTeamValue: PositiveInt
-      AwayTeamValue: PositiveInt }
+    { PoolID: Guid
+      GamblerID: Guid
+      MatchID: Guid
+      HomeTeamValue: int
+      AwayTeamValue: int }
 
 type BetEntityTypeConfiguration() =
     interface IEntityTypeConfiguration<BetDao> with
@@ -27,33 +25,28 @@ type BetEntityTypeConfiguration() =
                 .Property(fun x -> x.PoolID)
                 .HasColumnName("POOL_ID")
                 .IsRequired()
-                .HasConversion(UuidValueConverter())
             |> ignore
 
             builder
                 .Property(fun x -> x.GamblerID)
                 .HasColumnName("GAMBLER_ID")
                 .IsRequired()
-                .HasConversion(UuidValueConverter())
             |> ignore
 
             builder
                 .Property(fun x -> x.MatchID)
                 .HasColumnName("MATCH_ID")
                 .IsRequired()
-                .HasConversion(UuidValueConverter())
             |> ignore
 
             builder
                 .Property(fun x -> x.HomeTeamValue)
                 .HasColumnName("HOME_TEAM_VALUE")
                 .IsRequired()
-                .HasConversion(PositiveIntValueConverter())
             |> ignore
 
             builder
                 .Property(fun x -> x.AwayTeamValue)
                 .HasColumnName("AWAY_TEAM_VALUE")
                 .IsRequired()
-                .HasConversion(PositiveIntValueConverter())
             |> ignore

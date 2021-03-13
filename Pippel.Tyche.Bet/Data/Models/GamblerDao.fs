@@ -1,12 +1,11 @@
 namespace Pippel.Tyche.Bet.Data.Models
 
+open System
 open Microsoft.EntityFrameworkCore
 open Microsoft.EntityFrameworkCore.Metadata.Builders
-open Pippel.Type
-open Pippel.Type.Uuid
 
 [<CLIMutable>]
-type GamblerDao = { UserID: Uuid }
+type GamblerDao = { UserID: Guid }
 
 type GamblerEntityTypeConfiguration() =
     interface IEntityTypeConfiguration<GamblerDao> with
@@ -20,5 +19,4 @@ type GamblerEntityTypeConfiguration() =
                 .Property(fun x -> x.UserID)
                 .HasColumnName("USER_ID")
                 .IsRequired()
-                .HasConversion(UuidValueConverter())
             |> ignore

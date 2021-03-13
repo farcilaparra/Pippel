@@ -8,17 +8,27 @@ Returns the opened group match for a gambler.
 
 #### Request
 
-`/bet/opened?gamblerid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
+`/bet/opened?gamblerid=9798ff07-f9d5-462d-acb1-bd58b553ff2e&skip=0$take=10`
 
 #### Response
 
 ```json
-[{ "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "MasterPoolName": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "CurrentPoint": 15,
-   "CurrentPosition": 2,
-   "BeforePosition": 3 }]
+{
+  "currentPage": 0,
+  "pageCount": 1,
+  "pageSize": 10,
+  "groupCount": 1,
+  "itemsCount": 1,
+  "items": [
+    {
+      "poolID": "1be04ebd-bb83-1d2f-e053-020011ac624c",
+      "gamblerID": "49a849bd-b8ba-bc01-e053-020011acd428",
+      "masterPoolName": "Eliminatorias sudaméricanas al mundial Qatar 2024 marzo de 2021",
+      "currentPosition": null,
+      "beforePosition": null
+    }
+  ]
+}
 ```
 
 ### GET `/bet/matches?poolid=*`

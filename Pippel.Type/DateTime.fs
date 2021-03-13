@@ -1,16 +1,22 @@
 ﻿namespace Pippel.Type
 
 open System
-open System.ComponentModel
-open System.Globalization
-open System.Linq.Expressions
-open System.Text.Json
-open System.Text.Json.Serialization
-open Microsoft.EntityFrameworkCore.Storage.ValueConversion
-open Microsoft.FSharp.Linq.RuntimeHelpers
 open Validation
 
-type DateTime = private DateTime of System.DateTime
+[<CustomEquality>]
+[<CustomComparison>]
+type DateTime = private DateTime of System.DateTime with
+
+    override this.GetHashCode() =
+        match this with DateTime it -> it.GetHashCode()
+    
+    override this.Equals(obj) =
+        match (this, obj :?> DateTime) with DateTime a, DateTime b -> a.Equals b
+    
+    interface IComparable with
+
+        member this.CompareTo(obj) =
+            match (this, obj :?> DateTime) with DateTime a, DateTime b -> a.CompareTo b    
 
 module DateTime =
 
@@ -32,7 +38,7 @@ module DateTime =
     let fromString element =
         match tryFrom element with
         | Some i -> i
-        | None -> raise <| ArgumentException()
+        | None -> raise <| ArgumentException("Invalid format")
 
     let apply func (DateTime element) = func element
 
@@ -47,85 +53,6 @@ module DateTime =
     let toUniversalTime (element: DateTime) =
         (element |> value).ToUniversalTime() |> from
 
-    module internal Model =
-
-        let fromModel (element: DateTime) =
-            (element |> value).ToUniversalTime().ToString("o")
-
-        let toModel (element: string) = element |> fromString
-
-        let tryToModel element = tryFrom element
-
-    module internal EntityFrameworkCore =
-
-        let toModelExpression =
-            <@ Func<System.DateTime, DateTime>(from) @>
-            |> LeafExpressionConverter.QuotationToExpression
-            |> unbox<Expression<Func<System.DateTime, DateTime>>>
-
-        let fromModelExpression =
-            <@ Func<DateTime, System.DateTime>(value) @>
-            |> LeafExpressionConverter.QuotationToExpression
-            |> unbox<Expression<Func<DateTime, System.DateTime>>>
-
-        let toOption (element: System.DateTime Nullable) =
-            match element.HasValue with
-            | false -> None
-            | true -> Some(element.Value |> from)
-
-        let toOptionExpression =
-            <@ Func<System.DateTime Nullable, DateTime option>(toOption) @>
-            |> LeafExpressionConverter.QuotationToExpression
-            |> unbox<Expression<Func<System.DateTime Nullable, DateTime option>>>
-
-        let fromOption element =
-            match element with
-            | Some y -> y |> value |> Nullable
-            | None -> Unchecked.defaultof<System.DateTime Nullable>
-
-        let fromOptionExpression =
-            <@ Func<DateTime option, System.DateTime Nullable>(fromOption) @>
-            |> LeafExpressionConverter.QuotationToExpression
-            |> unbox<Expression<Func<DateTime option, System.DateTime Nullable>>>
-
-    type DateTimeTypeConverter() =
-        inherit TypeConverter()
-
-        override this.CanConvertFrom(context: ITypeDescriptorContext, sourceType: Type) =
-            match sourceType = typeof<string> with
-            | true -> true
-            | false -> base.CanConvertFrom(context, sourceType)
-
-        override this.ConvertFrom(context: ITypeDescriptorContext, culture: CultureInfo, value: obj) =
-            match value :? string with
-            | true ->
-                match Model.tryToModel (value :?> string) with
-                | Some d -> d :> obj
-                | None -> base.ConvertFrom(context, culture, value)
-            | false -> base.ConvertFrom(context, culture, value)
-
-    type DateTimeJsonConverter() =
-        inherit JsonConverter<DateTime>()
-
-        override this.Read
-            (
-                reader: byref<Utf8JsonReader>,
-                typeToConvert: Type,
-                options: JsonSerializerOptions
-            ) : DateTime =
-            Model.toModel (reader.GetString())
-
-        override this.Write(writer: Utf8JsonWriter, value: DateTime, options: JsonSerializerOptions) =
-            writer.WriteStringValue(Model.fromModel value)
-
-    type DateTimeValueConverter() =
-        inherit ValueConverter<DateTime, System.DateTime>(EntityFrameworkCore.fromModelExpression,
-                                                          EntityFrameworkCore.toModelExpression)
-
-    type DateTimeOptionValueConverter() =
-        inherit ValueConverter<DateTime option, System.DateTime Nullable>(EntityFrameworkCore.fromOptionExpression,
-                                                                          EntityFrameworkCore.toOptionExpression)
-
-    let initTypeConverter () =
-        TypeDescriptor.AddAttributes(typeof<DateTime>, TypeConverterAttribute typeof<DateTimeTypeConverter>)
-        |> ignore
+    let addDays daysCount element =
+        (element |> value).AddDays daysCount |> from
+    

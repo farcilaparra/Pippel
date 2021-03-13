@@ -10,6 +10,8 @@ type OnPlayingMatchesByMasterPoolQueryObject(groupMatchID: Uuid) =
     interface IQueryObject with
 
         member this.Query(query: IQueryable) : IQueryable =
+            let groupMatchID = groupMatchID |> Uuid.value
+
             (query :?> IQueryable<OnPlayingMatchViewDao>)
                 .Where(fun x -> x.MasterPoolID = groupMatchID)
                 .OrderBy(fun x -> x.MatchDate)
