@@ -13,10 +13,12 @@ type BetsByPoolQueryObject(groupBetID: Uuid) =
             let typedSourceQuery =
                 sourceQuery :?> IQueryable<BetPositionViewDao>
 
+            let groupBetID = groupBetID |> Uuid.value
+
             query {
                 for item in typedSourceQuery do
                     where (item.PoolID = groupBetID)
-                    sortByDescending item.Point.IsSome
+                    sortByDescending item.Point.HasValue
                     thenByDescending item.Point.Value
                     thenBy item.EnrollmentDate
                     select item

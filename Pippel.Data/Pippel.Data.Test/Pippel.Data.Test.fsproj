@@ -14,7 +14,6 @@
         <Compile Include="QueryRepositoryTests.fs" />
         <Compile Include="RepositoryTests.fs" />
         <Compile Include="ActionTests.fs" />
-        <Compile Include="EntityFrameworkCoreTests.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

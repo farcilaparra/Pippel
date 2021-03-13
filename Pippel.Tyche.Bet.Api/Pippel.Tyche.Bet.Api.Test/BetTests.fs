@@ -10,6 +10,7 @@ open Microsoft.AspNetCore.TestHost
 open Microsoft.EntityFrameworkCore
 open Microsoft.Extensions.DependencyInjection
 open NSubstitute
+open Pippel.Core
 open Pippel.Tyche.Bet
 open Pippel.Tyche.Bet.Api
 open Pippel.Tyche.Bet.Domain.Actions
@@ -81,9 +82,6 @@ let ``given several editing bets when a request to edit the bets is raised then 
         let jsonOptions =
             JsonSerializerOptions(PropertyNamingPolicy = JsonNamingPolicy.CamelCase)
 
-        jsonOptions.Converters.Add(UuidJsonConverter())
-        jsonOptions.Converters.Add(PositiveIntJsonConverter())
-
         let json =
             JsonSerializer.Serialize(editingBetsDtos, jsonOptions)
 
@@ -105,10 +103,13 @@ let ``given a gambler id when a request to query the opened master pools by gamb
         let findOpenedMasterPoolsByGamblerAction =
             Substitute.For<IFindOpenedMasterPoolsByGamblerAction>()
 
-        findOpenedMasterPoolsByGamblerAction
-            .AsyncExecute(Arg.Any<Uuid>())
+        (findOpenedMasterPoolsByGamblerAction.AsyncExecute
+            (Arg.Any<Uuid>())
+            (Arg.Any<NotEmptyString option>())
+            (Arg.Any<PositiveInt>())
+            (Arg.Any<PositiveInt>()))
             .Returns(
-                Task.FromResult(poolsReviewToReturn |> Array.toSeq)
+                Task.FromResult(poolsReviewToReturn |> Page.fromSeq)
                 |> Async.AwaitTask
             )
         |> ignore
@@ -132,7 +133,7 @@ let ``given a gambler id when a request to query the opened master pools by gamb
         let client = server.CreateClient()
 
         let request =
-            new HttpRequestMessage(HttpMethod("GET"), "/bet/opened?gamblerid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36")
+            new HttpRequestMessage(HttpMethod("GET"), "/bet/opened?gamblerid=12d4f8c8-78e3-417f-ac0c-0fdb480d5b36&skip=1&take=10")
 
         let! response = client.SendAsync(request) |> Async.AwaitTask
 

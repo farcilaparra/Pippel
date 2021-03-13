@@ -1,21 +1,36 @@
 namespace Pippel.Tyche.Bet.Domain.Actions.Queries.QueriesObjects
 
+open System
 open System.Linq
 open Pippel.Data
 open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Type
 
-type OpenedMasterPoolsByGamblerQueryObject(gamblerID: Uuid) =
+type OpenedMasterPoolsByGamblerQueryObject(gamblerID: Uuid, filter: NotEmptyString option) =
 
     interface IQueryObject with
 
         member this.Query(query: IQueryable) : IQueryable =
-            let now = DateTime.now
+            let mutable newQuery = query
+            let now = DateTime.Now
+            let gamblerID = gamblerID |> Uuid.value
 
-            (query :?> IQueryable<PoolReviewViewDao>)
-                .Where(fun x ->
-                    x.GamblerID = gamblerID
-                    && now >= x.StartDate
-                    && now < x.EndDate)
-                .OrderByDescending(fun x -> x.StartDate)
-            :> IQueryable
+            newQuery <-
+                (newQuery :?> IQueryable<PoolReviewViewDao>)
+                    .Where(fun element ->
+                        element.GamblerID = gamblerID
+                        && now >= element.StartDate
+                        && now < element.EndDate)
+                :> IQueryable
+
+            newQuery <-
+                match filter with
+                | Some it ->
+                    match it |> NotEmptyString.value with
+                    | value ->
+                        (newQuery :?> IQueryable<PoolReviewViewDao>)
+                            .Where(fun element -> element.MasterPoolName.Contains(value))
+                        :> IQueryable
+                | None -> newQuery
+
+            newQuery

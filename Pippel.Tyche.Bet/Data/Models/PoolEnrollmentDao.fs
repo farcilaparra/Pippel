@@ -1,15 +1,13 @@
 namespace Pippel.Tyche.Bet.Data.Models
 
+open System
 open Microsoft.EntityFrameworkCore
 open Microsoft.EntityFrameworkCore.Metadata.Builders
-open Pippel.Type
-open Pippel.Type.DateTime
-open Pippel.Type.Uuid
 
 [<CLIMutable>]
 type PoolEnrollmentDao =
-    { PoolID: Uuid
-      GamblerID: Uuid
+    { PoolID: Guid
+      GamblerID: Guid
       EnrollmentDate: DateTime }
 
 type PoolEnrollmentEntityTypeConfiguration() =
@@ -25,19 +23,16 @@ type PoolEnrollmentEntityTypeConfiguration() =
                 .Property(fun x -> x.PoolID)
                 .HasColumnName("POOL_ID")
                 .IsRequired()
-                .HasConversion(UuidValueConverter())
             |> ignore
 
             builder
                 .Property(fun x -> x.GamblerID)
                 .HasColumnName("GAMBLER_ID")
                 .IsRequired()
-                .HasConversion(UuidValueConverter())
             |> ignore
 
             builder
                 .Property(fun x -> x.EnrollmentDate)
                 .HasColumnName("ENROLLMENT_DATE")
                 .IsRequired()
-                .HasConversion(DateTimeValueConverter())
             |> ignore

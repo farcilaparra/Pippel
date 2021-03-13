@@ -1,5 +1,6 @@
 ﻿namespace Pippel.Tyche.Bet.Api.Controllers
 
+open System
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
 open Pippel.Tyche.Bet.Api.Domain.Mappers
@@ -19,9 +20,9 @@ type MatchController
     inherit ControllerBase()
 
     [<HttpGet>]
-    member this.Get(masterPoolID: Uuid) : Async<MasterPoolMatchViewDto seq> =
+    member this.Get(masterPoolID: Guid) : Async<MasterPoolMatchViewDto seq> =
         async {
-            let! matches = findMatchesByMasterPoolAction.AsyncExecute(masterPoolID)
+            let! matches = findMatchesByMasterPoolAction.AsyncExecute(masterPoolID |> Uuid.from)
 
             return
                 matches
@@ -29,9 +30,9 @@ type MatchController
         }
 
     [<HttpGet("onplaying")>]
-    member this.GetOnPlayingMatches(poolID: Uuid) : Async<OnPlayingMatchViewDto seq> =
+    member this.GetOnPlayingMatches(poolID: Guid) : Async<OnPlayingMatchViewDto seq> =
         async {
-            let! matches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(poolID)
+            let! matches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(poolID |> Uuid.from)
 
             return
                 matches

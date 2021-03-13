@@ -1,10 +1,10 @@
 namespace Pippel.Tyche.Bet.Api.Data.Models
 
-open Pippel.Type
+open System
 
 type EditingBetDto =
-    { PoolID: Uuid
-      MatchID: Uuid
-      GamblerID: Uuid
-      HomeTeamValue: PositiveInt
-      AwayTeamValue: PositiveInt }
+    { PoolID: Guid
+      MatchID: Guid
+      GamblerID: Guid
+      HomeTeamValue: int
+      AwayTeamValue: int }
