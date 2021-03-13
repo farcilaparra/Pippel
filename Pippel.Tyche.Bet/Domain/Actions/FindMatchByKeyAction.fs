@@ -4,6 +4,7 @@ open Pippel.Tyche.Bet.Domain.Mappers
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Repositories
 open Pippel.Data.Actions
+open Pippel.Type
 
 type FindMatchByKeyAction(matchRepository: IMatchRepository) =
 
@@ -11,4 +12,4 @@ type FindMatchByKeyAction(matchRepository: IMatchRepository) =
 
         member this.AsyncExecute(id: MatchPK) : Async<MatchDomain> =
             matchRepository
-            |> asyncFindByKey [| id.MatchID |] MatchDomainMapper.mapToDomain
+            |> asyncFindByKey [| id.MatchID |> Uuid.value |] MatchDomainMapper.mapToDomain

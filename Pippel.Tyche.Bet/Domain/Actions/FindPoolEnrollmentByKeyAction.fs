@@ -4,6 +4,7 @@ open Pippel.Tyche.Bet.Domain.Mappers
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Repositories
 open Pippel.Data.Actions
+open Pippel.Type
 
 type FindPoolEnrollmentByKeyAction(poolEnrollmentRepository: IPoolEnrollmentRepository) =
 
@@ -11,4 +12,7 @@ type FindPoolEnrollmentByKeyAction(poolEnrollmentRepository: IPoolEnrollmentRepo
 
         member this.AsyncExecute(id: PoolEnrollmentPK) : Async<PoolEnrollmentDomain> =
             poolEnrollmentRepository
-            |> asyncFindByKey [| id.PoolID; id.GamblerID |] PoolEnrollmentDomainMapper.mapToDomain
+            |> asyncFindByKey
+                [| id.PoolID |> Uuid.value
+                   id.GamblerID |> Uuid.value |]
+                PoolEnrollmentDomainMapper.mapToDomain

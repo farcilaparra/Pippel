@@ -1,11 +1,11 @@
 namespace Pippel.Tyche.Bet.Data.Models.Queries
 
-open Pippel.Type
+open System
 
 type BetPositionViewDto =
-    { PoolID: Uuid
-      GamblerID: Uuid
+    { PoolID: Guid
+      GamblerID: Guid
       EnrollmentDate: DateTime
-      Point: PositiveInt option
-      CurrentPosition: PositiveInt option
-      BeforePosition: PositiveInt option }
+      Point: int Nullable
+      CurrentPosition: int Nullable
+      BeforePosition: int Nullable }

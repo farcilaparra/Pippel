@@ -1,11 +1,10 @@
 namespace Pippel.Tyche.Bet.Api.Data.Models
 
-open Pippel.Type
+open System
 
 type PoolReviewViewDto =
-    { PoolID: Uuid
-      GamblerID: Uuid
-      MasterPoolName: NotEmptyString
-      CurrentPoint: PositiveInt
-      CurrentPosition: PositiveInt
-      BeforePosition: PositiveInt }
+    { PoolID: Guid
+      GamblerID: Guid
+      MasterPoolName: string
+      CurrentPosition: int Nullable
+      BeforePosition: int Nullable }

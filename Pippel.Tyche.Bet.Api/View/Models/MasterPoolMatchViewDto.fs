@@ -1,9 +1,9 @@
 namespace Pippel.Tyche.Bet.Data.Models
 
-open Pippel.Type
+open System
 
 type MasterPoolMatchViewDto =
-    { MasterPoolID: Uuid
-      HomeTeamName: NotEmptyString
-      AwayTeamName: NotEmptyString
+    { MasterPoolID: Guid
+      HomeTeamName: string
+      AwayTeamName: string
       MatchDate: DateTime }

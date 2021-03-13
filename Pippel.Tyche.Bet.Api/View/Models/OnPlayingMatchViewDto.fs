@@ -1,12 +1,12 @@
 namespace Pippel.Tyche.Bet.Data.Models.Queries
 
-open Pippel.Type
+open System
 
 type OnPlayingMatchViewDto =
-    { MatchID: Uuid
-      HomeTeamID: Uuid
-      AwayTeamID: Uuid
+    { MatchID: Guid
+      HomeTeamID: Guid
+      AwayTeamID: Guid
       MatchDate: DateTime
-      HomeTeamName: NotEmptyString
-      AwayTeamName: NotEmptyString
-      MasterPoolID: Uuid }
+      HomeTeamName: string
+      AwayTeamName: string
+      MasterPoolID: Guid }

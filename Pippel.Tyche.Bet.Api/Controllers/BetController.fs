@@ -1,7 +1,9 @@
 ﻿namespace Pippel.Bet.Tyche.Api.Controllers
 
+open System
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
+open Pippel.Core
 open Pippel.Tyche.Bet.Api.Domain.Mappers
 open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Tyche.Bet.Domain.Actions
@@ -23,19 +25,22 @@ type BetController
     inherit ControllerBase()
 
     [<HttpGet("opened")>]
-    member this.AsyncGetOpened(gamblerID: Uuid) : Async<PoolReviewViewDto seq> =
+    member this.AsyncGetOpened(gamblerID: Guid, filter: string, skip: int Nullable, take: int Nullable) : Async<PoolReviewViewDto Page> =
         async {
-            let! items = findOpenedMasterPoolsByGamblerAction.AsyncExecute(gamblerID)
+            let! page =
+                findOpenedMasterPoolsByGamblerAction.AsyncExecute
+                    (gamblerID |> Uuid.from)
+                    (filter |> NotEmptyString.tryFrom)
+                    (skip |> PositiveInt.fromNullable)
+                    (take |> PositiveInt.fromNullable)
 
-            return
-                items
-                |> Seq.map (fun x -> x |> PoolReviewViewMapper.mapToView)
+            return page |> Page.map PoolReviewViewMapper.mapToView
         }
 
     [<HttpGet("matches")>]
-    member this.AsyncGetMatches(poolID: Uuid) : Async<MatchViewDto seq> =
+    member this.AsyncGetMatches(poolID: Guid) : Async<MatchViewDto seq> =
         async {
-            let! items = findMatchesByPoolAction.AsyncExecute poolID
+            let! items = findMatchesByPoolAction.AsyncExecute(poolID |> Uuid.from)
 
             return
                 items
@@ -57,9 +62,9 @@ type BetController
         }
 
     [<HttpGet("position")>]
-    member this.AsyncGetPositions(poolID: Uuid) : Async<BetPositionViewDto seq> =
+    member this.AsyncGetPositions(poolID: Guid) : Async<BetPositionViewDto seq> =
         async {
-            let! items = findBetsByPoolAction.AsyncExecute(poolID)
+            let! items = findBetsByPoolAction.AsyncExecute(poolID |> Uuid.from)
 
             return
                 items
@@ -67,8 +72,9 @@ type BetController
         }
 
     [<HttpGet("positionandonplayingmatches")>]
-    member this.AsyncGetPositionsAndOnPlayingMatches(poolID: Uuid) : Async<BetPositionAndOnPlayingMatchViewDto> =
+    member this.AsyncGetPositionsAndOnPlayingMatches(poolID: Guid) : Async<BetPositionAndOnPlayingMatchViewDto> =
         async {
+            let poolID = poolID |> Uuid.from
             let! positions = findBetsByPoolAction.AsyncExecute(poolID)
             let! onPlayingMatches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(poolID)
 

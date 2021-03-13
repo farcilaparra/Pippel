@@ -19,10 +19,6 @@ open Pippel.Tyche.Bet.Data.Repositories
 open Pippel.Tyche.Bet.Data.Repositories.Queries
 open Pippel.Tyche.Bet.Domain.Actions.Queries
 open Pippel.Type
-open Pippel.Type.DateTime
-open Pippel.Type.NotEmptyString
-open Pippel.Type.PositiveInt
-open Pippel.Type.Uuid
 
 type Startup private () =
 
@@ -95,14 +91,6 @@ type Startup private () =
         services.AddScoped<IFindOnPlayingMatchesByPoolAction, FindOnPlayingMatchesByPoolAction>()
         |> ignore
 
-    let initTypeConverters () = Uuid.initTypeConverter ()
-
-    let initJsonOptions (options: JsonOptions) =
-        options.JsonSerializerOptions.Converters.Add(UuidJsonConverter())
-        options.JsonSerializerOptions.Converters.Add(NotEmptyStringJsonConverter())
-        options.JsonSerializerOptions.Converters.Add(DateTimeJsonConverter())
-        options.JsonSerializerOptions.Converters.Add(PositiveIntJsonConverter())
-
     new(configuration: IConfiguration) as this =
         Startup()
         then this.Configuration <- configuration
@@ -110,10 +98,7 @@ type Startup private () =
     // This method gets called by the runtime. Use this method to add services to the container.
     member this.ConfigureServices(services: IServiceCollection) =
         // Add framework services.
-        services
-            .AddControllers()
-            .AddJsonOptions(fun options -> initJsonOptions options)
-        |> ignore
+        services.AddControllers() |> ignore
 
         services.AddDbContext<Context>
             (fun options ->
@@ -136,8 +121,6 @@ type Startup private () =
         addRepositoriesToInjection services
         addQueryRepositoriesToInjection services
         addActionsToInjection services
-
-        initTypeConverters ()
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     member this.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =

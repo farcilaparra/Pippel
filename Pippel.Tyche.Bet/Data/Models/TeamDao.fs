@@ -1,15 +1,13 @@
 namespace Pippel.Tyche.Bet.Data.Models
 
+open System
 open Microsoft.EntityFrameworkCore
 open Microsoft.EntityFrameworkCore.Metadata.Builders
-open Pippel.Type
-open Pippel.Type.NotEmptyString
-open Pippel.Type.Uuid
 
 [<CLIMutable>]
 type TeamDao =
-    { TeamID: Uuid
-      Name: NotEmptyString }
+    { TeamID: Guid
+      Name: string }
 
 type TeamEntityTypeConfiguration() =
     interface IEntityTypeConfiguration<TeamDao> with
@@ -23,7 +21,6 @@ type TeamEntityTypeConfiguration() =
                 .Property(fun x -> x.TeamID)
                 .HasColumnName("TEAM_ID")
                 .IsRequired()
-                .HasConversion(UuidValueConverter())
             |> ignore
 
             builder
@@ -31,5 +28,4 @@ type TeamEntityTypeConfiguration() =
                 .HasColumnName("NAME")
                 .IsRequired()
                 .HasMaxLength(30)
-                .HasConversion(NotEmptyStringValueConverter())
             |> ignore

@@ -1,16 +1,13 @@
 namespace Pippel.Tyche.Bet.Data.Models
 
+open System
 open Microsoft.EntityFrameworkCore
 open Microsoft.EntityFrameworkCore.Metadata.Builders
-open Pippel.Type
-open Pippel.Type.DateTime
-open Pippel.Type.NotEmptyString
-open Pippel.Type.Uuid
 
 [<CLIMutable>]
 type MasterPoolDao =
-    { MasterPoolID: Uuid
-      Name: NotEmptyString
+    { MasterPoolID: Guid
+      Name: string
       StartDate: DateTime
       EndDate: DateTime }
 
@@ -27,7 +24,6 @@ type MasterPoolEntityTypeConfiguration() =
                 .Property(fun x -> x.MasterPoolID)
                 .HasColumnName("MASTER_POOL_ID")
                 .IsRequired()
-                .HasConversion(UuidValueConverter())
             |> ignore
 
             builder
@@ -35,19 +31,16 @@ type MasterPoolEntityTypeConfiguration() =
                 .HasColumnName("NAME")
                 .IsRequired()
                 .HasMaxLength(100)
-                .HasConversion(NotEmptyStringValueConverter())
             |> ignore
 
             builder
                 .Property(fun x -> x.StartDate)
                 .HasColumnName("START_DATE")
                 .IsRequired()
-                .HasConversion(DateTimeValueConverter())
             |> ignore
 
             builder
                 .Property(fun x -> x.EndDate)
                 .HasColumnName("END_DATE")
                 .IsRequired()
-                .HasConversion(DateTimeValueConverter())
             |> ignore

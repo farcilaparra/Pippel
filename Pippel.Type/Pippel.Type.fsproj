@@ -10,7 +10,6 @@
         <Compile Include="Percentage.fs" />
         <Compile Include="PositiveInt.fs" />
         <Compile Include="DateTime.fs" />
-        <Compile Include="AssemblyInfo.fs" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
