@@ -9,6 +9,7 @@ open Pippel.Data.EntityFrameworkCore
 open Pippel.Tyche.Bet
 open Pippel.Tyche.Bet.Domain.Actions
 open Pippel.Tyche.Bet.Data.Repositories
+open Pippel.Tyche.Bet.Type
 open Pippel.Type
 open Xunit
 open Pippel.Tyche.Bet.Data.Models
@@ -18,104 +19,62 @@ let editingBetsWithEntityDoesNoExist : obj [] seq =
     seq {
         yield
             [| [| { BetDomain.ID =
-                        { MatchID =
-                              "87d1ad03-fe37-491f-ae56-32b2388fc7be"
-                              |> Uuid.fromString
-                          GamblerID =
-                              "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                              |> Uuid.fromString
-                          PoolID =
-                              "107d3c40-faff-4980-8041-8763b4f43d42"
-                              |> Uuid.fromString }
-                    HomeTeamValue = 0 |> PositiveInt.from
-                    AwayTeamValue = 1 |> PositiveInt.from } |] |]
+                        { MatchID = Uuid.From "87d1ad03-fe37-491f-ae56-32b2388fc7be"
+                          GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+                          PoolID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+                    HomeTeamValue = Score.From 0
+                    AwayTeamValue = Score.From 1 } |] |]
 
         yield
             [| [| { BetDomain.ID =
-                        { MatchID =
-                              "718d7467-383f-4094-81c4-5b104d7969aa"
-                              |> Uuid.fromString
-                          GamblerID =
-                              "87d1ad03-fe37-491f-ae56-32b2388fc7be"
-                              |> Uuid.fromString
-                          PoolID =
-                              "107d3c40-faff-4980-8041-8763b4f43d42"
-                              |> Uuid.fromString }
-                    HomeTeamValue = 0 |> PositiveInt.from
-                    AwayTeamValue = 1 |> PositiveInt.from } |] |]
+                        { MatchID = Uuid.From "718d7467-383f-4094-81c4-5b104d7969aa"
+                          GamblerID = Uuid.From "87d1ad03-fe37-491f-ae56-32b2388fc7be"
+                          PoolID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+                    HomeTeamValue = Score.From 0
+                    AwayTeamValue = Score.From 1 } |] |]
 
         yield
             [| [| { BetDomain.ID =
-                        { MatchID =
-                              "718d7467-383f-4094-81c4-5b104d7969aa"
-                              |> Uuid.fromString
-                          GamblerID =
-                              "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                              |> Uuid.fromString
-                          PoolID =
-                              "87d1ad03-fe37-491f-ae56-32b2388fc7be"
-                              |> Uuid.fromString }
-                    HomeTeamValue = 0 |> PositiveInt.from
-                    AwayTeamValue = 1 |> PositiveInt.from } |] |]
+                        { MatchID = Uuid.From "718d7467-383f-4094-81c4-5b104d7969aa"
+                          GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+                          PoolID = Uuid.From "87d1ad03-fe37-491f-ae56-32b2388fc7be" }
+                    HomeTeamValue = Score.From 0
+                    AwayTeamValue = Score.From 1 } |] |]
     }
 
 let editingBetsWithMatchStatusNonEqualToPlaying : obj [] seq =
     seq {
         yield
             [| [| { BetDomain.ID =
-                        { MatchID =
-                              "a7a49483-0db7-46e7-b705-a76419b2351d"
-                              |> Uuid.fromString
-                          GamblerID =
-                              "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                              |> Uuid.fromString
-                          PoolID =
-                              "107d3c40-faff-4980-8041-8763b4f43d42"
-                              |> Uuid.fromString }
-                    HomeTeamValue = 0 |> PositiveInt.from
-                    AwayTeamValue = 1 |> PositiveInt.from } |] |]
+                        { MatchID = Uuid.From "a7a49483-0db7-46e7-b705-a76419b2351d"
+                          GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+                          PoolID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+                    HomeTeamValue = Score.From 0
+                    AwayTeamValue = Score.From 1 } |] |]
 
         yield
             [| [| { BetDomain.ID =
-                        { MatchID =
-                              "aff84e74-a475-4199-842e-f5976cc8effe"
-                              |> Uuid.fromString
-                          GamblerID =
-                              "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                              |> Uuid.fromString
-                          PoolID =
-                              "107d3c40-faff-4980-8041-8763b4f43d42"
-                              |> Uuid.fromString }
-                    HomeTeamValue = 0 |> PositiveInt.from
-                    AwayTeamValue = 1 |> PositiveInt.from } |] |]
+                        { MatchID = Uuid.From "aff84e74-a475-4199-842e-f5976cc8effe"
+                          GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+                          PoolID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+                    HomeTeamValue = Score.From 0
+                    AwayTeamValue = Score.From 1 } |] |]
 
         yield
             [| [| { BetDomain.ID =
-                        { MatchID =
-                              "e46e05d6-7416-467d-b752-838b0ce8d2dd"
-                              |> Uuid.fromString
-                          GamblerID =
-                              "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                              |> Uuid.fromString
-                          PoolID =
-                              "107d3c40-faff-4980-8041-8763b4f43d42"
-                              |> Uuid.fromString }
-                    HomeTeamValue = 0 |> PositiveInt.from
-                    AwayTeamValue = 1 |> PositiveInt.from } |] |]
+                        { MatchID = Uuid.From "e46e05d6-7416-467d-b752-838b0ce8d2dd"
+                          GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+                          PoolID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+                    HomeTeamValue = Score.From 0
+                    AwayTeamValue = Score.From 1 } |] |]
 
         yield
             [| [| { BetDomain.ID =
-                        { MatchID =
-                              "ac725ffb-c490-4625-b191-edc82a979ce5"
-                              |> Uuid.fromString
-                          GamblerID =
-                              "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                              |> Uuid.fromString
-                          PoolID =
-                              "107d3c40-faff-4980-8041-8763b4f43d42"
-                              |> Uuid.fromString }
-                    HomeTeamValue = 0 |> PositiveInt.from
-                    AwayTeamValue = 1 |> PositiveInt.from } |] |]
+                        { MatchID = Uuid.From "ac725ffb-c490-4625-b191-edc82a979ce5"
+                          GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+                          PoolID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+                    HomeTeamValue = Score.From 0
+                    AwayTeamValue = Score.From 1 } |] |]
     }
 
 let createContext () =
@@ -230,29 +189,17 @@ let ``given several bets when an action to edit them is executed then the bets a
 
         let betsDomain =
             [| { BetDomain.ID =
-                     { MatchID =
-                           "718d7467-383f-4094-81c4-5b104d7969aa"
-                           |> Uuid.fromString
-                       GamblerID =
-                           "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                           |> Uuid.fromString
-                       PoolID =
-                           "107d3c40-faff-4980-8041-8763b4f43d42"
-                           |> Uuid.fromString }
-                 HomeTeamValue = 0 |> PositiveInt.from
-                 AwayTeamValue = 1 |> PositiveInt.from }
+                     { MatchID = Uuid.From "718d7467-383f-4094-81c4-5b104d7969aa"
+                       GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+                       PoolID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+                 HomeTeamValue = Score.From 0
+                 AwayTeamValue = Score.From 1 }
                { BetDomain.ID =
-                     { MatchID =
-                           "43c2483f-9b3e-48b8-978c-99e07d2f29d2"
-                           |> Uuid.fromString
-                       GamblerID =
-                           "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                           |> Uuid.fromString
-                       PoolID =
-                           "107d3c40-faff-4980-8041-8763b4f43d42"
-                           |> Uuid.fromString }
-                 HomeTeamValue = 2 |> PositiveInt.from
-                 AwayTeamValue = 1 |> PositiveInt.from } |]
+                     { MatchID = Uuid.From "43c2483f-9b3e-48b8-978c-99e07d2f29d2"
+                       GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+                       PoolID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+                 HomeTeamValue = Score.From 2
+                 AwayTeamValue = Score.From 1 } |]
 
         let betsCountBefore = context.Bets.Count()
 

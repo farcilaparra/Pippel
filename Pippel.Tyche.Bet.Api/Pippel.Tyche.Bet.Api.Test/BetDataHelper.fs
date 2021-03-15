@@ -5,33 +5,22 @@ open Pippel.Tyche.Bet.Api.Data.Models
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Tyche.Bet.Domain.Models
+open Pippel.Tyche.Bet.Type
 open Pippel.Type
 
 let createBetsToReturn () =
     [| { BetDomain.ID =
-             { PoolID =
-                   "718d7467-383f-4094-81c4-5b104d7969aa"
-                   |> Uuid.fromString
-               GamblerID =
-                   "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                   |> Uuid.fromString
-               MatchID =
-                   "107d3c40-faff-4980-8041-8763b4f43d42"
-                   |> Uuid.fromString }
-         HomeTeamValue = 0 |> PositiveInt.from
-         AwayTeamValue = 1 |> PositiveInt.from }
+             { PoolID = Uuid.From "718d7467-383f-4094-81c4-5b104d7969aa"
+               GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+               MatchID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+         HomeTeamValue = Score.From 0
+         AwayTeamValue = Score.From 1 }
        { BetDomain.ID =
-             { PoolID =
-                   "43c2483f-9b3e-48b8-978c-99e07d2f29d2"
-                   |> Uuid.fromString
-               GamblerID =
-                   "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
-                   |> Uuid.fromString
-               MatchID =
-                   "107d3c40-faff-4980-8041-8763b4f43d42"
-                   |> Uuid.fromString }
-         HomeTeamValue = 2 |> PositiveInt.from
-         AwayTeamValue = 1 |> PositiveInt.from } |]
+             { PoolID = Uuid.From "43c2483f-9b3e-48b8-978c-99e07d2f29d2"
+               GamblerID = Uuid.From "c32a2d10-88d7-4c60-bc18-01d8f0c3110e"
+               MatchID = Uuid.From "107d3c40-faff-4980-8041-8763b4f43d42" }
+         HomeTeamValue = Score.From 2
+         AwayTeamValue = Score.From 1 } |]
 
 let createEditingBetsDtosToSend () =
     [| { EditingBetDto.MatchID = Guid("718d7467-383f-4094-81c4-5b104d7969aa")

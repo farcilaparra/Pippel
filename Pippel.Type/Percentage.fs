@@ -1,24 +1,28 @@
 ﻿namespace Pippel.Type
 
 open System
+open Pippel.Type
 open Validation
 
-type Percentage = private Percentage of float
+type Percentage =
+    private
+    | Percentage of float
 
-module Percentage =
-
-    let tryFrom element =
+    static member Create element =
         match element with
-        | NotRange 0.0 1.0 -> None
-        | _ -> Percentage element |> Some
+        | NotRange 0.0 1.0 -> Error "Value is out of range [0, 1]"
+        | _ -> Ok <| Percentage element
 
-    let from element =
-        match tryFrom element with
-        | Some i -> i
-        | None -> raise <| ArgumentException()
+    static member TryFrom element =
+        match Percentage.Create element with
+        | Ok it -> Some it
+        | Error _ -> None
 
-    let apply func (Percentage element) = func element
+    static member From element =
+        match Percentage.Create element with
+        | Ok it -> it
+        | Error message -> raise <| ArgumentException(message)
 
-    let value element = apply id element
-
-    let toString (element: Percentage) = (element |> value).ToString()
+    member this.Value =
+        match this with
+        | Percentage it -> it

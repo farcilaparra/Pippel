@@ -19,8 +19,6 @@ open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Type
 open BetDataHelper
 open MatchDataHelper
-open Pippel.Type.PositiveInt
-open Pippel.Type.Uuid
 open Xunit
 
 let createContext () =

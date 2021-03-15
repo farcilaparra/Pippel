@@ -2,6 +2,7 @@ namespace Pippel.Tyche.Bet.Domain.Mappers
 
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Models
+open Pippel.Tyche.Bet.Type
 open Pippel.Type
 
 module MatchDomainMapper =
@@ -12,20 +13,16 @@ module MatchDomainMapper =
           AwayTeamID = matchDomain.AwayTeamID |> Uuid.value
           RoundID = matchDomain.RoundMatchID |> Uuid.value
           MatchDate = matchDomain.MatchDate |> DateTime.value
-          HomeResult =
-              matchDomain.HomeResult
-              |> PositiveInt.nullableValue
-          AwayResult =
-              matchDomain.AwayResult
-              |> PositiveInt.nullableValue
+          HomeResult = matchDomain.HomeResult |> Number.nullableValue
+          AwayResult = matchDomain.AwayResult |> Number.nullableValue
           Status = matchDomain.Status }
 
     let mapToDomain (matchDao: MatchDao) : MatchDomain =
-        { ID = { MatchID = matchDao.MatchID |> Uuid.from }
-          HomeTeamID = matchDao.HomeTeamID |> Uuid.from
-          AwayTeamID = matchDao.AwayTeamID |> Uuid.from
-          RoundMatchID = matchDao.RoundID |> Uuid.from
-          MatchDate = matchDao.MatchDate |> DateTime.from
-          HomeResult = matchDao.HomeResult |> PositiveInt.tryFromNullable
-          AwayResult = matchDao.AwayResult |> PositiveInt.tryFromNullable
+        { ID = { MatchID = Uuid.From matchDao.MatchID }
+          HomeTeamID = Uuid.From matchDao.HomeTeamID
+          AwayTeamID = Uuid.From matchDao.AwayTeamID
+          RoundMatchID = Uuid.From matchDao.RoundID
+          MatchDate = DateTime.From matchDao.MatchDate
+          HomeResult = Score.TryFromNullable matchDao.HomeResult
+          AwayResult = Score.TryFromNullable matchDao.AwayResult
           Status = matchDao.Status }

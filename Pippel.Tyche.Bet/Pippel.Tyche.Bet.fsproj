@@ -5,6 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Type\Score.fs" />
+        <Compile Include="Type\ScoreWeight.fs" />
         <Compile Include="Exception.fs" />
         <Compile Include="Data\Models\TeamDao.fs" />
         <Compile Include="Data\Models\MatchDao.fs" />
