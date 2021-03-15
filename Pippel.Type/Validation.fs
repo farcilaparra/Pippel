@@ -19,6 +19,10 @@ module Validation =
         |> not
         |> ifTrueThen NotMatches
 
+    let (|HasMoreCharsThan|_|) length (value: string) =
+        value.Length > length
+        |> ifTrueThen HasMoreCharsThan
+
     let (|NotRange|_|) lower upper value =
         (value >= lower && value <= upper)
         |> not

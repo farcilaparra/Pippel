@@ -27,5 +27,5 @@ type TeamEntityTypeConfiguration() =
                 .Property(fun x -> x.Name)
                 .HasColumnName("NAME")
                 .IsRequired()
-                .HasMaxLength(30)
+                .HasMaxLength(100)
             |> ignore

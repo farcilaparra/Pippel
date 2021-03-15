@@ -4,12 +4,11 @@ open System
 open System.Linq
 open Validation
 
-type Barcode = private Barcode of string
-
-module Barcode =
+[<AutoOpen>]
+module private BarcodeHelper =
 
     [<Literal>]
-    let private regularExpressionForBarcode = @"^(\d{8}|\d{12,14})$"
+    let regularExpressionForBarcode = @"^(\d{8}|\d{12,14})$"
 
     let (|NotChekSum|_|) (value: string) =
         let paddedCode = value.PadLeft(14, '0')
@@ -25,20 +24,34 @@ module Barcode =
 
         (sum % 10) = 0 |> not |> ifTrueThen NotChekSum
 
-    let tryFrom element =
+type Barcode =
+    private
+    | Barcode of string
+
+    static member Create element =
         match element with
-        | Null
-        | NotMatches regularExpressionForBarcode
-        | NotChekSum -> None
-        | _ -> Barcode element |> Some
+        | Null -> Error "String is null"
+        | NotMatches regularExpressionForBarcode -> Error "String is invalid format"
+        | NotChekSum -> Error "Checksum is invalid"
+        | _ -> Ok <| Barcode element
 
-    let from element =
-        match tryFrom element with
-        | Some i -> i
-        | None -> raise <| ArgumentException()
+    static member TryFrom element =
+        match Barcode.Create element with
+        | Ok it -> Some it
+        | Error _ -> None
 
-    let apply func (Barcode element) = func element
+    static member From element =
+        match Barcode.Create element with
+        | Ok it -> it
+        | Error message -> raise <| ArgumentException(message)
 
-    let value element = apply id element
+    member this.Value =
+        match this with
+        | Barcode it -> it
 
-    let toString (element: Barcode) = (element |> value).ToString()
+[<RequireQualifiedAccess>]
+module Barcode =
+
+    let value (element: Barcode) = element.Value
+
+    let toString (element: Barcode) = TypeBuilder.toString element

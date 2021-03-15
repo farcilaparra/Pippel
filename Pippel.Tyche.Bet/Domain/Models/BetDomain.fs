@@ -1,5 +1,6 @@
 namespace Pippel.Tyche.Bet.Domain.Models
 
+open Pippel.Tyche.Bet.Type
 open Pippel.Type
 
 type BetPK =
@@ -9,5 +10,5 @@ type BetPK =
 
 type BetDomain =
     { ID: BetPK
-      HomeTeamValue: PositiveInt
-      AwayTeamValue: PositiveInt }
+      HomeTeamValue: Score
+      AwayTeamValue: Score }

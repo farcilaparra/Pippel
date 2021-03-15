@@ -10,4 +10,4 @@ module GamblerDomainMapper =
         { GamblerDao.UserID = gamblerDomain.ID.UserID |> Uuid.value }
 
     let mapToDomain (gamblerDao: GamblerDao) : GamblerDomain =
-        { GamblerDomain.ID = { UserID = gamblerDao.UserID |> Uuid.from } }
+        { GamblerDomain.ID = { UserID = Uuid.From gamblerDao.UserID } }

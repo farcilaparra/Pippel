@@ -3,42 +3,47 @@
 open System
 open Validation
 
-type Uuid = private Uuid of Guid
-
-module Uuid =
+[<AutoOpen>]
+module private UuidHelper =
 
     [<Literal>]
-    let private regularExpressionForUuid =
+    let regularExpressionForUuid =
         @"^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$"
 
-    let tryFrom element =
+type Uuid =
+    private
+    | Uuid of Guid
+
+    static member Create element =
         match element with
-        | Null
-        | NotMatches regularExpressionForUuid -> None
+        | Null -> Error "String is null"
+        | NotMatches regularExpressionForUuid -> Error "String has an invalid format"
         | _ ->
             match Guid.TryParse element with
-            | true, i -> Uuid i |> Some
-            | _ -> None
+            | true, i -> Ok <| Uuid i
+            | _ -> Error "String has an invalid format"
 
-    let from param = Uuid param
+    static member TryFrom element =
+        match Uuid.Create element with
+        | Ok it -> Some it
+        | Error _ -> None
 
-    let fromString element =
-        match tryFrom element with
-        | Some x -> x
-        | None -> raise <| ArgumentException()
+    static member From element =
+        match Uuid.Create element with
+        | Ok it -> it
+        | Error message -> raise <| ArgumentException(message)
 
-    let apply func (Uuid element) = func element
+    static member From element = Uuid element
 
-    let value element = apply id element
+    member this.Value =
+        match this with
+        | Uuid it -> it
+
+[<RequireQualifiedAccess>]
+module Uuid =
+
+    let value (element: Uuid) = element.Value
 
     let newUuid () = Uuid(Guid.NewGuid())
 
-    let toString (element: Uuid) = (element |> value).ToString()
-
-    module internal Model =
-
-        let fromModel (element: Uuid) = (element |> value).ToString()
-
-        let toModel (element: string) = element |> fromString
-
-        let tryToModel element = tryFrom element
+    let toString (element: Uuid) = TypeBuilder.toString element

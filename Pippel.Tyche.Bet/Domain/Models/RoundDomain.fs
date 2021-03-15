@@ -8,5 +8,5 @@ type RoundPK = { RoundID: Uuid }
 type RoundDomain =
     { ID: RoundPK
       MasterPoolID: Uuid
-      Name: NotEmptyString
+      Name: NotEmptyString100
       PointID: Uuid }

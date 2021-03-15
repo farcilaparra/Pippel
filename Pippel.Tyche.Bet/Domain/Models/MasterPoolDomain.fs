@@ -7,6 +7,6 @@ type MasterPoolPK =
 
 type MasterPoolDomain =
     { ID: MasterPoolPK
-      Name: NotEmptyString
+      Name: NotEmptyString100
       StartDate: DateTime
       EndDate: DateTime }

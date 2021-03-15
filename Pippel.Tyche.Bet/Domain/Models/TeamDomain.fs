@@ -6,4 +6,4 @@ type TeamPK = { TeamID: Uuid }
 
 type TeamDomain =
     { ID: TeamPK
-      Name: NotEmptyString }
+      Name: NotEmptyString100 }

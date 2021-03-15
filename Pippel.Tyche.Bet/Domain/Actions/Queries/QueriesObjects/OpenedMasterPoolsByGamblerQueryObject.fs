@@ -26,7 +26,7 @@ type OpenedMasterPoolsByGamblerQueryObject(gamblerID: Uuid, filter: NotEmptyStri
             newQuery <-
                 match filter with
                 | Some it ->
-                    match it |> NotEmptyString.value with
+                    match it |> String.value with
                     | value ->
                         (newQuery :?> IQueryable<PoolReviewViewDao>)
                             .Where(fun element -> element.MasterPoolName.Contains(value))
