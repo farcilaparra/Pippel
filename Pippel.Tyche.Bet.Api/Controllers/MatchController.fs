@@ -22,7 +22,7 @@ type MatchController
     [<HttpGet>]
     member this.Get(masterPoolID: Guid) : Async<MasterPoolMatchViewDto seq> =
         async {
-            let! matches = findMatchesByMasterPoolAction.AsyncExecute(masterPoolID |> Uuid.from)
+            let! matches = findMatchesByMasterPoolAction.AsyncExecute(Uuid.From masterPoolID)
 
             return
                 matches
@@ -32,7 +32,7 @@ type MatchController
     [<HttpGet("onplaying")>]
     member this.GetOnPlayingMatches(poolID: Guid) : Async<OnPlayingMatchViewDto seq> =
         async {
-            let! matches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(poolID |> Uuid.from)
+            let! matches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(Uuid.From poolID)
 
             return
                 matches

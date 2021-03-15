@@ -13,7 +13,7 @@ module PoolDomainMapper =
           CreationDate = poolDomain.CreationDate |> DateTime.value }
 
     let mapToDomain (poolDao: PoolDao) : PoolDomain =
-        { PoolDomain.ID = { PoolID = poolDao.PoolID |> Uuid.from }
-          GroupMatchID = poolDao.MasterPoolID |> Uuid.from
-          OwnerGamblerID = poolDao.OwnerGamblerID |> Uuid.from
-          CreationDate = poolDao.CreationDate |> DateTime.from }
+        { PoolDomain.ID = { PoolID = Uuid.From poolDao.PoolID }
+          GroupMatchID = Uuid.From poolDao.MasterPoolID
+          OwnerGamblerID = Uuid.From poolDao.OwnerGamblerID
+          CreationDate = DateTime.From poolDao.CreationDate }

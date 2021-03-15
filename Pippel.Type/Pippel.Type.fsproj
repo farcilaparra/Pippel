@@ -4,11 +4,12 @@
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Validation.fs" />
+        <Compile Include="TypeBuilder.fs" />
         <Compile Include="Uuid.fs" />
         <Compile Include="Barcode.fs" />
-        <Compile Include="NotEmptyString.fs" />
+        <Compile Include="String.fs" />
         <Compile Include="Percentage.fs" />
-        <Compile Include="PositiveInt.fs" />
+        <Compile Include="Number.fs" />
         <Compile Include="DateTime.fs" />
     </ItemGroup>
     <ItemGroup>

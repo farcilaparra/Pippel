@@ -7,7 +7,7 @@ open Pippel.Type
 [<Fact>]
 let ``given a System.DateTime when a DateTime is created then a DateTime is returned`` () =
     let value = System.DateTime.Now
-    let dateTime = value |> DateTime.from
+    let dateTime = DateTime.From value
     Assert.True(true)
     Assert.Equal(value, dateTime |> DateTime.value)
 

@@ -21,21 +21,21 @@ let wrongValues : obj [] seq =
 [<Theory>]
 [<MemberData(nameof (barcodes))>]
 let ``given a correct value for a barcode when a Barcode is created then a Barcode is returned`` (value: string) =
-    let barcode = value |> Barcode.from
+    let barcode = Barcode.From value
     Assert.True(true)
     Assert.Equal(value, barcode |> Barcode.value)
 
 [<Theory>]
 [<MemberData(nameof (wrongValues))>]
 let ``given a wrong value for a barcode when a Barcode is created then an exception is raised`` (value: string) =
-    Assert.Throws<ArgumentException>(fun () -> value |> Barcode.from |> ignore)
+    Assert.Throws<ArgumentException>(fun () -> Barcode.From value |> ignore)
 
 [<Theory>]
 [<MemberData(nameof (barcodes))>]
 let ``given a correct value for a barcode when a Barcode tries to create then an option with the barcode is returned``
     (value: string)
     =
-    let barcodeOpt = value |> Barcode.tryFrom
+    let barcodeOpt = Barcode.TryFrom value
     Assert.True(barcodeOpt.IsSome)
     Assert.Equal(value, barcodeOpt.Value |> Barcode.value)
 
@@ -44,5 +44,5 @@ let ``given a correct value for a barcode when a Barcode tries to create then an
 let ``given a wrong value for a barcode when a Barcode tries to create then an option without value is returned``
     (value: string)
     =
-    let barcodeOpt = value |> Barcode.tryFrom
+    let barcodeOpt = Barcode.TryFrom value
     Assert.True(barcodeOpt.IsNone)

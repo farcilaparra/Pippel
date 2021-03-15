@@ -25,14 +25,20 @@ type BetController
     inherit ControllerBase()
 
     [<HttpGet("opened")>]
-    member this.AsyncGetOpened(gamblerID: Guid, filter: string, skip: int Nullable, take: int Nullable) : Async<PoolReviewViewDto Page> =
+    member this.AsyncGetOpened
+        (
+            [<FromQuery(Name = "gambler-id")>] gamblerID: Guid,
+            filter: string,
+            skip: int Nullable,
+            take: int Nullable
+        ) : Async<PoolReviewViewDto Page> =
         async {
             let! page =
                 findOpenedMasterPoolsByGamblerAction.AsyncExecute
-                    (gamblerID |> Uuid.from)
-                    (filter |> NotEmptyString.tryFrom)
-                    (skip |> PositiveInt.fromNullable)
-                    (take |> PositiveInt.fromNullable)
+                    (Uuid.From gamblerID)
+                    (NotEmptyString.TryFrom filter)
+                    (PositiveInt.FromNullable skip)
+                    (PositiveInt.FromNullable take)
 
             return page |> Page.map PoolReviewViewMapper.mapToView
         }
@@ -40,7 +46,7 @@ type BetController
     [<HttpGet("matches")>]
     member this.AsyncGetMatches(poolID: Guid) : Async<MatchViewDto seq> =
         async {
-            let! items = findMatchesByPoolAction.AsyncExecute(poolID |> Uuid.from)
+            let! items = findMatchesByPoolAction.AsyncExecute(Uuid.From poolID)
 
             return
                 items
@@ -64,7 +70,7 @@ type BetController
     [<HttpGet("position")>]
     member this.AsyncGetPositions(poolID: Guid) : Async<BetPositionViewDto seq> =
         async {
-            let! items = findBetsByPoolAction.AsyncExecute(poolID |> Uuid.from)
+            let! items = findBetsByPoolAction.AsyncExecute(Uuid.From poolID)
 
             return
                 items
@@ -74,7 +80,7 @@ type BetController
     [<HttpGet("positionandonplayingmatches")>]
     member this.AsyncGetPositionsAndOnPlayingMatches(poolID: Guid) : Async<BetPositionAndOnPlayingMatchViewDto> =
         async {
-            let poolID = poolID |> Uuid.from
+            let poolID = Uuid.From poolID
             let! positions = findBetsByPoolAction.AsyncExecute(poolID)
             let! onPlayingMatches = findOnPlayingMatchesByMasterPoolAction.AsyncExecute(poolID)
 

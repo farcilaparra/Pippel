@@ -8,8 +8,8 @@ module TeamDomainMapper =
 
     let mapFromDomain (team: TeamDomain) : TeamDao =
         { TeamDao.TeamID = team.ID.TeamID |> Uuid.value
-          Name = team.Name |> NotEmptyString.value }
+          Name = team.Name |> String.value }
 
     let mapToDomain (teamDao: TeamDao) : TeamDomain =
-        { ID = { TeamID = teamDao.TeamID |> Uuid.from }
-          Name = teamDao.Name |> NotEmptyString.from }
+        { ID = { TeamID = Uuid.From teamDao.TeamID }
+          Name = NotEmptyString100.From teamDao.Name }

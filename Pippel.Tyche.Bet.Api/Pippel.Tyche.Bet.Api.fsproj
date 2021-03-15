@@ -6,33 +6,33 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="View\Models\PoolReviewViewDto.fs"/>
-        <Compile Include="View\Models\MatchViewDto.fs"/>
-        <Compile Include="View\Models\MasterPoolMatchViewDto.fs"/>
-        <Compile Include="View\Models\EditingBetDto.fs"/>
-        <Compile Include="View\Models\BetPositionViewDto.fs"/>
-        <Compile Include="View\Models\OnPlayingMatchViewDto.fs"/>
-        <Compile Include="View\Models\BetPositionAndOnPlayingMatchViewDto.fs"/>
-        <Compile Include="View\Mappers\PoolReviewViewMapper.fs"/>
-        <Compile Include="View\Mappers\MatchViewMapper.fs"/>
-        <Compile Include="View\Mappers\EditingBetViewMapper.fs"/>
-        <Compile Include="View\Mappers\MasterPoolMatchViewMapper.fs"/>
-        <Compile Include="View\Mappers\BetPositionViewMapper.fs"/>
-        <Compile Include="View\Mappers\OnPlayingMatchViewMapper.fs"/>
-        <Compile Include="Controllers\BetController.fs"/>
-        <Compile Include="Controllers\MatchController.fs"/>
-        <Compile Include="Exception.fs"/>
-        <Compile Include="Startup.fs"/>
-        <Compile Include="Program.fs"/>
+        <Compile Include="View\Models\PoolReviewViewDto.fs" />
+        <Compile Include="View\Models\MatchViewDto.fs" />
+        <Compile Include="View\Models\MasterPoolMatchViewDto.fs" />
+        <Compile Include="View\Models\EditingBetDto.fs" />
+        <Compile Include="View\Models\BetPositionViewDto.fs" />
+        <Compile Include="View\Models\OnPlayingMatchViewDto.fs" />
+        <Compile Include="View\Models\BetPositionAndOnPlayingMatchViewDto.fs" />
+        <Compile Include="View\Mappers\PoolReviewViewMapper.fs" />
+        <Compile Include="View\Mappers\MatchViewMapper.fs" />
+        <Compile Include="View\Mappers\EditingBetViewMapper.fs" />
+        <Compile Include="View\Mappers\MasterPoolMatchViewMapper.fs" />
+        <Compile Include="View\Mappers\BetPositionViewMapper.fs" />
+        <Compile Include="View\Mappers\OnPlayingMatchViewMapper.fs" />
+        <Compile Include="Controllers\BetController.fs" />
+        <Compile Include="Controllers\MatchController.fs" />
+        <Compile Include="Exception.fs" />
+        <Compile Include="Startup.fs" />
+        <Compile Include="Program.fs" />
     </ItemGroup>
     
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.3"/>
-        <PackageReference Include="Oracle.EntityFrameworkCore" Version="5.21.1"/>
-        <ProjectReference Include="..\Pippel.Core\Pippel.Core.fsproj"/>
-        <ProjectReference Include="..\Pippel.Data\Pippel.Data.fsproj"/>
-        <ProjectReference Include="..\Pippel.Tyche.Bet\Pippel.Tyche.Bet.fsproj"/>
-        <ProjectReference Include="..\Pippel.Type\Pippel.Type.fsproj"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.3" />
+        <PackageReference Include="Oracle.EntityFrameworkCore" Version="5.21.1" />
+        <ProjectReference Include="..\Pippel.Core\Pippel.Core.fsproj" />
+        <ProjectReference Include="..\Pippel.Data\Pippel.Data.fsproj" />
+        <ProjectReference Include="..\Pippel.Tyche.Bet\Pippel.Tyche.Bet.fsproj" />
+        <ProjectReference Include="..\Pippel.Type\Pippel.Type.fsproj" />
     </ItemGroup>
 </Project>

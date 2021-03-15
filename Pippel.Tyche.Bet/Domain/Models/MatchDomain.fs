@@ -1,6 +1,7 @@
 namespace Pippel.Tyche.Bet.Domain.Models
 
 open Pippel.Tyche.Bet.Data.Models
+open Pippel.Tyche.Bet.Type
 open Pippel.Type
 
 type MatchPK = { MatchID: Uuid }
@@ -11,6 +12,6 @@ type MatchDomain =
       AwayTeamID: Uuid
       RoundMatchID: Uuid
       MatchDate: DateTime
-      HomeResult: PositiveInt option
-      AwayResult: PositiveInt option
+      HomeResult: Score option
+      AwayResult: Score option
       Status: MatchStatus }

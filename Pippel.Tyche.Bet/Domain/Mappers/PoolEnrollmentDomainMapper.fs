@@ -15,6 +15,6 @@ module PoolEnrollmentDomainMapper =
 
     let mapToDomain (poolEnrollmentDao: PoolEnrollmentDao) : PoolEnrollmentDomain =
         { PoolEnrollmentDomain.ID =
-              { PoolID = poolEnrollmentDao.PoolID |> Uuid.from
-                GamblerID = poolEnrollmentDao.GamblerID |> Uuid.from }
-          EnrollmentDate = poolEnrollmentDao.EnrollmentDate |> DateTime.from }
+              { PoolID = Uuid.From poolEnrollmentDao.PoolID
+                GamblerID = Uuid.From poolEnrollmentDao.GamblerID }
+          EnrollmentDate = DateTime.From poolEnrollmentDao.EnrollmentDate }
