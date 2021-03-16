@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.pippel.tyche.mypool.MyPoolModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_pool_item_border"
+        android:padding="8dp"
+        tools:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/infoLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/indicatorLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/masterPoolNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{model.masterPoolName}"
+                android:textColor="@color/main_text_color"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Eliminatorias al mundial Qatar 2024 marzo 20/21 de 2021 y abril 2/3 de 2021" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/position(model.currentPosition ?? 0)}"
+                android:textColor="@color/secondary_text_color"
+                android:textSize="14sp"
+                android:visibility="@{model.currentPosition != null ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintTop_toBottomOf="@+id/masterPoolNameTextView"
+                tools:text="Posición 3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/indicatorLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/moreView"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp">
+
+            <LinearLayout
+                android:id="@+id/indicatorView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include
+                    layout="@layout/progress_indicator_layout"
+                    bind:model="@{model.positionReview}" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/moreView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_baseline_more_vert_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/main_text_color" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
