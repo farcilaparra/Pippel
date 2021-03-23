@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="searchTextFieldLayoutTheme">
+        <item name="colorOnSurface">?attr/colorSearchEditTextContrast</item>
+        <item name="colorPrimary">?attr/colorApp</item>
+    </style>
+
+    <style name="searchTextFieldLayoutStyle">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="searchTextFieldStyle">
+        <item name="android:background">?attr/colorSearchEditText</item>
+        <item name="android:textColor">?attr/colorSearchEditTextContrast</item>
+    </style>
+
+</resources>

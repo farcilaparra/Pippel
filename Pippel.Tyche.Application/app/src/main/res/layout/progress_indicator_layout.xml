@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.pippel.tyche.ProgressIndicatorModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:rotation="@{model.difference >= 0 ? 0 : 180}"
+            android:src="@{model.difference != 0 ? @drawable/ic_baseline_north_24 : @drawable/ic_baseline_remove_24}"
+            android:tint="@{model.difference == 0 ? @color/stable_indicator : model.difference > 0 ? @color/up_indicator : @color/down_indicator}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_baseline_north_24"
+            tools:tint="@color/up_indicator">
+
+        </com.google.android.material.imageview.ShapeableImageView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.differenceToDisplay}"
+            android:textColor="@{model.difference == 0 ? @color/stable_indicator : model.difference > 0 ? @color/up_indicator : @color/down_indicator}"
+            android:textSize="16sp"
+            android:visibility="@{model.difference != 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintLeft_toRightOf="@+id/arrow"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2"
+            tools:textColor="@color/up_indicator">
+
+        </com.google.android.material.textview.MaterialTextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
