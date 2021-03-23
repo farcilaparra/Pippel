@@ -1,18 +1,22 @@
-package com.pippel.tyche.mypool.di
+package com.pippel.tyche.mypools.di
 
-import com.pippel.core.ModelReader
-import com.pippel.tyche.mypool.*
-import com.pippel.tyche.mypools.MyPoolModel
+import androidx.paging.PagingDataAdapter
+import com.pippel.tyche.mypools.data.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewComponent::class)
+@InstallIn(SingletonComponent::class)
 abstract class MyPoolModule {
 
     @Binds
-    abstract fun provideMyPoolModelReader(impl: MyPoolModelReaderInMemory): ModelReader<MyPoolModel>
+    abstract fun provideMyPoolPagingDataAdapter(impl: MyPoolPagingDataAdapter): PagingDataAdapter<MyPoolModel, MyPoolsViewHolder>
+
+    @Binds
+    @Singleton
+    abstract fun provideFindMyPoolsAction(impl: DefaultFindMyPoolsAction): FindMyPoolsAction
 
 }

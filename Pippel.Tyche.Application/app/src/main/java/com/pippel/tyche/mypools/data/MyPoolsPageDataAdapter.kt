@@ -1,11 +1,10 @@
-package com.pippel.tyche.mypools
+package com.pippel.tyche.mypools.data
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.pippel.tyche.R
-import com.pippel.tyche.mypools.data.MyPoolModel
 import javax.inject.Inject
 
 class MyPoolPagingDataAdapter @Inject constructor() :
