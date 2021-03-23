@@ -4,6 +4,7 @@ import com.pippel.core.Page
 import com.pippel.core.Query
 import com.pippel.tyche.Gambler
 import com.pippel.tyche.api.PoolApi
+import com.pippel.tyche.mypools.data.MyPoolModel
 import javax.inject.Inject
 
 class MyPoolsQuery @Inject constructor(

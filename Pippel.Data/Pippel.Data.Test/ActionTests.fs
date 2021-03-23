@@ -46,7 +46,6 @@ let ``given several items that exist when an action to query them is executed th
                     { Page.CurrentPage = 1
                       ItemsCount = 1L
                       PageCount = 1
-                      GroupCount = 1
                       PageSize = 1
                       Items =
                           [| { Product.ID = "c1"

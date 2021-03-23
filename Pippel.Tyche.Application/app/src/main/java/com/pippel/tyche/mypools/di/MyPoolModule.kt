@@ -2,6 +2,7 @@ package com.pippel.tyche.mypool.di
 
 import com.pippel.core.ModelReader
 import com.pippel.tyche.mypool.*
+import com.pippel.tyche.mypools.MyPoolModel
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

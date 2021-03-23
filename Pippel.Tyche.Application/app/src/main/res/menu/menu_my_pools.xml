@@ -5,7 +5,7 @@
     <item
         android:id="@+id/add_pool_action"
         android:icon="@drawable/ic_baseline_add_24"
-        android:title="@string/addMyPoolAction"
+        android:title="@string/add_my_pool_action"
         app:showAsAction="ifRoom" />
 
 </menu>

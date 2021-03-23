@@ -175,7 +175,6 @@ let ``given several items that exist when they are queried and grouped by any cr
                 products.Length
 
         Assert.Equal(productsGroupedBefore.Count(), page.Items.Count())
-        Assert.Equal(productsGroupedBefore.Count(), page.GroupCount)
 
         for item in page.Items do
             Assert.NotNull(

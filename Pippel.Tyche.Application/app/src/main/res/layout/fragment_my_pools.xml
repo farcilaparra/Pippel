@@ -5,8 +5,7 @@
     android:id="@+id/dataSwipeRefreshView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:fillViewport="true">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -23,17 +22,17 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/searchTextFieldLayoutStyle"
+                    style="@style/SearchTextFieldLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:theme="@style/searchTextFieldLayoutTheme"
+                    android:theme="@style/SearchTextFieldLayoutTheme"
                     app:endIconMode="clear_text"
                     app:startIconDrawable="@drawable/ic_baseline_search_24">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/searchTextEdit"
-                        style="@style/searchTextFieldStyle"
+                        style="@style/SearchTextFieldStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -43,9 +42,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dataView"
+                style="@style/ListStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/list_border"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/layout_my_pool_item" />
 

@@ -8,17 +8,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="white_smoke">#f8f8f8</color>
+    <color name="whisper">#ebebeb</color>
+    <color name="matterhorn">#4e4e4e</color>
+    <color name="matterhorn_op70">#4e4e4e</color>
+    <color name="spanish_gray">#969696</color>
 
-    <color name="main_text_color">#4e4e4e</color>
-    <color name="secondary_text_color">#b34e4e4e</color>
-    <color name="up_indicator">#289600</color>
-    <color name="down_indicator">#d05050</color>
-    <color name="stable_indicator">#f77b00</color>
-    <color name="item_border">#969696</color>
-
-    <color name="first_button">#676767</color>
-    <color name="first_button_contrast">#f8f8f8</color>
-
-    <color name="second_button">#4e4e4e</color>
-    <color name="second_button_contrast">#f8f8f8</color>
+    <color name="app_light">#1f7400</color>
+    <color name="up_indicator_light">#289600</color>
+    <color name="down_indicator_light">#d05050</color>
+    <color name="stable_indicator_light">#f77b00</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.pippel.tyche.mypool
+package com.pippel.tyche.mypools
 
 import com.pippel.tyche.ProgressIndicatorModel
 import java.util.*

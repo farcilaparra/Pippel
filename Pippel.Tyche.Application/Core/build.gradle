@@ -42,3 +42,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
+
+dependencies {
+    def paging_version = "3.0.0-beta02"
+
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+
+    // alternatively - without Android dependencies for tests
+    testImplementation "androidx.paging:paging-common-ktx:$paging_version"
+
+    // Jetpack Compose Integration
+    implementation "androidx.paging:paging-compose:1.0.0-alpha08"
+}
