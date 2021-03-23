@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="searchTextFieldLayoutTheme">
+    <style name="SearchTextFieldLayoutTheme">
         <item name="colorOnSurface">?attr/colorSearchEditTextContrast</item>
         <item name="colorPrimary">?attr/colorApp</item>
     </style>
 
-    <style name="searchTextFieldLayoutStyle">
+    <style name="SearchTextFieldLayoutStyle">
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
     </style>
 
-    <style name="searchTextFieldStyle">
+    <style name="SearchTextFieldStyle">
         <item name="android:background">?attr/colorSearchEditText</item>
         <item name="android:textColor">?attr/colorSearchEditTextContrast</item>
+        <item name="android:hint">@string/search_text</item>
+    </style>
+
+    <style name="ListStyle">
+        <item name="android:background">@drawable/list_border</item>
+    </style>
+
+    <style name="ListItemStyle">
+        <item name="android:background">@drawable/list_item_border</item>
     </style>
 
 </resources>

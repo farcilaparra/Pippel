@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Tyche</string>
     <string name="position">Posición %d</string>
-    <string name="shareText">Compartir</string>
-    <string name="scoreBoardsText">Marcadores</string>
+    <string name="share_text">Compartir</string>
+    <string name="score_boards_text">Marcadores</string>
+    <string name="my_pools_title">Mis pollas</string>
+    <string name="add_my_pool_action">Crear polla</string>
+    <string name="network_error_message">Hay problemas con la conexión. Inténtalo mas tarde</string>
+    <string name="search_text">Busqueda</string>
 </resources>

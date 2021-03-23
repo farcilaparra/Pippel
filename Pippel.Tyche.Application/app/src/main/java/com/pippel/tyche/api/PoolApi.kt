@@ -1,7 +1,7 @@
 package com.pippel.tyche.api
 
 import com.pippel.core.Page
-import com.pippel.tyche.mypools.MyPoolModel
+import com.pippel.tyche.mypools.data.MyPoolModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 

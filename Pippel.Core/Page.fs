@@ -4,7 +4,6 @@ type Page<'T> =
     { CurrentPage: int
       PageCount: int
       PageSize: int
-      GroupCount: int
       ItemsCount: int64
       Items: 'T seq }
 
@@ -15,7 +14,6 @@ module Page =
           CurrentPage = page.CurrentPage
           PageCount = page.PageCount
           PageSize = page.PageSize
-          GroupCount = page.GroupCount
           ItemsCount = page.ItemsCount }
 
     let fromSeq seq =
@@ -25,5 +23,4 @@ module Page =
           CurrentPage = 0
           PageCount = count
           PageSize = count
-          GroupCount = count
           ItemsCount = count |> int64 }

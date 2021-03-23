@@ -73,7 +73,7 @@
         <Compile Include="Domain\Actions\EditBetAction.fs" />
         <Compile Include="Domain\Actions\IFindPoolByKeyAction.fs" />
         <Compile Include="Domain\Actions\FindPoolByKeyAction.fs" />
-        <Compile Include="Domain\Actions\Queries\QueriesObjects\OpenedMasterPoolsByGamblerQueryObject.fs" />
+        <Compile Include="Domain\Actions\Queries\QueriesObjects\OpenedPoolsByGamblerQueryObject.fs" />
         <Compile Include="Domain\Actions\Queries\QueriesObjects\MatchesByPoolQueryObject.fs" />
         <Compile Include="Domain\Actions\Queries\QueriesObjects\MatchesByMasterPoolQueryObject.fs" />
         <Compile Include="Domain\Actions\Queries\QueriesObjects\BetsByPoolQueryObject.fs" />

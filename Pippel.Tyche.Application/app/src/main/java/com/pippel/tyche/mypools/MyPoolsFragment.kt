@@ -13,6 +13,8 @@ import com.pippel.core.coroutines.launchAsyncWhenCreated
 import com.pippel.tyche.PagingLoadStateAdapter
 import com.pippel.tyche.R
 import com.pippel.tyche.databinding.FragmentMyPoolsBinding
+import com.pippel.tyche.mypools.data.MyPoolModel
+import com.pippel.tyche.mypools.data.MyPoolsViewHolder
 import com.pippel.tyche.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -94,7 +96,7 @@ class MyPoolsFragment : Fragment() {
     }
 
     private fun notifyNetworkError() {
-        showMessage(getString(R.string.networkErrorMessage))
+        showMessage(getString(R.string.network_error_message))
     }
 
 }
