@@ -1,5 +1,6 @@
 namespace Pippel.Tyche.Bet.Domain.Mappers
 
+open Pippel.Tyche.Bet.Mapper
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Tyche.Bet.Type
@@ -18,11 +19,14 @@ module MatchDomainMapper =
           Status = matchDomain.Status }
 
     let mapToDomain (matchDao: MatchDao) : MatchDomain =
-        { ID = { MatchID = Uuid.From matchDao.MatchID }
-          HomeTeamID = Uuid.From matchDao.HomeTeamID
-          AwayTeamID = Uuid.From matchDao.AwayTeamID
-          RoundMatchID = Uuid.From matchDao.RoundID
-          MatchDate = DateTime.From matchDao.MatchDate
-          HomeResult = Score.TryFromNullable matchDao.HomeResult
-          AwayResult = Score.TryFromNullable matchDao.AwayResult
-          Status = matchDao.Status }
+        tryMap {
+            return
+                { ID = { MatchID = Uuid.From matchDao.MatchID }
+                  HomeTeamID = Uuid.From matchDao.HomeTeamID
+                  AwayTeamID = Uuid.From matchDao.AwayTeamID
+                  RoundMatchID = Uuid.From matchDao.RoundID
+                  MatchDate = DateTime.From matchDao.MatchDate
+                  HomeResult = Score.TryFromNullable matchDao.HomeResult
+                  AwayResult = Score.TryFromNullable matchDao.AwayResult
+                  Status = matchDao.Status }
+        }

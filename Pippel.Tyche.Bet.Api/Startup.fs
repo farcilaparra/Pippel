@@ -131,7 +131,7 @@ type Startup private () =
             (fun builder ->
                 builder.Run
                     (fun context ->
-                        ExceptionResponse.asyncUpdateResponseToDefaultError
+                        Exception.asyncUpdateResponseToDefaultError
                             context
                             (Exception.funcCreateCustomCode)
                             (DefaultJsonSerializer())

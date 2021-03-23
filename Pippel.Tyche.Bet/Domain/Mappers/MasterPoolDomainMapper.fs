@@ -1,5 +1,6 @@
 namespace Pippel.Tyche.Bet.Domain.Mappers
 
+open Pippel.Tyche.Bet.Mapper
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Type
@@ -13,7 +14,10 @@ module MasterPoolDomainMapper =
           EndDate = masterPoolDomain.EndDate |> DateTime.value }
 
     let mapToDomain (masterPoolDao: MasterPoolDao) : MasterPoolDomain =
-        { ID = { MasterPoolID = Uuid.From masterPoolDao.MasterPoolID }
-          Name = NotEmptyString100.From masterPoolDao.Name
-          StartDate = DateTime.From masterPoolDao.StartDate
-          EndDate = DateTime.From masterPoolDao.EndDate }
+        tryMap {
+            return
+                { ID = { MasterPoolID = Uuid.From masterPoolDao.MasterPoolID }
+                  Name = NotEmptyString100.From masterPoolDao.Name
+                  StartDate = DateTime.From masterPoolDao.StartDate
+                  EndDate = DateTime.From masterPoolDao.EndDate }
+        }

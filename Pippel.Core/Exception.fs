@@ -18,33 +18,31 @@ type Error =
 [<CLIMutable>]
 type ExceptionResponse = { Error: Error }
 
-type ExceptionCode =
-    | Generic = 0
-    | NotFound = 1
-    | AlreadyExist = 2
-
-module ExceptionResponse =
+module Exception =
 
     [<Literal>]
     let private prefixCode = @"CORE"
 
-    let isSystemException (ex: Exception) =
-        ex.GetType().FullName.StartsWith("System.")
+    let private exceptionsMap =
+        Map [ (typeof<NotFoundException>.Name, 1)
+              (typeof<AlreadyExistException>.Name, 2) ]
 
-    let formatExceptionText (exceptionCode: ExceptionCode) = $"{prefixCode}-{string exceptionCode}"
+    let formatException (prefix: string) (exceptionCode: int) = $"{prefix}-{string exceptionCode}"
 
-    let private createCodeFromException (ex: Exception) (funcCreateCustomCode: Exception -> string) =
-        match ex with
-        | :? NotFoundException as ex -> formatExceptionText ExceptionCode.NotFound
-        | :? AlreadyExistException as ex -> formatExceptionText ExceptionCode.AlreadyExist
-        | _ ->
-            match isSystemException ex with
-            | true -> formatExceptionText ExceptionCode.Generic
-            | false -> funcCreateCustomCode (ex)
+    let private formatMyException (exceptionCode: int) =
+        formatException prefixCode exceptionCode
+
+    let private createCodeFromException (ex: Exception) (funcCreateCustomCode: Exception -> string option) =
+        match funcCreateCustomCode ex with
+        | Some it -> it
+        | None ->
+            match exceptionsMap.TryFind <| ex.GetType().Name with
+            | Some it -> formatMyException it
+            | None -> formatMyException 0
 
     let createResponseText
         (context: HttpContext)
-        (funcCreateCustomCode: Exception -> string)
+        (funcCreateCustomCode: Exception -> string option)
         (jsonSerializer: IJsonSerializer)
         : string option =
         let feature =
@@ -76,7 +74,7 @@ module ExceptionResponse =
 
     let asyncUpdateResponseToDefaultError
         (context: HttpContext)
-        (funcCreateCustomCode: Exception -> string)
+        (funcCreateCustomCode: Exception -> string option)
         (jsonSerializer: IJsonSerializer)
         =
         async {

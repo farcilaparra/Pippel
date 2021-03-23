@@ -1,5 +1,6 @@
 namespace Pippel.Tyche.Bet.Domain.Mappers
 
+open Pippel.Tyche.Bet.Mapper
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Type
@@ -13,7 +14,10 @@ module RoundDomainMapper =
           PointID = roundDomain.PointID |> Uuid.value }
 
     let mapToDomain (roundDao: RoundDao) : RoundDomain =
-        { ID = { RoundID = Uuid.From roundDao.RoundID }
-          MasterPoolID = Uuid.From roundDao.MasterPoolID
-          Name = NotEmptyString100.From roundDao.Name
-          PointID = Uuid.From roundDao.PointID }
+        tryMap {
+            return
+                { ID = { RoundID = Uuid.From roundDao.RoundID }
+                  MasterPoolID = Uuid.From roundDao.MasterPoolID
+                  Name = NotEmptyString100.From roundDao.Name
+                  PointID = Uuid.From roundDao.PointID }
+        }

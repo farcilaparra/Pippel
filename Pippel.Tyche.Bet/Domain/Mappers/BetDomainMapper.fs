@@ -1,5 +1,6 @@
 namespace Pippel.Tyche.Bet.Domain.Mappers
 
+open Pippel.Tyche.Bet.Mapper
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Tyche.Bet.Type
@@ -15,9 +16,12 @@ module BetDomainMapper =
           AwayTeamValue = betDomain.AwayTeamValue |> Number.value }
 
     let mapToDomain (betDao: BetDao) : BetDomain =
-        { ID =
-              { PoolID = Uuid.From betDao.PoolID
-                GamblerID = Uuid.From betDao.GamblerID
-                MatchID = Uuid.From betDao.MatchID }
-          HomeTeamValue = Score.From betDao.HomeTeamValue
-          AwayTeamValue = Score.From betDao.AwayTeamValue }
+        tryMap {
+            return
+                { ID =
+                      { PoolID = Uuid.From betDao.PoolID
+                        GamblerID = Uuid.From betDao.GamblerID
+                        MatchID = Uuid.From betDao.MatchID }
+                  HomeTeamValue = Score.From betDao.HomeTeamValue
+                  AwayTeamValue = Score.From betDao.AwayTeamValue }
+        }
