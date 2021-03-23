@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Tyche" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Tyche" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/white_smoke</item>
+        <item name="colorPrimaryVariant">@color/white_smoke</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,15 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorBackground">@color/white_smoke</item>
+        <item name="colorSearchEditText">@color/whisper</item>
+        <item name="colorSearchEditTextContrast">@color/matterhorn</item>
+        <item name="colorApp">@color/app_light</item>
+        <item name="colorText">@color/matterhorn</item>
+        <item name="colorLightText">@color/matterhorn_op70</item>
+        <item name="colorUpIndicator">@color/up_indicator_light</item>
+        <item name="colorDownIndicator">@color/down_indicator_light</item>
+        <item name="colorStableIndicator">@color/stable_indicator_light</item>
+        <item name="colorListBorder">@color/spanish_gray</item>
     </style>
 </resources>

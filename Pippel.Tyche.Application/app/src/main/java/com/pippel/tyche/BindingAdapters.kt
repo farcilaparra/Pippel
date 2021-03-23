@@ -6,14 +6,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
-@BindingAdapter("app:tintFromAttr")
+@BindingAdapter("tintFromAttr")
 fun setTintFromAttr(view: ImageView, attrID: Int) {
     val value = TypedValue()
     view.context.theme.resolveAttribute(attrID, value, true)
     view.imageTintList = ColorStateList.valueOf(value.data)
 }
 
-@BindingAdapter("app:textColorFromAttr")
+@BindingAdapter("textColorFromAttr")
 fun setColorFromAttr(view: TextView, attrID: Int) {
     val value = TypedValue()
     view.context.theme.resolveAttribute(attrID, value, true)

@@ -1,4 +1,4 @@
-package com.pippel.tyche.mypools
+package com.pippel.tyche.mypools.data
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

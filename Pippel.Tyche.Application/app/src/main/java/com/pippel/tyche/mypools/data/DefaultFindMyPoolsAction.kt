@@ -1,4 +1,4 @@
-package com.pippel.tyche.mypools
+package com.pippel.tyche.mypools.data
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

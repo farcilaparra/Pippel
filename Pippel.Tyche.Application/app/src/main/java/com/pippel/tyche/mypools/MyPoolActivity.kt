@@ -1,4 +1,4 @@
-package com.pippel.tyche.mypool
+package com.pippel.tyche.mypools
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +10,7 @@ class MyPoolActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.my_pool_activity)
+        setContentView(R.layout.activity_my_pools)
     }
 
 }

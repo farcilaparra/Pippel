@@ -6,7 +6,7 @@ open Pippel.Data
 open Pippel.Tyche.Bet.Data.Models.Queries
 open Pippel.Type
 
-type OpenedMasterPoolsByGamblerQueryObject(gamblerID: Uuid, filter: NotEmptyString option) =
+type OpenedPoolsByGamblerQueryObject(gamblerID: Uuid, filter: NotEmptyString option) =
 
     interface IQueryObject with
 
@@ -33,4 +33,6 @@ type OpenedMasterPoolsByGamblerQueryObject(gamblerID: Uuid, filter: NotEmptyStri
                         :> IQueryable
                 | None -> newQuery
 
-            newQuery
+            (newQuery :?> IQueryable<PoolReviewViewDao>)
+                .OrderByDescending(fun it -> it.StartDate)
+            :> IQueryable

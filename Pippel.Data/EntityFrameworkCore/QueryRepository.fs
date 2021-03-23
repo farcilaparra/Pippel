@@ -35,14 +35,10 @@ module QueryRepository =
             let mutable query =
                 context.Set<'TEntity>().AsNoTracking() :> IQueryable
 
-            let! itemsCount =
-                (query :?> IQueryable<'TEntity>).LongCountAsync()
-                |> Async.AwaitTask
-
             query <- queryObject.Query query
 
-            let! groupCount =
-                (query :?> IQueryable<'TResult>).CountAsync()
+            let! itemsCount =
+                (query :?> IQueryable<'TEntity>).LongCountAsync()
                 |> Async.AwaitTask
 
             query <-
@@ -63,7 +59,6 @@ module QueryRepository =
                 { Page.CurrentPage = skip / take
                   PageSize = take
                   PageCount = pageCount
-                  GroupCount = groupCount
                   ItemsCount = itemsCount
                   Items = items }
         }

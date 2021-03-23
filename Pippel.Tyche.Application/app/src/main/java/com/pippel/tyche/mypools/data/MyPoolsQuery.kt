@@ -1,4 +1,4 @@
-package com.pippel.tyche.mypools
+package com.pippel.tyche.mypools.data
 
 import com.pippel.core.Page
 import com.pippel.core.Query

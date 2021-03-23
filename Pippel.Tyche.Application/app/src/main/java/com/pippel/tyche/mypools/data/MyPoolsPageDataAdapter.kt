@@ -1,4 +1,4 @@
-package com.pippel.tyche.mypools
+package com.pippel.tyche.mypools.data
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.pippel.tyche.R
 import javax.inject.Inject
 
-class MyPoolPageDataAdapter @Inject constructor() :
+class MyPoolPagingDataAdapter @Inject constructor() :
     PagingDataAdapter<MyPoolModel, MyPoolsViewHolder>(MyPoolComparator) {
 
     override fun onBindViewHolder(holder: MyPoolsViewHolder, position: Int) {

@@ -10,13 +10,13 @@
 
         <variable
             name="model"
-            type="com.pippel.tyche.mypool.MyPoolModel" />
+            type="com.pippel.tyche.mypools.data.MyPoolModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/ListItemStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/my_pool_item_border"
         android:padding="8dp"
         tools:layout_height="wrap_content">
 
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{model.masterPoolName}"
-                android:textColor="@color/main_text_color"
+                android:textColor="?attr/colorText"
                 android:textSize="16sp"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Eliminatorias al mundial Qatar 2024 marzo 20/21 de 2021 y abril 2/3 de 2021" />
@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{@string/position(model.currentPosition ?? 0)}"
-                android:textColor="@color/secondary_text_color"
+                android:textColor="?attr/colorLightText"
                 android:textSize="14sp"
                 android:visibility="@{model.currentPosition != null ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintTop_toBottomOf="@+id/masterPoolNameTextView"
@@ -55,10 +55,10 @@
             android:id="@+id/indicatorLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/moreView"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="8dp">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/indicatorView"
@@ -67,7 +67,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <include
-                    layout="@layout/progress_indicator_layout"
+                    layout="@layout/layout_progress_indicator"
                     bind:model="@{model.positionReview}" />
             </LinearLayout>
 
@@ -80,7 +80,7 @@
             android:background="@drawable/ic_baseline_more_vert_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/main_text_color" />
+            app:tint="?attr/colorText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
