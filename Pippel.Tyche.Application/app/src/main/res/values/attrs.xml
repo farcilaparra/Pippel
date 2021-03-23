@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="colorSearchEditText" format="reference" />
+    <attr name="colorSearchEditTextContrast" format="reference" />
+    <attr name="colorApp" format="reference" />
+    <attr name="colorText" format="reference" />
+    <attr name="colorLightText" format="reference" />
+    <attr name="colorUpIndicator" format="reference" />
+    <attr name="colorDownIndicator" format="reference" />
+    <attr name="colorStableIndicator" format="reference" />
+    <attr name="colorListBorder" format="reference" />
+
+</resources>
