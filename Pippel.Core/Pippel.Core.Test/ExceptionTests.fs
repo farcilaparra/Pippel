@@ -24,7 +24,7 @@ let ``given an exception when a text that represents the exception is created th
     context.Features.Set<IExceptionHandlerPathFeature>(exceptionHandlerPathFeature)
 
     let jsonOpt =
-        ExceptionResponse.createResponseText context (fun x -> "GENERIC-0") (DefaultJsonSerializer())
+        Exception.createResponseText context (fun x -> Some "GENERIC-0") (DefaultJsonSerializer())
 
     Assert.True(jsonOpt.IsSome)
 
@@ -40,7 +40,7 @@ let ``given an exception when the response is updated then an the body of the re
 
     context.Features.Set<IExceptionHandlerPathFeature>(exceptionHandlerPathFeature)
 
-    ExceptionResponse.asyncUpdateResponseToDefaultError context (fun x -> "GENERIC-0") (DefaultJsonSerializer())
+    Exception.asyncUpdateResponseToDefaultError context (fun x -> Some "GENERIC-0") (DefaultJsonSerializer())
     |> Async.RunSynchronously
 
     let buffer : byte array = Array.zeroCreate 4096

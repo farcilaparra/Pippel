@@ -38,7 +38,7 @@ module QueryRepository =
             query <- queryObject.Query query
 
             let! itemsCount =
-                (query :?> IQueryable<'TEntity>).LongCountAsync()
+                (query :?> IQueryable<'TResult>).LongCountAsync()
                 |> Async.AwaitTask
 
             query <-

@@ -1,5 +1,6 @@
 namespace Pippel.Tyche.Bet.Domain.Mappers
 
+open Pippel.Tyche.Bet.Mapper
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Type
@@ -13,7 +14,9 @@ module PoolDomainMapper =
           CreationDate = poolDomain.CreationDate |> DateTime.value }
 
     let mapToDomain (poolDao: PoolDao) : PoolDomain =
-        { PoolDomain.ID = { PoolID = Uuid.From poolDao.PoolID }
-          GroupMatchID = Uuid.From poolDao.MasterPoolID
-          OwnerGamblerID = Uuid.From poolDao.OwnerGamblerID
-          CreationDate = DateTime.From poolDao.CreationDate }
+        tryMap {
+            return { PoolDomain.ID = { PoolID = Uuid.From poolDao.PoolID }
+                     GroupMatchID = Uuid.From poolDao.MasterPoolID
+                     OwnerGamblerID = Uuid.From poolDao.OwnerGamblerID
+                     CreationDate = DateTime.From poolDao.CreationDate }
+        }

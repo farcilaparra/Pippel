@@ -2,6 +2,7 @@ namespace Pippel.Tyche.Bet.Domain.Mappers
 
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Models
+open Pippel.Tyche.Bet.Mapper
 open Pippel.Type
 
 module GamblerDomainMapper =
@@ -10,4 +11,4 @@ module GamblerDomainMapper =
         { GamblerDao.UserID = gamblerDomain.ID.UserID |> Uuid.value }
 
     let mapToDomain (gamblerDao: GamblerDao) : GamblerDomain =
-        { GamblerDomain.ID = { UserID = Uuid.From gamblerDao.UserID } }
+        tryMap { return { GamblerDomain.ID = { UserID = Uuid.From gamblerDao.UserID } } }

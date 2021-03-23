@@ -1,6 +1,7 @@
 namespace Pippel.Tyche.Bet.Api
 
 open System
+open Pippel.Core.Exception
 open Pippel.Tyche.Bet
 
 module Exception =
@@ -8,12 +9,11 @@ module Exception =
     [<Literal>]
     let private prefixCode = @"TYCHE"
 
-    type ExceptionCode =
-        | Generic = 0
-        | EditingBetNotAllowed = 1
+    let private exceptionsMap =
+        Map [ (typeof<DomainValueException>.Name, 1)
+              (typeof<EditingBetNotAllowedException>.Name, 2) ]
 
-    let funcCreateCustomCode (ex: Exception) : string =
-        match ex with
-        | :? EditingBetNotAllowedException as ex ->
-            $"{prefixCode}-{string (LanguagePrimitives.EnumToValue ExceptionCode.EditingBetNotAllowed)}"
-        | _ -> $"{prefixCode}-{string (LanguagePrimitives.EnumToValue ExceptionCode.Generic)}"
+    let funcCreateCustomCode (ex: Exception) : string option =
+        match exceptionsMap.TryFind <| ex.GetType().Name with
+        | Some it -> Some <| formatException prefixCode it
+        | None -> None
