@@ -1,5 +1,6 @@
 namespace Pippel.Tyche.Bet.Domain.Mappers
 
+open Pippel.Tyche.Bet.Mapper
 open Pippel.Tyche.Bet.Domain.Models
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Type
@@ -11,5 +12,8 @@ module TeamDomainMapper =
           Name = team.Name |> String.value }
 
     let mapToDomain (teamDao: TeamDao) : TeamDomain =
-        { ID = { TeamID = Uuid.From teamDao.TeamID }
-          Name = NotEmptyString100.From teamDao.Name }
+        tryMap {
+            return
+                { ID = { TeamID = Uuid.From teamDao.TeamID }
+                  Name = NotEmptyString100.From teamDao.Name }
+        }

@@ -1,5 +1,6 @@
 namespace Pippel.Tyche.Bet.Domain.Mappers
 
+open Pippel.Tyche.Bet.Mapper
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Tyche.Bet.Type
 open Pippel.Type
@@ -17,9 +18,12 @@ module PointDomainMapper =
           WinOrDrawPoint = pointDomain.WinOrDrawPoint |> Number.value }
 
     let mapToDomain (pointDao: PointDao) : PointDomain =
-        { ID = { PointID = Uuid.From pointDao.PointID }
-          HomeResultPoint = ScoreWeight.From pointDao.HomeResultPoint
-          AwayResultPoint = ScoreWeight.From pointDao.AwayResultPoint
-          DifferencePoint = ScoreWeight.From pointDao.DifferencePoint
-          InvertedDifferencePoint = ScoreWeight.From pointDao.InvertedDifferencePoint
-          WinOrDrawPoint = ScoreWeight.From pointDao.WinOrDrawPoint }
+        tryMap {
+            return
+                { ID = { PointID = Uuid.From pointDao.PointID }
+                  HomeResultPoint = ScoreWeight.From pointDao.HomeResultPoint
+                  AwayResultPoint = ScoreWeight.From pointDao.AwayResultPoint
+                  DifferencePoint = ScoreWeight.From pointDao.DifferencePoint
+                  InvertedDifferencePoint = ScoreWeight.From pointDao.InvertedDifferencePoint
+                  WinOrDrawPoint = ScoreWeight.From pointDao.WinOrDrawPoint }
+        }

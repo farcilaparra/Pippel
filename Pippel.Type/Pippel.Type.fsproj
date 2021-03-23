@@ -3,8 +3,8 @@
         <TargetFramework>netcoreapp5.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="Validation.fs" />
         <Compile Include="TypeBuilder.fs" />
+        <Compile Include="Validation.fs" />
         <Compile Include="Uuid.fs" />
         <Compile Include="Barcode.fs" />
         <Compile Include="String.fs" />
