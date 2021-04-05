@@ -8,161 +8,56 @@ Returns the opened group match for a gambler.
 
 #### Request
 
-`/bet/opened?gamblerid=9798ff07-f9d5-462d-acb1-bd58b553ff2e&skip=0$take=10`
+`/bet/opened?gamblerid=9798ff07-f9d5-462d-acb1-bd58b553ff2e&skip=0&take=10&filter=mundial`
 
 #### Response
 
 ```json
 {
-  "currentPage": 0,
-  "pageCount": 1,
-  "pageSize": 10,
-  "groupCount": 1,
-  "itemsCount": 1,
-  "items": [
-    {
-      "poolID": "1be04ebd-bb83-1d2f-e053-020011ac624c",
-      "gamblerID": "49a849bd-b8ba-bc01-e053-020011acd428",
-      "masterPoolName": "Eliminatorias sudaméricanas al mundial Qatar 2024 marzo de 2021",
-      "currentPosition": null,
-      "beforePosition": null
-    }
-  ]
+    "currentPage": 0,
+    "pageCount": 1,
+    "pageSize": 10,
+    "itemsCount": 1,
+    "items": [
+        {
+            "poolID": "1be04ebd-bb83-1d2f-e053-020011ac624c",
+            "gamblerID": "49a849bd-b8ba-bc01-e053-020011acd428",
+            "masterPoolName": "Eliminatorias sudaméricanas al mundial Qatar 2024 marzo de 2021",
+            "currentPosition": null,
+            "beforePosition": null
+        }
+    ]
 }
 ```
 
-### GET `/bet/matches?poolid=*`
+## POOL
 
-Returns the matches filtered by pool id.
+### POST `/pool`
 
-#### Request
-
-`/bet/matches?poolid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
-
-#### Response
-
-```json
-[{ "MatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "RoundID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "MasterPoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "MatchStatus": 1,
-   "HomeTeamID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "AwayTeamID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "MatchDate": "",
-   "HomeTeamName": "Colombia",
-   "AwayTeamName": "Brasil",
-   "Point": null }]
-```
-
-### PUT `/bet/edit`
-
-Saves several bets.
-
-`/bet/edit`
+Add several pools to persist.
 
 #### Request
 
 ```json
-{ "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-  "MatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-  "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-  "HomeTeamValue": 2,
-  "AwayTeamValue": 1 }
+[
+    {
+        "poolID": null,
+        "masterPoolID": "863551BE-EA38-CF04-E053-020011ACAF9E",
+        "OwnerGamblerID": "49A849BD-B8BA-BC01-E053-020011ACD428",
+        "name": "Copa América de Felipe 2021"
+    }
+]
 ```
 
 #### Response
 
 ```json
-[{ "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "MatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "HomeTeamValue": 2,
-   "AwayTeamValue": 1 }]
-```
-
-### GET `/bet/position?poolid=*`
-
-Returns the bet's position filtered by pool id.
-
-#### Request
-
-`/bet/position?poolid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
-
-#### Response
-
-```json
-[{ "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "EnrollmentDate": "",
-   "Point": null,
-   "CurrentPosition": null,
-   "BeforePosition": null }]
-```
-
-### GET `/bet/positionandonplayingmatches?poolid=*`
-
-Returns the bet's positions and the matches is on playing filtered by pool id.
-
-#### Request
-
-`/bet/positionandonplayingmatches?groupbetid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
-
-#### Response
-
-```json
-{ "BetsPositions": [
-    { "PoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-      "GamblerID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-      "EnrollmentDate": "",
-      "Point": null,
-      "CurrentPosition": null,
-      "BeforePosition": null }],
-  "OnPlayingMatches": [
-    { "MatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-      "HomeTeamID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-      "AwayTeamID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-      "MatchDate": "",
-      "HomeTeamName": "Colombia",
-      "AwayTeamName": "Brasil",
-      "MasterPoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e" }]}
-```
-
-## Match
-
-### GET `/match?masterpoolid=*`
-
-Returns the matches filtered by master pool id.
-
-#### Request
-
-`/match?masterpoolid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
-
-#### Response
-
-```json
-[{ "MasterPoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "HomeTeamName": "Colombia",
-   "AwayTeamName": "Brasil",
-   "MatchDate": "" }]
-```
-
-### GET `/match/onplaying?poolid=*`
-
-Returns the on playing matches filtered by pool id.
-
-#### Request
-
-`/match/onplaying?poolid=9798ff07-f9d5-462d-acb1-bd58b553ff2e`
-
-#### Response
-
-```json
-[{ "MatchID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "HomeTeamID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "AwayTeamID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e",
-   "MatchDate": "",
-   "HomeTeamName": "Colombia",
-   "AwayTeamName": "Brasil",
-   "MasterPoolID": "9798ff07-f9d5-462d-acb1-bd58b553ff2e" }]
+[
+    {
+        "poolID": "1a55e98d-7a26-412d-b15a-35a5e75cee2e",
+        "masterPoolID": "863551be-ea38-cf04-e053-020011acaf9e",
+        "ownerGamblerID": "49a849bd-b8ba-bc01-e053-020011acd428",
+        "name": "Copa América de Felipe 2021"
+    }
+]
 ```
