@@ -9,5 +9,5 @@ type FindMatchesByMasterPoolAction(repository: IQueryRepository<MasterPoolMatchV
 
     interface IFindMatchesByMasterPoolAction with
 
-        member this.AsyncExecute(groupMatchID: Uuid) : Async<MasterPoolMatchViewDao seq> =
+        member this.AsyncExecute(groupMatchID: Uuid) =
             async { return! repository.AsyncFind<MasterPoolMatchViewDao>(MatchesByMasterPoolQueryObject(groupMatchID)) }

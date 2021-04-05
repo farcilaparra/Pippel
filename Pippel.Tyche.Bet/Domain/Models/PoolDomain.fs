@@ -6,6 +6,7 @@ type PoolPK = { PoolID: Uuid }
 
 type PoolDomain =
     { ID: PoolPK
-      GroupMatchID: Uuid
+      MasterPoolID: Uuid
       OwnerGamblerID: Uuid
-      CreationDate: DateTime }
+      CreationDate: DateTime
+      Name: NotEmptyString100 }

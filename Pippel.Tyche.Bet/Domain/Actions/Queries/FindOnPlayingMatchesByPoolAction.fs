@@ -20,6 +20,6 @@ type FindOnPlayingMatchesByPoolAction
 
                 return!
                     repository.AsyncFind<OnPlayingMatchViewDao>(
-                        OnPlayingMatchesByMasterPoolQueryObject(groupBet.GroupMatchID)
+                        OnPlayingMatchesByMasterPoolQueryObject(groupBet.MasterPoolID)
                     )
             }

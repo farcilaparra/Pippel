@@ -10,8 +10,10 @@
     <ItemGroup>
         <Compile Include="BetDataHelper.fs" />
         <Compile Include="MatchDataHelper.fs" />
+        <Compile Include="PoolDataHelper.fs" />
         <Compile Include="BetTests.fs" />
         <Compile Include="MatchTests.fs" />
+        <Compile Include="PoolTests.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

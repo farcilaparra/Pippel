@@ -18,8 +18,9 @@ type FindOpenedMasterPoolsByGamblerAction(repository: IQueryRepository<PoolRevie
             : Async<PoolReviewViewDao Page> =
             async {
                 return!
-                    repository.AsyncFindWithPagination<PoolReviewViewDao>
-                        (OpenedPoolsByGamblerQueryObject(gamblerID, filter))
-                        (skip |> Number.value)
-                        (take |> Number.value)
+                    repository.AsyncFindWithPagination<PoolReviewViewDao>(
+                        OpenedPoolsByGamblerQueryObject(gamblerID, filter),
+                        skip |> Number.value,
+                        take |> Number.value
+                    )
             }

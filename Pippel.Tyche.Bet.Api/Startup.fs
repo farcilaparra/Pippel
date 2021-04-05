@@ -36,6 +36,12 @@ type Startup private () =
         services.AddScoped<IPoolRepository, PoolRepositoryInDB>()
         |> ignore
 
+        services.AddScoped<IMasterPoolRepository, MasterPoolRepositoryInDB>()
+        |> ignore
+
+        services.AddScoped<IGamblerRepository, GamblerRepositoryInDB>()
+        |> ignore
+
     let addQueryRepositoriesToInjection (services: IServiceCollection) =
 
         services.AddTransient<IQueryRepository<PoolReviewViewDao>, QueryRepositoryInDB<PoolReviewViewDao>>()
@@ -91,6 +97,9 @@ type Startup private () =
         services.AddScoped<IFindOnPlayingMatchesByPoolAction, FindOnPlayingMatchesByPoolAction>()
         |> ignore
 
+        services.AddScoped<IAddPoolsAction, AddPoolsAction>()
+        |> ignore
+
     new(configuration: IConfiguration) as this =
         Startup()
         then this.Configuration <- configuration
@@ -100,16 +109,14 @@ type Startup private () =
         // Add framework services.
         services.AddControllers() |> ignore
 
-        services.AddDbContext<Context>
-            (fun options ->
-                options.UseOracle(this.Configuration.GetConnectionString("Default"))
-                |> ignore)
+        services.AddDbContext<Context>(fun options ->
+            options.UseOracle(this.Configuration.GetConnectionString("Default"))
+            |> ignore)
         |> ignore
 
-        services.AddDbContext<QueryContext>
-            (fun options ->
-                options.UseOracle(this.Configuration.GetConnectionString("Default"))
-                |> ignore)
+        services.AddDbContext<QueryContext>(fun options ->
+            options.UseOracle(this.Configuration.GetConnectionString("Default"))
+            |> ignore)
         |> ignore
 
         services.AddScoped<DbContext>(fun provider -> provider.GetService<Context>() :> DbContext)
@@ -126,18 +133,15 @@ type Startup private () =
     member this.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =
         if (env.IsDevelopment()) then
             app.UseDeveloperExceptionPage() |> ignore
-
-        app.UseExceptionHandler
-            (fun builder ->
-                builder.Run
-                    (fun context ->
-                        Exception.asyncUpdateResponseToDefaultError
-                            context
-                            (Exception.funcCreateCustomCode)
-                            (DefaultJsonSerializer())
-                        |> Async.StartAsTask
-                        :> Task))
-        |> ignore
+        else
+            app.UseExceptionHandler(fun builder ->
+                builder.Run(fun context ->
+                    Exception.asyncUpdateResponseToDefaultError
+                        context
+                        (Exception.funcCreateCustomCode)
+                        (DefaultJsonSerializer())
+                    |> Async.StartAsTask :> Task))
+            |> ignore
 
         app.UseHttpsRedirection() |> ignore
         app.UseRouting() |> ignore

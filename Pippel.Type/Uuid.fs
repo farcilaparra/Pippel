@@ -35,6 +35,16 @@ type Uuid =
 
     static member From element = Uuid element
 
+    static member TryFromNullable(element: Guid Nullable) =
+        match element.HasValue with
+        | false -> None
+        | true -> Some <| Uuid.From element.Value
+
+    static member FromNullable element =
+        match Uuid.TryFromNullable element with
+        | Some it -> it
+        | None -> raise <| ArgumentException("Uuid is null")
+
     member this.Value =
         match this with
         | Uuid it -> it

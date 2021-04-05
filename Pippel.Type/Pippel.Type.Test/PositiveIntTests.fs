@@ -33,3 +33,18 @@ let ``given a wrong value for a PositiveInt when a PositiveInt tries to create t
     =
     let positiveInt32Opt = PositiveInt.TryFrom value
     Assert.True(positiveInt32Opt.IsNone)
+
+[<Fact>]
+let ``given two correct values for PositiveInt when a numeric operation is applied with then an correct value is returned``
+    ()
+    =
+
+    let a = 10
+    let b = 5
+    let aPositiveInt = PositiveInt.From a
+    let bPositiveInt = PositiveInt.From b
+
+    Assert.Equal(a + b, (aPositiveInt + bPositiveInt) |> Number.value)
+    Assert.Equal(a - b, (aPositiveInt - bPositiveInt) |> Number.value)
+    Assert.Equal(a * b, (aPositiveInt * bPositiveInt) |> Number.value)
+    Assert.Equal(a / b, (aPositiveInt / bPositiveInt) |> Number.value)

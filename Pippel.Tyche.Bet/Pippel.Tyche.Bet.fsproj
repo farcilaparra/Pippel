@@ -8,7 +8,6 @@
         <Compile Include="Type\Score.fs" />
         <Compile Include="Type\ScoreWeight.fs" />
         <Compile Include="Exception.fs" />
-        <Compile Include="Mapper.fs" />
         <Compile Include="Data\Models\TeamDao.fs" />
         <Compile Include="Data\Models\MatchDao.fs" />
         <Compile Include="Data\Models\PointDao.fs" />
@@ -60,6 +59,9 @@
         <Compile Include="Domain\Mappers\MatchDomainMapper.fs" />
         <Compile Include="Domain\Mappers\RoundDomainMapper.fs" />
         <Compile Include="Domain\Mappers\TeamDomainMapper.fs" />
+        <Compile Include="Domain\Actions\MasterPoolValidation.fs" />
+        <Compile Include="Domain\Actions\GamblerValidation.fs" />
+        <Compile Include="Domain\Actions\PoolValidation.fs" />
         <Compile Include="Domain\Actions\IFindBetByKeyAction.fs" />
         <Compile Include="Domain\Actions\FindBetByKeyAction.fs" />
         <Compile Include="Domain\Actions\IAddBetsAction.fs" />
@@ -74,6 +76,8 @@
         <Compile Include="Domain\Actions\EditBetAction.fs" />
         <Compile Include="Domain\Actions\IFindPoolByKeyAction.fs" />
         <Compile Include="Domain\Actions\FindPoolByKeyAction.fs" />
+        <Compile Include="Domain\Actions\IAddPoolsAction.fs" />
+        <Compile Include="Domain\Actions\AddPoolsAction.fs" />
         <Compile Include="Domain\Actions\Queries\QueriesObjects\OpenedPoolsByGamblerQueryObject.fs" />
         <Compile Include="Domain\Actions\Queries\QueriesObjects\MatchesByPoolQueryObject.fs" />
         <Compile Include="Domain\Actions\Queries\QueriesObjects\MatchesByMasterPoolQueryObject.fs" />

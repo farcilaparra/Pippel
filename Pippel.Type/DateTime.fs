@@ -57,24 +57,24 @@ type DateTime =
 
 module DateTime =
 
-    let inline tryFrom (element: System.DateTime) : ^Type option = TypeBuilder.tryFrom element
+    let inline tryFrom (element: System.DateTime): ^Type option = TypeBuilder.tryFrom element
 
     let inline from (element: System.DateTime) = TypeBuilder.from element
 
-    let inline value (element: ^Type) : System.DateTime = TypeBuilder.value element
+    let inline value (element: ^Type): System.DateTime = TypeBuilder.value element
 
-    let now = DateTime.From System.DateTime.Now
+    let now () = DateTime.From System.DateTime.Now
 
     let inline toString (element: ^Type) = TypeBuilder.toString element
 
     let inline toStringWithFormat (format: string) (element: ^Type) =
-        let dateTime : System.DateTime = element |> value
+        let dateTime: System.DateTime = element |> value
         dateTime.ToString(format)
 
-    let inline toUniversalTime (element: ^Type) : ^Type =
-        let dateTime : System.DateTime = element |> value
+    let inline toUniversalTime (element: ^Type): ^Type =
+        let dateTime: System.DateTime = element |> value
         dateTime.ToUniversalTime() |> TypeBuilder.from
 
-    let inline addDays daysCount (element: ^Type) : ^Type =
-        let dateTime : System.DateTime = element |> value
+    let inline addDays daysCount (element: ^Type): ^Type =
+        let dateTime: System.DateTime = element |> value
         dateTime.AddDays daysCount |> TypeBuilder.from
