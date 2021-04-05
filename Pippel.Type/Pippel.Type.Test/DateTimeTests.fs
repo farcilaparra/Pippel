@@ -13,7 +13,7 @@ let ``given a System.DateTime when a DateTime is created then a DateTime is retu
 
 [<Fact>]
 let ``given two DateTime when they are compared then the correct value is returned`` () =
-    let a = DateTime.now
+    let a = DateTime.now ()
     let b = a
     let c = a |> DateTime.addDays 1.0
 

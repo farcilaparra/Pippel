@@ -2,15 +2,19 @@ package com.pippel.tyche.mypools
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.pippel.tyche.R
+import com.pippel.tyche.databinding.ActivityMyPoolsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MyPoolActivity : AppCompatActivity() {
 
+    private lateinit var viewBinding: ActivityMyPoolsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_pools)
+        viewBinding = ActivityMyPoolsBinding.inflate(layoutInflater)
+        val view = viewBinding.root
+        setContentView(view)
     }
 
 }

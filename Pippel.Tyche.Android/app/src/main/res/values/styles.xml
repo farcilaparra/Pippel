@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="SearchTextFieldLayoutTheme">
+    <style name="searchTextFieldLayoutTheme">
         <item name="colorOnSurface">?attr/colorSearchEditTextContrast</item>
         <item name="colorPrimary">?attr/colorApp</item>
     </style>
 
-    <style name="SearchTextFieldLayoutStyle">
+    <style name="searchTextFieldLayoutStyle">
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
     </style>
 
-    <style name="SearchTextFieldStyle">
+    <style name="searchTextFieldStyle">
         <item name="android:background">?attr/colorSearchEditText</item>
         <item name="android:textColor">?attr/colorSearchEditTextContrast</item>
         <item name="android:hint">@string/search_text</item>
     </style>
 
-    <style name="ListStyle">
-        <item name="android:background">@drawable/list_border</item>
+    <style name="textFieldLayoutTheme">
+        <item name="colorOnSurface">?attr/colorText</item>
+        <item name="colorPrimary">?attr/colorApp</item>
     </style>
 
-    <style name="ListItemStyle">
-        <item name="android:background">@drawable/list_item_border</item>
+    <style name="textFieldStyle">
+        <item name="android:background">?attr/colorEditText</item>
+        <item name="android:textColor">?attr/colorEditTextContrast</item>
+    </style>
+
+    <style name="titleText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="listStyle">
+        <item name="android:background">@drawable/list_border</item>
     </style>
 
 </resources>

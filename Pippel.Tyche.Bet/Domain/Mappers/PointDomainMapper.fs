@@ -1,13 +1,14 @@
 namespace Pippel.Tyche.Bet.Domain.Mappers
 
-open Pippel.Tyche.Bet.Mapper
+open System
+open Pippel.Tyche.Bet
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Tyche.Bet.Type
 open Pippel.Type
 
 module PointDomainMapper =
 
-    let mapFromDomain (pointDomain: PointDomain) : PointDao =
+    let mapFromDomain (pointDomain: PointDomain): PointDao =
         { PointDao.PointID = pointDomain.ID.PointID |> Uuid.value
           HomeResultPoint = pointDomain.HomeResultPoint |> Number.value
           AwayResultPoint = pointDomain.AwayResultPoint |> Number.value
@@ -17,13 +18,12 @@ module PointDomainMapper =
               |> Number.value
           WinOrDrawPoint = pointDomain.WinOrDrawPoint |> Number.value }
 
-    let mapToDomain (pointDao: PointDao) : PointDomain =
-        tryMap {
-            return
-                { ID = { PointID = Uuid.From pointDao.PointID }
-                  HomeResultPoint = ScoreWeight.From pointDao.HomeResultPoint
-                  AwayResultPoint = ScoreWeight.From pointDao.AwayResultPoint
-                  DifferencePoint = ScoreWeight.From pointDao.DifferencePoint
-                  InvertedDifferencePoint = ScoreWeight.From pointDao.InvertedDifferencePoint
-                  WinOrDrawPoint = ScoreWeight.From pointDao.WinOrDrawPoint }
-        }
+    let mapToDomain (pointDao: PointDao): PointDomain =
+        try
+            { ID = { PointID = Uuid.From pointDao.PointID }
+              HomeResultPoint = ScoreWeight.From pointDao.HomeResultPoint
+              AwayResultPoint = ScoreWeight.From pointDao.AwayResultPoint
+              DifferencePoint = ScoreWeight.From pointDao.DifferencePoint
+              InvertedDifferencePoint = ScoreWeight.From pointDao.InvertedDifferencePoint
+              WinOrDrawPoint = ScoreWeight.From pointDao.WinOrDrawPoint }
+        with :? ArgumentException as ex -> raise <| DomainValueException(ex.Message)

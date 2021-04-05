@@ -71,8 +71,9 @@ type QueryRepository<'TEntity when 'TEntity: not struct>(context: DbContext) =
             QueryRepository.asyncFind<'TEntity, 'TResult> context queryObject
 
         member this.AsyncFindWithPagination<'TResult>
-            (queryObject: IQueryObject)
-            (skip: int)
-            (take: int)
-            : Async<'TResult Page> =
+            (
+                queryObject: IQueryObject,
+                skip: int,
+                take: int
+            ) : Async<'TResult Page> =
             QueryRepository.asyncFindWithPagination<'TEntity, 'TResult> context queryObject skip take

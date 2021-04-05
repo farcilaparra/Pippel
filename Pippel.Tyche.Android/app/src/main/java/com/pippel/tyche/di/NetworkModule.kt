@@ -19,7 +19,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object MyPoolNetworkModule {
+object NetworkModule {
 
     @Provides
     @Singleton
@@ -29,7 +29,7 @@ object MyPoolNetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        @ApplicationContext context: Context, httpLoggingInterceptor: HttpLoggingInterceptor
+            @ApplicationContext context: Context, httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient =
         OkHttpClient.Builder().apply {
             interceptors().add(httpLoggingInterceptor)

@@ -2,6 +2,8 @@
 <resources>
 
     <attr name="colorBackground" format="reference" />
+    <attr name="colorEditText" format="reference" />
+    <attr name="colorEditTextContrast" format="reference" />
     <attr name="colorSearchEditText" format="reference" />
     <attr name="colorSearchEditTextContrast" format="reference" />
     <attr name="colorApp" format="reference" />
@@ -11,5 +13,7 @@
     <attr name="colorDownIndicator" format="reference" />
     <attr name="colorStableIndicator" format="reference" />
     <attr name="colorListBorder" format="reference" />
+    <attr name="colorProgressIndicator" format="reference" />
+    <attr name="colorProgressTrack" format="reference" />
 
 </resources>

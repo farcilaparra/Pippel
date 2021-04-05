@@ -10,13 +10,13 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class MyPoolModule {
+interface MyPoolModule {
 
     @Binds
-    abstract fun provideMyPoolPagingDataAdapter(impl: MyPoolPagingDataAdapter): PagingDataAdapter<MyPoolModel, MyPoolsViewHolder>
+    fun provideMyPoolPagingDataAdapter(impl: MyPoolPagingDataAdapter): PagingDataAdapter<MyPoolModel, MyPoolsViewHolder>
 
     @Binds
     @Singleton
-    abstract fun provideFindMyPoolsAction(impl: DefaultFindMyPoolsAction): FindMyPoolsAction
+    fun provideFindMyPoolsAction(impl: DefaultFindMyPoolsAction): FindMyPoolsAction
 
 }

@@ -15,7 +15,7 @@ open Xunit
 open Pippel.Tyche.Bet.Data.Models
 open Pippel.Tyche.Bet.Domain.Models
 
-let editingBetsWithEntityDoesNoExist : obj [] seq =
+let editingBetsWithEntityDoesNoExist: obj [] seq =
     seq {
         yield
             [| [| { BetDomain.ID =
@@ -42,7 +42,7 @@ let editingBetsWithEntityDoesNoExist : obj [] seq =
                     AwayTeamValue = Score.From 1 } |] |]
     }
 
-let editingBetsWithMatchStatusNonEqualToPlaying : obj [] seq =
+let editingBetsWithMatchStatusNonEqualToPlaying: obj [] seq =
     seq {
         yield
             [| [| { BetDomain.ID =
@@ -78,13 +78,9 @@ let editingBetsWithMatchStatusNonEqualToPlaying : obj [] seq =
     }
 
 let createContext () =
-    new Context(
-        DbContextOptionsBuilder<Context>()
-            .UseInMemoryDatabase(
-            Guid.NewGuid().ToString()
-        )
-            .Options
-    )
+    new Context(DbContextOptionsBuilder<Context>()
+        .UseInMemoryDatabase(Guid.NewGuid().ToString())
+        .Options)
 
 let createUnitOfWork (context: Context) = UnitOfWork(context) :> IUnitOfWork
 
@@ -169,14 +165,12 @@ let createEditBetAction (context: Context) =
     let betRepository =
         BetRepositoryInDB(context) :> IBetRepository
 
-    EditBetAction(
-        FindPoolEnrollmentByKeyAction(poolEnrollmentRepository),
-        FindMatchByKeyAction(matchRepository),
-        FindBetByKeyAction(betRepository),
-        UpdateBetsAction(betRepository),
-        AddBetsAction(betRepository)
-    )
-    :> IEditBetAction
+    EditBetAction
+        (FindPoolEnrollmentByKeyAction(poolEnrollmentRepository),
+         FindMatchByKeyAction(matchRepository),
+         FindBetByKeyAction(betRepository),
+         UpdateBetsAction(betRepository),
+         AddBetsAction(betRepository)) :> IEditBetAction
 
 [<Fact>]
 let ``given several bets when an action to edit them is executed then the bets are edited`` () =
@@ -205,7 +199,7 @@ let ``given several bets when an action to edit them is executed then the bets a
 
         let editBetAction = createEditBetAction context
 
-        let! editedBetsDomain = editBetAction.AsyncExecute betsDomain
+        let! _ = editBetAction.AsyncExecute betsDomain
 
         unitOfWork.SaveChanges()
 
@@ -214,32 +208,25 @@ let ``given several bets when an action to edit them is executed then the bets a
 
 [<Theory>]
 [<MemberData(nameof (editingBetsWithEntityDoesNoExist))>]
-let ``given a bet which has an item doesn't exist when an action to edit them is executed then a NotFoundException is raised``
-    (betsDomain: BetDomain [])
-    =
+let ``given a bet which has an item doesn't exist when an action to edit them is executed then a NotFoundException is raised`` (betsDomain: BetDomain []) =
     async {
 
         let context = createContext ()
 
         createExampleDataForBet (context)
 
-        let betsCountBefore = context.Bets.Count()
-
         let editBetAction = createEditBetAction context
 
-        Assert.Throws<NotFoundException>
-            (fun () ->
-                editBetAction.AsyncExecute betsDomain
-                |> Async.RunSynchronously
-                |> ignore)
+        Assert.Throws<NotFoundException>(fun () ->
+            editBetAction.AsyncExecute betsDomain
+            |> Async.RunSynchronously
+            |> ignore)
         |> ignore
     }
 
 [<Theory>]
 [<MemberData(nameof (editingBetsWithMatchStatusNonEqualToPlaying))>]
-let ``given a bet which has an match non equal to pending when an action to edit them is executed then a EditingBetNotAllowedException is raised``
-    (betsDomain: BetDomain [])
-    =
+let ``given a bet which has an match non equal to pending when an action to edit them is executed then a EditingBetNotAllowedException is raised`` (betsDomain: BetDomain []) =
     async {
 
         let context = createContext ()
@@ -248,10 +235,9 @@ let ``given a bet which has an match non equal to pending when an action to edit
 
         let editBetAction = createEditBetAction context
 
-        Assert.Throws<EditingBetNotAllowedException>
-            (fun () ->
-                editBetAction.AsyncExecute betsDomain
-                |> Async.RunSynchronously
-                |> ignore)
+        Assert.Throws<EditingBetNotAllowedException>(fun () ->
+            editBetAction.AsyncExecute betsDomain
+            |> Async.RunSynchronously
+            |> ignore)
         |> ignore
     }

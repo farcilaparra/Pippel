@@ -1,7 +1,9 @@
 package com.pippel.tyche.api
 
 import com.pippel.core.Page
+import com.pippel.tyche.MasterPool
 import com.pippel.tyche.mypools.data.MyPoolModel
+import com.pippel.tyche.poolcreation.data.PoolModel
 import kotlinx.coroutines.delay
 import java.util.*
 import kotlin.collections.ArrayList
@@ -11,6 +13,10 @@ class PoolApiInMemory : PoolApi {
     private val myPools: MutableList<MyPoolModel> = ArrayList()
 
     init {
+        initMyPoolsModels()
+    }
+
+    private fun initMyPoolsModels() {
         myPools.add(
             MyPoolModel(
                 UUID.randomUUID(),
@@ -266,6 +272,15 @@ class PoolApiInMemory : PoolApi {
             newMyPools.size,
             newMyPools.subList(skip, toIndex)
         )
+    }
+
+    override suspend fun getMasterPool(masterPoolID: String): MasterPool {
+        return MasterPool(UUID.fromString(masterPoolID), "Copa América 2021")
+    }
+
+    override suspend fun addPools(poolsModels: List<PoolModel>): List<PoolModel> {
+        delay(3000)
+        return poolsModels
     }
 
 }

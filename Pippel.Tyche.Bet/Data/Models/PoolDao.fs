@@ -9,7 +9,8 @@ type PoolDao =
     { PoolID: Guid
       MasterPoolID: Guid
       OwnerGamblerID: Guid
-      CreationDate: DateTime }
+      CreationDate: DateTime
+      Name: string }
 
 type PoolEntityTypeConfiguration() =
     interface IEntityTypeConfiguration<PoolDao> with
@@ -41,4 +42,11 @@ type PoolEntityTypeConfiguration() =
                 .Property(fun x -> x.CreationDate)
                 .HasColumnName("CREATION_DATE")
                 .IsRequired()
+            |> ignore
+
+            builder
+                .Property(fun x -> x.Name)
+                .HasColumnName("NAME")
+                .IsRequired()
+                .HasMaxLength(100)
             |> ignore
