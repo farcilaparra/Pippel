@@ -36,7 +36,7 @@ class MyPoolsViewModel @Inject constructor(private val findMyPoolsAction: FindMy
 
     fun filterMyPools(filter: String) =
         launchAsync {
-            createMyPoolsFlow(filter).cachedIn(viewModelScope).collectLatest {
+            createMyPoolsFlow(filter).collectLatest {
                 _myPoolsFlow.value = it
             }
         }

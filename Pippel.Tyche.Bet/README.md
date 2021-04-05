@@ -1,6 +1,6 @@
 # Project that manage the domain of bets
 
-This project let to manage the domain and the persistence of bets.
+This project let to manage the domain and the persistence of the bets.
 
 ## Models
 
@@ -14,31 +14,27 @@ type BetPK =
 
 type BetDomain =
     { ID: BetPK
-      HomeTeamValue: PositiveInt
-      AwayTeamValue: PositiveInt }
+      HomeTeamValue: Score
+      AwayTeamValue: Score }
 ```
 
 ### `Gambler`
 
 ```f#
-type GamblerPK =
-    { UserID: Uuid }
+type GamblerPK = { UserID: Uuid }
 
-type GamblerDomain =
-    { ID: GamblerPK }
+type GamblerDomain = { ID: GamblerPK }
 ```
 
 ### `Pool`
 
 ```f#
-type PoolPK =
-    { PoolID: Uuid }
-
 type PoolDomain =
     { ID: PoolPK
-      GroupMatchID: Uuid
+      MasterPoolID: Uuid
       OwnerGamblerID: Uuid
-      CreationDate: DateTime }
+      CreationDate: DateTime
+      Name: NotEmptyString100 }
 ```
 
 ### `PoolEnrollment`
@@ -56,21 +52,19 @@ type PoolEnrollmentDomain =
 ### `MasterPool`
 
 ```f#
-type MasterPoolPK =
-    { MasterPoolID: Uuid }
+type PoolEnrollmentPK =
+    { PoolID: Uuid
+      GamblerID: Uuid }
 
-type MasterPoolDomain =
-    { ID: MasterPoolPK
-      Name: NotEmptyString
-      StartDate: DateTime
-      EndDate: DateTime }
+type PoolEnrollmentDomain =
+    { ID: PoolEnrollmentPK
+      EnrollmentDate: DateTime }
 ```
 
 ### `Match`
 
 ```f#
-type MatchPK =
-    { MatchID: Uuid }
+type MatchPK = { MatchID: Uuid }
 
 type MatchDomain =
     { ID: MatchPK
@@ -78,48 +72,43 @@ type MatchDomain =
       AwayTeamID: Uuid
       RoundMatchID: Uuid
       MatchDate: DateTime
-      HomeResult: PositiveInt option
-      AwayResult: PositiveInt option
+      HomeResult: Score option
+      AwayResult: Score option
       Status: MatchStatus }
 ```
 
 ### `Point`
 
 ```f#
-type PointPK =
-    { PointID: Uuid }
-
 type PointDomain =
     { ID: PointPK
-      WinOrDrawPoint: PositiveInt
-      HomeResultPoint: PositiveInt
-      AwayResultPoint: PositiveInt
-      DiferencePoint: PositiveInt
-      InvertedDiferentePoint: PositiveInt }
+      WinOrDrawPoint: ScoreWeight
+      HomeResultPoint: ScoreWeight
+      AwayResultPoint: ScoreWeight
+      DifferencePoint: ScoreWeight
+      InvertedDifferencePoint: ScoreWeight }
 ```
 
 ### `Round`
 
 ```f#
-type RoundPK =
-    { RoundID: Uuid }
+type RoundPK = { RoundID: Uuid }
 
 type RoundDomain =
     { ID: RoundPK
       MasterPoolID: Uuid
-      Name: NotEmptyString
+      Name: NotEmptyString100
       PointID: Uuid }
 ```
 
 ### `Team`
 
 ```f#
-type TeamPK =
-    { TeamID: Uuid }
+type TeamPK = { TeamID: Uuid }
 
 type TeamDomain =
     { ID: TeamPK
-      Name: NotEmptyString }
+      Name: NotEmptyString100 }
 ```
 
 ## Actions
@@ -127,6 +116,10 @@ type TeamDomain =
 ### `AddBetsAction`
 
 Marks several `Bet` to persist.
+
+### `AddPoolsAction`
+
+Marks several `Pools` to persist.
 
 ### `EditBetAction`
 
@@ -136,17 +129,17 @@ Saves several `Bet`.
 
 Finds a `Bet` by its primary key.
 
+### `FindMatchByKeyAction`
+
+Finds a `Match` by its primary key.
+
 ### `FindPoolByKeyAction`
 
 Finds a `Pool` by its primary key.
 
-### `FindBetByKeyAction`
+### `FindPoolEnrollmentByKeyAction`
 
-Finds a `Bet` by its primary key.
-
-### `FindMatchByKeyAction`
-
-Finds a `Match` by its primary key.
+Finds a `PoolEnrollment` by its primary key.
 
 ### `UpdateBetsAction`
 

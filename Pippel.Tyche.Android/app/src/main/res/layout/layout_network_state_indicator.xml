@@ -18,9 +18,10 @@
             android:layout_gravity="center"
             android:layout_margin="16dp"
             android:indeterminate="true"
-            app:indicatorColor="?attr/colorLightText"
+            app:indicatorColor="?attr/colorProgressIndicator"
             app:indicatorSize="24dp"
-            app:showAnimationBehavior="inward" />
+            app:showAnimationBehavior="inward"
+            app:trackColor="?attr/colorProgressTrack" />
 
     </LinearLayout>
 

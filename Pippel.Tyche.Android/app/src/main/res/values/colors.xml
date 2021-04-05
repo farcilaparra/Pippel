@@ -6,15 +6,18 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
 
+    <color name="white">#ffffff</color>
     <color name="white_smoke">#f8f8f8</color>
     <color name="whisper">#ebebeb</color>
+    <color name="whisper_op70">#b3ebebeb</color>
     <color name="matterhorn">#4e4e4e</color>
-    <color name="matterhorn_op70">#4e4e4e</color>
+    <color name="matterhorn_op70">#b34e4e4e</color>
     <color name="spanish_gray">#969696</color>
+    <color name="spanish_gray_op25">#40969696</color>
 
     <color name="app_light">#1f7400</color>
+    <color name="app_light_op25">#401f7400</color>
     <color name="up_indicator_light">#289600</color>
     <color name="down_indicator_light">#d05050</color>
     <color name="stable_indicator_light">#f77b00</color>

@@ -7,7 +7,7 @@ It let to manage the response of rest service when an error occurs. An example o
 ```json
 {
     "Error": {
-        "Code": "GENERIC-0",
+        "Code": "CORE-0",
         "Message": "Internal server error"
     }
 }
@@ -44,7 +44,6 @@ type Page<'T> =
     { CurrentPage: int
       PageCount: int
       PageSize: int
-      GroupCount: int
       ItemsCount: int64
       Items: 'T seq }
 ```

@@ -12,6 +12,7 @@ import com.pippel.core.afterTextChangedDelayed
 import com.pippel.core.coroutines.launchAsyncWhenCreated
 import com.pippel.tyche.PagingLoadStateAdapter
 import com.pippel.tyche.R
+import com.pippel.tyche.VerticalDividerItemDecoration
 import com.pippel.tyche.databinding.FragmentMyPoolsBinding
 import com.pippel.tyche.mypools.data.MyPoolModel
 import com.pippel.tyche.mypools.data.MyPoolsViewHolder
@@ -26,7 +27,7 @@ class MyPoolsFragment : Fragment() {
     @Inject
     lateinit var dataViewAdapter: PagingDataAdapter<MyPoolModel, MyPoolsViewHolder>
 
-    private lateinit var viewBinding: FragmentMyPoolsBinding
+    private lateinit var binding: FragmentMyPoolsBinding
 
     private val viewModel: MyPoolsViewModel by viewModels()
 
@@ -35,16 +36,20 @@ class MyPoolsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewBinding = FragmentMyPoolsBinding.inflate(inflater, container, false)
-        return viewBinding.root
+        binding = FragmentMyPoolsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initDataView()
+        initSearchView()
+    }
 
+    private fun initDataView() {
         postponeEnterTransition()
 
-        with(viewBinding.dataView) {
+        with(binding.dataView) {
             adapter = dataViewAdapter.withLoadStateHeaderAndFooter(
                 PagingLoadStateAdapter(),
                 PagingLoadStateAdapter()
@@ -53,17 +58,16 @@ class MyPoolsFragment : Fragment() {
                 startPostponedEnterTransition()
                 true
             }
+            addItemDecoration(VerticalDividerItemDecoration(context))
         }
 
         launchAsyncWhenCreated {
             viewModel.myPoolsFlow.collectLatest {
-                with(dataViewAdapter) {
-                    submitData(it)
-                }
+                dataViewAdapter.submitData(it)
             }
         }
 
-        with(viewBinding.dataSwipeRefreshView) {
+        with(binding.dataSwipeRefreshView) {
             setOnRefreshListener {
                 dataViewAdapter.refresh()
             }
@@ -72,7 +76,7 @@ class MyPoolsFragment : Fragment() {
         with(dataViewAdapter) {
             launchAsyncWhenCreated {
                 loadStateFlow.collectLatest {
-                    viewBinding.dataSwipeRefreshView.isRefreshing = false
+                    binding.dataSwipeRefreshView.isRefreshing = false
 
                     if (it.refresh is LoadState.Error) {
                         notifyNetworkError()
@@ -80,18 +84,11 @@ class MyPoolsFragment : Fragment() {
                 }
             }
         }
-
-        initSearchView()
-
     }
 
     private fun initSearchView() {
-        with(viewBinding.searchTextEdit) {
-            afterTextChangedDelayed {
-                with(viewModel) {
-                    filterMyPools(it.trim())
-                }
-            }
+        binding.searchTextEdit.afterTextChangedDelayed {
+            viewModel.filterMyPools(it.trim())
         }
     }
 

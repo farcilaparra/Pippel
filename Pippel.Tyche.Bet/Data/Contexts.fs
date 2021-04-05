@@ -9,7 +9,7 @@ type Context(options: DbContextOptions<Context>) =
     [<DefaultValue>]
     val mutable private _GroupsBets: DbSet<PoolDao>
 
-    member this.GroupsBets
+    member this.Pools
         with get () = this._GroupsBets
         and set v = this._GroupsBets <- v
 
@@ -37,7 +37,7 @@ type Context(options: DbContextOptions<Context>) =
     [<DefaultValue>]
     val mutable private _GroupMatchs: DbSet<MasterPoolDao>
 
-    member this.GroupMatchs
+    member this.MasterPools
         with get () = this._GroupMatchs
         and set v = this._GroupMatchs <- v
 
